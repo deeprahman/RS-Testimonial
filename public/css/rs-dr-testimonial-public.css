@@ -1,0 +1,42 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+/*CSS for Displaying Testimonial list*/
+.rs-dr-container{
+    /*margin:auto;*/
+    width:25%;
+    background-color: #f5f5f0;
+    border:solid gray 1px;
+    border-radius: 10px;
+}
+.rs-dr-container-shortcode{
+    /*margin:auto;*/
+    width:100%;
+    background-color: gainsboro;
+    border:solid gray 1px;
+    border-radius: 10px;
+}
+#image{
+    /*outline: #4CAF50 solid 2px;*/
+    float: left;
+    margin-right: 9px;
+    height:150px;
+    width: 200px;
+    border-radius: 10px;
+}
+.rs-dr-ci{
+    display: block;
+    padding-left: 5px;
+    /*padding-bottom: .9em;*/
+}
+
+#rs-dr-title{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+#rs-dr-content{
+    font-style: italic;
+    padding-left: 15px;
+}
+
