@@ -74,6 +74,24 @@ class Rs_Dr_Testimonial_Meta_Box
         'has_archive' => true
     ];
 
+    /**
+     * Argument array for the register_taxonomy function.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string $tax_args Arguments for displaying testimonial type.
+     */
+    private $tax_args = [
+        'labels' => [
+            'name' => "Testimonial Type",
+            'add_new_item' => 'Add New Testimonial Type',
+            'new_item_name' => 'New Testimonial Name'
+        ],
+        'show_ui' => true,
+        'show_tagcloud' => true,
+        'hierarchical' => true
+    ];
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -143,6 +161,9 @@ class Rs_Dr_Testimonial_Meta_Box
 
 //        Register the custom post type
         register_post_type('rs_dr_testimonial', $this->args);
+
+//        Register the Testimonial Type
+        register_taxonomy('rs_dr_testimonial_type', 'rs_dr_testimonial', $this->tax_args);
     }
 
     /**

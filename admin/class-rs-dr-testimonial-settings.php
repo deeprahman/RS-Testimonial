@@ -60,11 +60,46 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
     {
         add_menu_page(
             'RS Testimonial Settings',
-            'Testimonial Settings',
+            'RS Testimonial Settings',
             'manage_options',
             'rs-dr-testimonial-settings',
-            [$this, 'rs_dr_display_settings_page'],
+            [$this, 'rs_dr_display_basic_settings_page'],
             'dashicons-admin-generic'
+        );
+
+        add_submenu_page(
+            'rs-dr-testimonial-settings',
+            'RS Testimonial Settings',
+            'Basic',
+            'manage_options',
+            'rs-dr-testimonial-settings'
+        );
+
+        add_submenu_page(
+            'rs-dr-testimonial-settings',
+            'Display Settings',
+            'Display',
+            'manage_options',
+            'rs-dr-testimonial-display-display-settings',
+            [&$this, 'rs_dr_display_display_settings_page']
+        );
+
+        add_submenu_page(
+            'rs-dr-testimonial-settings',
+            'Advances Settings',
+            'Advanced',
+            'manage_options',
+            'rs-dr-testimonial-display-advanced-settings',
+            [&$this, 'rs_dr_display_advanced_settings_page']
+        );
+
+        add_submenu_page(
+            'rs-dr-testimonial-settings',
+            'Themes Settings',
+            'Themes',
+            'manage_options',
+            'rs-dr-testimonial-display-advanced-settings',
+            [&$this, 'rs_dr_display_themes_settings_page']
         );
 
     }
@@ -74,9 +109,19 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
      *
      * @since 1.0.0
      */
-    public function rs_dr_display_settings_page()
+    public function rs_dr_display_basic_settings_page()
     {
-        require_once plugin_dir_path(__FILE__) . 'partials/rs_dr_display_settings_page.php';
+        require_once plugin_dir_path(__FILE__) . 'partials/rs_dr_display_basic_settings_page.php';
+    }
+
+    /**
+     * Displays Display Settings
+     *
+     * @since 1.0.0
+     */
+    public function rs_dr_display_display_settings_page()
+    {
+        require_once plugin_dir_path(__FILE__) . 'partials/rs_dr_display_display_settings_page.php';
     }
 
     /**
