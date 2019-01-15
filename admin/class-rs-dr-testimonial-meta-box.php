@@ -60,7 +60,7 @@ class Rs_Dr_Testimonial_Meta_Box
             'not_found_in_trash' => 'No Testimonials Found in Trash',
             'parent' => 'Parent Testimonial'
         ],
-        'public' => true,
+//        'public' => true,
         'menu_position' => 20,
         'supports' => [
             'title',
@@ -69,6 +69,9 @@ class Rs_Dr_Testimonial_Meta_Box
             'excerpt'
 
         ],
+
+        'show_in_nav_menus' => false,
+        'show_ui' => true,
         'taxonomies' => [],
         'menu_icon' => 'dashicons-format-quote',
         'has_archive' => true
@@ -152,6 +155,28 @@ class Rs_Dr_Testimonial_Meta_Box
 
 	}
 
+    /**
+     * Construct the argument array for the Testimonial Post Type
+     *
+     * @since 1.0.0
+     */
+    private function argsArray(array $args): array
+    {
+        //Get the data form the database for show_in_search
+        $options = get_option('rs_dr_basic_settings_options');
+        $value = isset($options['show_in_search']) ? $options['show_in_search'] : 0;
+
+        if ($value) {
+            $search = [
+                'exclude_from_search' => false,
+                'publicly_queryable' => true,
+            ];
+            $args = array_merge($args, $search);
+        }
+        return $args;
+
+    }
+
 	/**
      * Creates the custom post type: Testimonial
      *
@@ -160,7 +185,7 @@ class Rs_Dr_Testimonial_Meta_Box
 	public function rs_dr_create_testimonial_post_type(){
 
 //        Register the custom post type
-        register_post_type('rs_dr_testimonial', $this->args);
+        register_post_type('rs_dr_testimonial', $this->argsArray($this->args));
 
 //        Register the Testimonial Type
         register_taxonomy('rs_dr_testimonial_type', 'rs_dr_testimonial', $this->tax_args);
