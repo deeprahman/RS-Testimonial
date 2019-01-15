@@ -46,9 +46,17 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
         'show_in_search' => '1',
         'allow_html_tags' => '1',
         'css_all_screens' => '',
+
+
+    ];
+
+    public static $default_review_settings = [
         'output_review_markup' => '1',
         'global_item_reviewed' => '',
         'use_global_item_reviewed' => '1',
+    ];
+
+    public static $default_cache_settings = [
         'cache_time' => 900,
         'use_caching' => '1'
     ];
@@ -60,10 +68,23 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
      */
     public function register_basic_settings()
     {
+//        Basic Settings
         register_setting(
             'rs_dr_testimonial_basic_settings',
-            'rs_dr_basic_options',
+            'rs_dr_basic_settings_options',
             [$this, 'rs_dr_testimonial_validate_basic_option']
+        );
+//        Review Settings
+        register_setting(
+            'rs_dr_testimonial_reviewed_settings',
+            'rs_dr_review_settings_options',
+            [$this, 'rs_dr_testimonial_validate_reviewed_option']
+        );
+//        Cache Settings
+        register_setting(
+            'rs_dr_testimonial_cache_settings',
+            'rs_dr_cache_options',
+            [$this, 'rs_dr_testimonial_validate_cache_option']
         );
     }
 
@@ -74,25 +95,26 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
      */
     public function register_basic_sections()
     {
+//        Basic Settings
         add_settings_section(
             'rs_dr_testimonial_basic_options_section',
             'Basic Options',
             array($this, 'rs_dr_testimonial_basic_options_section_callback'),
-            'rs-dr-testimonial-settings'
+            'rs-dr-testimonial-basic-option-page'
         );
-
+//        Reviewed Settings
         add_settings_section(
             'rs_dr_testimonial_item_reviewed_options_section',
             'Item Reviewed Options',
             array($this, 'rs_dr_testimonial_item_reviewed_options_section_callback'),
-            'rs-dr-testimonial-settings'
+            'rs-dr-testimonial-reviewed-option-page'
         );
-
+//        Cache Settings
         add_settings_section(
             'rs_dr_testimonial_cache_options_section',
             'Cache Options',
             array($this, 'rs_dr_testimonial_cache_options_section_callback'),
-            'rs-dr-testimonial-settings'
+            'rs-dr-testimonial-cache-option-page'
         );
     }
 
@@ -103,31 +125,32 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
      */
     public function register_basic_options_fields()
     {
+
         add_settings_field(
             'show_in_search',
             'Show in Search',
             array($this, 'display_checkbox_field'),
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-basic-option-page',
             'rs_dr_testimonial_basic_options_section',
-            array('id' => 'show_in_search', 'name' => 'rs_dr_basic_options', 'type' => 'checkbox')
+            array('id' => 'show_in_search', 'name' => 'rs_dr_basic_settings_options', 'type' => 'checkbox')
         );
 
         add_settings_field(
             'allow_html_tags',
             'Allow Html Tags in Testimonial',
             array($this, 'display_checkbox_field'),
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-basic-option-page',
             'rs_dr_testimonial_basic_options_section',
-            array('id' => 'allow_html_tags', 'name' => 'rs_dr_basic_options', 'type' => 'checkbox')
+            array('id' => 'allow_html_tags', 'name' => 'rs_dr_basic_settings_options', 'type' => 'checkbox')
         );
 
         add_settings_field(
             'css_all_screens',
             'Custom CSS (All Screens)',
             array($this, 'display_textarea_field'),
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-basic-option-page',
             'rs_dr_testimonial_basic_options_section',
-            array('id' => 'css_all_screens', 'name' => 'rs_dr_basic_options', 'type' => 'textarea')
+            array('id' => 'css_all_screens', 'name' => 'rs_dr_basic_settings_options', 'type' => 'textarea')
         );
     }
 
@@ -142,27 +165,27 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
             'output_review_markup',
             'Output Review Markup',
             array($this, 'display_checkbox_field'),
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-reviewed-option-page',
             'rs_dr_testimonial_item_reviewed_options_section',
-            array('id' => 'output_review_markup', 'name' => 'rs_dr_basic_options', 'type' => 'checkbox')
+            array('id' => 'output_review_markup', 'name' => 'rs_dr_review_settings_options', 'type' => 'checkbox')
         );
 
         add_settings_field(
             'global_item_reviewed',
             'Global Item Reviewed',
             array($this, 'display_text_field'),
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-reviewed-option-page',
             'rs_dr_testimonial_item_reviewed_options_section',
-            array('id' => 'global_item_reviewed', 'name' => 'rs_dr_basic_options', 'type' => 'text')
+            array('id' => 'global_item_reviewed', 'name' => 'rs_dr_review_settings_options', 'type' => 'text')
         );
 
         add_settings_field(
             'use_global_item_reviewed',
             'Use Global Item Reviewed',
             array($this, 'display_checkbox_field'),
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-reviewed-option-page',
             'rs_dr_testimonial_item_reviewed_options_section',
-            array('id' => 'use_global_item_reviewed', 'name' => 'rs_dr_basic_options', 'type' => 'checkbox')
+            array('id' => 'use_global_item_reviewed', 'name' => 'rs_dr_review_settings_options', 'type' => 'checkbox')
         );
     }
 
@@ -177,18 +200,18 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
             'cache_time',
             'Cache Time',
             array($this, 'display_text_field'),
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-cache-option-page',
             'rs_dr_testimonial_cache_options_section',
-            array('id' => 'cache_time', 'name' => 'rs_dr_basic_options', 'type' => 'number')
+            array('id' => 'cache_time', 'name' => 'rs_dr_cache_options', 'type' => 'number')
         );
 
         add_settings_field(
             'use_caching',
             'Use Caching',
             array($this, 'display_checkbox_field'),
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-cache-option-page',
             'rs_dr_testimonial_cache_options_section',
-            array('id' => 'use_caching', 'name' => 'rs_dr_basic_options', 'type' => 'checkbox')
+            array('id' => 'use_caching', 'name' => 'rs_dr_cache_options', 'type' => 'checkbox')
         );
     }
 

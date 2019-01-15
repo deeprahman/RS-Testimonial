@@ -37,12 +37,25 @@ class Rs_Dr_Testimonial_Activator {
             add_option('rs_dr_testimonial_options', Rs_Dr_Testimonial_Settings::$default_settings);
         }
 
-        if (get_option('rs_dr_basic_options') === false) {
+        if (get_option('rs_dr_basic_settings_options') === false) {
 
             require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-basic-settings.php';
-            add_option('rs_dr_basic_options', Rs_Dr_Testimonial_Basic_Settings::$default_basic_settings);
+            add_option('rs_dr_basic_settings_options', Rs_Dr_Testimonial_Basic_Settings::$default_basic_settings);
         }
 
-	}
+        if (get_option('rs_dr_review_settings_options') === false) {
+
+            require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-basic-settings.php';
+            add_option('rs_dr_review_settings_options', Rs_Dr_Testimonial_Basic_Settings::$default_review_settings);
+        }
+
+        if (get_option('rs_dr_cache_options') === false) {
+
+            require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-basic-settings.php';
+            add_option('rs_dr_cache_options', Rs_Dr_Testimonial_Basic_Settings::$default_cache_settings);
+        }
+
+
+    }
 
 }

@@ -63,43 +63,43 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
             'RS Testimonial Settings',
             'RS Testimonial Settings',
             'manage_options',
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-basic-settings-page',
             [$this, 'rs_dr_display_basic_settings_page'],
             'dashicons-admin-generic'
         );
 
         add_submenu_page(
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-basic-settings-page',
             'RS Testimonial Settings',
             'Basic',
             'manage_options',
-            'rs-dr-testimonial-settings'
+            'rs-dr-testimonial-basic-settings-page'
         );
 
         add_submenu_page(
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-basic-settings-page',
             'Display Settings',
             'Display',
             'manage_options',
-            'rs-dr-testimonial-display-display-settings',
+            'rs-dr-testimonial-display-settings-page',
             [&$this, 'rs_dr_display_display_settings_page']
         );
 
         add_submenu_page(
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-basic-settings-page',
             'Advances Settings',
             'Advanced',
             'manage_options',
-            'rs-dr-testimonial-display-advanced-settings',
+            'rs-dr-testimonial-advanced-settings-page',
             [&$this, 'rs_dr_display_advanced_settings_page']
         );
 
         add_submenu_page(
-            'rs-dr-testimonial-settings',
+            'rs-dr-testimonial-basic-settings-page',
             'Themes Settings',
             'Themes',
             'manage_options',
-            'rs-dr-testimonial-display-themes-settings',
+            'rs-dr-testimonial-themes-settings-page',
             [&$this, 'rs_dr_display_themes_settings_page']
         );
 
@@ -170,7 +170,7 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
             'rs_dr_testimonial_main_section',
             'Main Settings',
             array($this, 'rs_dr_testimonial_settings_section_callback'),
-            'rs-dr-testimonial-section'
+            'rs-dr-testimonial-display-settings-page'
         );
     }
 

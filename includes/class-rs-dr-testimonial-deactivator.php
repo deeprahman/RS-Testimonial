@@ -35,7 +35,11 @@ class Rs_Dr_Testimonial_Deactivator {
         delete_option('rs_dr_testimonial_options');
 
 
-        delete_option('rs_dr_basic_options');
+        delete_option('rs_dr_basic_settings_options');
+
+        delete_option('rs_dr_review_settings_options');
+
+        delete_option('rs_dr_cache_options');
     }
 
 }
