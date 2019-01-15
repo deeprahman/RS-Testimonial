@@ -49,6 +49,7 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
      */
     public static $default_settings = [
         'length_excerpt' => 20
+
     ];
 
     /**
@@ -98,14 +99,14 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
             'Themes Settings',
             'Themes',
             'manage_options',
-            'rs-dr-testimonial-display-advanced-settings',
+            'rs-dr-testimonial-display-themes-settings',
             [&$this, 'rs_dr_display_themes_settings_page']
         );
 
     }
 
     /**
-     * Displays Menu Page
+     * Displays Basic Settings Page
      *
      * @since 1.0.0
      */
@@ -115,7 +116,7 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
     }
 
     /**
-     * Displays Display Settings
+     * Displays Display Settings Page
      *
      * @since 1.0.0
      */
@@ -125,11 +126,31 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
     }
 
     /**
+     * Displays Advanced Settings Page
+     *
+     * @since 1.0.0
+     */
+    public function rs_dr_display_advanced_settings_page()
+    {
+        require_once plugin_dir_path(__FILE__) . 'partials/rs_dr_display_advanced_settings_page.php';
+    }
+
+    /**
+     * Displays Themes Settings Page
+     *
+     * @since 1.0.0
+     */
+    public function rs_dr_display_themes_settings_page()
+    {
+        require_once plugin_dir_path(__FILE__) . 'partials/rs_dr_display_themes_settings_page.php';
+    }
+
+    /**
      * Register a settings menu
      *
      * @since 1.0.0
      */
-    public function register_settings()
+    public function register_display_settings()
     {
         register_setting(
             'rs_dr_testimonial_settings',
@@ -143,7 +164,7 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
      *
      * @since 1.0.0
      */
-    public function register_sections()
+    public function register_display_sections()
     {
         add_settings_section(
             'rs_dr_testimonial_main_section',
@@ -158,7 +179,7 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
      *
      * @since 1.0.0
      */
-    public function register_fields()
+    public function register_display_fields()
     {
         add_settings_field(
             'excerpt_length',

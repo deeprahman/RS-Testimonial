@@ -46,7 +46,7 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
 //	Add shortcode
     public function register_shortcodes()
     {
-        add_shortcode('rs_dr_testimonial', [&$this, 'rs_dr_display_testmonial_shortcode']);
+        add_shortcode('rs_dr_testimonial', [$this, 'rs_dr_display_testmonial_shortcode']);
     }
 
 //    Displaying content of the shortcode
@@ -57,30 +57,7 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
         $args = [];
         $args['post_type'] = 'rs_dr_testimonial';
 
-        if (isset($atts['ord'])) {
-            $args['orderby'] = $atts['odr'];
-            $args['posts_per_page'] = 1;
-        } else if (isset($atts['id'])) {
-            $args['p'] = $atts['id'];
-        } else if (isset($atts['slide'])) {
-            $slide = true;
-            if (isset($atts['max'])) {
-                $args['posts_per_page'] = $atts['max'];
-            }
-            if (isset($atts['odr'])) {
-                $args['order'] = $atts['odr'];
-            }
-        } else {
-            $args = shortcode_atts(
-                [
-                    'post_type' => 'rs_dr_testimonial',
-                    'posts_per_page' => -1,
 
-                ],
-                $atts,
-                'rs_dr_testimonial'
-            );
-        }
 
 
         $testimonial = new WP_Query($args);
@@ -134,7 +111,7 @@ EOL;
       
 EOL;
 
-            echo $output."</div>";
+            return $output . "</div>";
         }else{
 
             return 'No Testimonial Found';
