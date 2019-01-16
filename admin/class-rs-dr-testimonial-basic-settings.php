@@ -258,7 +258,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
 //        Value of the name attribute of the input field
             $name_attr = $name . '[' . $id . ']';
 //        Get the options from the database
-            $option = get_option($name, Rs_Dr_Testimonial_Settings::$default_settings);
+            $option = get_option($name, Rs_Dr_Testimonial_Basic_Settings::$default_basic_settings);
 //            The Value of the text field
             $value = esc_html($option[$id]);
 
@@ -286,7 +286,7 @@ EOL;
 //        Value of the name attribute of the input field
             $name_attr = $name . '[' . $id . ']';
 //        Get the options from the database
-            $option = get_option($name, Rs_Dr_Testimonial_Basic_Settings::$default_settings);
+            $option = get_option($name, Rs_Dr_Testimonial_Basic_Settings::$default_basic_settings);
 //            The Value of the text field
             $value = esc_html(isset($option[$id]) ? $option[$id] : 0);
 //            Whether checked or not

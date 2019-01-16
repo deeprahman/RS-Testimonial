@@ -40,17 +40,7 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
      */
     private $version;
 
-    /**
-     * Set Default Options
-     *
-     * @since    1.0.0
-     * @access   public static
-     * @var      array $default_settings The default settings of the plugin
-     */
-    public static $default_settings = [
-        'length_excerpt' => 20
 
-    ];
 
     /**
      * Registers Menu page
@@ -144,99 +134,5 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
     {
         require_once plugin_dir_path(__FILE__) . 'partials/rs_dr_display_themes_settings_page.php';
     }
-
-    /**
-     * Register a settings menu
-     *
-     * @since 1.0.0
-     */
-    public function register_display_settings()
-    {
-        register_setting(
-            'rs_dr_testimonial_settings',
-            'rs_dr_testimonial_options',
-            [$this, 'rs_dr_testimonial_validate_option']
-        );
-    }
-
-    /**
-     * Register Settings Section
-     *
-     * @since 1.0.0
-     */
-    public function register_display_sections()
-    {
-        add_settings_section(
-            'rs_dr_testimonial_main_section',
-            'Main Settings',
-            array($this, 'rs_dr_testimonial_settings_section_callback'),
-            'rs-dr-testimonial-display-settings-page'
-        );
-    }
-
-    /**
-     * Register Settings Field
-     *
-     * @since 1.0.0
-     */
-    public function register_display_fields()
-    {
-        add_settings_field(
-            'excerpt_length',
-            'Length of Excerpt',
-            array($this, 'rs_dr_testimonial_display_excerpt'),
-            'rs-dr-testimonial-section',
-            'rs_dr_testimonial_main_section',
-            array('name' => 'length_excerpt')
-        );
-    }
-
-    /**
-     * Validate the settings input
-     *
-     * @since 1.0.0
-     */
-    public function rs_dr_testimonial_validate_option($input)
-    {
-
-        $input['varsion'] = $this->version;
-        $input['length_excerpt'] = (int)$input['length_excerpt'];
-        return $input;
-
-    }
-
-    /**
-     * Description of the section
-     *
-     * @since 1.0.0
-     */
-    public function rs_dr_testimonial_settings_section_callback()
-    {
-
-        echo "<p>This is the main configuration section</p>";
-
-    }
-
-    /**
-     * Display settings field for length of excerpt
-     *
-     * @since 1.0.0
-     */
-    public function rs_dr_testimonial_display_excerpt($data = [])
-    {
-
-        extract($data);
-        $options = get_option('rs_dr_testimonial_options');
-
-        $excerpt_value = esc_html($options[$name]);
-
-        $html = <<<EOL
-<input type="number" name="rs_dr_testimonial_options[{$name}]" value="{$excerpt_value}">
-EOL;
-        echo $html;
-
-
-    }
-
 
 }

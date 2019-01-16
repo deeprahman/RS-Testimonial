@@ -118,6 +118,7 @@ class Rs_Dr_Testimonial {
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-meta-box.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-settings.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-basic-settings.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-display-settings.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -167,6 +168,8 @@ class Rs_Dr_Testimonial {
         $plugin_settings = new Rs_Dr_Testimonial_Settings($this->get_plugin_name(), $this->get_version());
 //        Instance of the basic Settings Class
         $plugin_basic_settings = new Rs_Dr_Testimonial_Basic_Settings($this->get_plugin_name(), $this->get_version());
+//        Instance of the Display Settings class
+        $plugin_display_settings = new Rs_Dr_Testimonial_Display_Settings($this->get_plugin_name(), $this->get_version());
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -182,17 +185,17 @@ class Rs_Dr_Testimonial {
 
 //      runs after the basic admin panel menu structure is in place
         $this->loader->add_action('admin_menu', $plugin_settings, 'rs_dr_settings_menu');
-//        Runs when user enters the admin area
-        $this->loader->add_action('admin_init', $plugin_settings, 'register_display_settings');
-        $this->loader->add_action('admin_init', $plugin_settings, 'register_display_sections');
-        $this->loader->add_action('admin_init', $plugin_settings, 'register_display_fields');
+
 //      Plugin's Basic Settings
         $this->loader->add_action('admin_init', $plugin_basic_settings, 'register_basic_settings');
         $this->loader->add_action('admin_init', $plugin_basic_settings, 'register_basic_sections');
         $this->loader->add_action('admin_init', $plugin_basic_settings, 'register_basic_options_fields');
         $this->loader->add_action('admin_init', $plugin_basic_settings, 'register_item_reviewed_options_fields');
         $this->loader->add_action('admin_init', $plugin_basic_settings, 'register_cache_options_fields');
-
+//        Plugin's' Display Settings
+        $this->loader->add_action('admin_init', $plugin_display_settings, 'register_display_settings');
+        $this->loader->add_action('admin_init', $plugin_display_settings, 'register_display_sections');
+        $this->loader->add_action('admin_init', $plugin_display_settings, 'register_display_options_fields');
 	}
 
 	/**

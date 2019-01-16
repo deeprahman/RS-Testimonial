@@ -32,8 +32,7 @@ class Rs_Dr_Testimonial_Deactivator {
 	public static function deactivate() {
 
 
-        delete_option('rs_dr_testimonial_options');
-
+        delete_option('rs_dr_testimonial_display_options');
 
         delete_option('rs_dr_basic_settings_options');
 

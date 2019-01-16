@@ -31,10 +31,10 @@ class Rs_Dr_Testimonial_Activator {
 	 */
 	public static function activate() {
 
-        if (get_option('rs_dr_testimonial_options') === false) {
+        if (get_option('rs_dr_testimonial_display_options') === false) {
 
-            require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-settings.php';
-            add_option('rs_dr_testimonial_options', Rs_Dr_Testimonial_Settings::$default_settings);
+            require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-display-settings.php';
+            add_option('rs_dr_testimonial_display_options', Rs_Dr_Testimonial_Display_Settings::$default_display_settings);
         }
 
         if (get_option('rs_dr_basic_settings_options') === false) {
