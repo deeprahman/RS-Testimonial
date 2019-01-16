@@ -215,7 +215,8 @@ class Rs_Dr_Testimonial {
         $this->loader->add_action('init', $plugin_shortcode, 'register_shortcodes');
 //        For limiting excerpt length
         $this->loader->add_filter('excerpt_length', $plugin_public, 'custom_excerpt_length', 999);
-
+        //For printing custom css on the head of the public facing pages
+        $this->loader->add_filter('wp_head', $plugin_public, 'printCustomCss', 999);
     }
 
     /**

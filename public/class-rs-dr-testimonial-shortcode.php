@@ -94,7 +94,7 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
                 <div>
                 <img id="image" src="{$wpblog_fetrdimg}" alt="image">
     <p id="rs-dr-title">{$title}</p>
-    <p id="rs-dr-content">{$excerpt}<span><a href="{$permalink}"> &nbsp;Read More...</a></p>
+    <p id="rs-dr-content" class="custom-css-excerpt">{$excerpt}<span><a href="{$permalink}"> &nbsp;Read More...</a></p>
     <span class="rs-dr-ci">Client's Name: {$client_name}</span>
     <span class="rs-dr-ci">Client's Email: {$client_email}</span>
     <span class="rs-dr-ci">Client's Position: {$client_position}</span>
