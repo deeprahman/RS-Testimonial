@@ -56,6 +56,32 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
 
         $args = [];
         $args['post_type'] = 'rs_dr_testimonial';
+        $args['posts_per_page'] = -1;
+        /*
+         * To show slider shortcode: [rs_dr_testimonial slide='1']
+         * To show slider with specified maximum number of post: [rs_dr_testimonial slide='1' max='4']
+         * to show slider with defined order: [rs_dr_testimonial slide='1' max='4' ord='ASC']
+         * To show a random testimonial: [rs_dr_testimonial rand='1']
+         * To show a testimonial with defined by post id: [rs_dr_testimonial id='5']
+         * To show the lists of the testimonial: [rs_dr_testimonial]
+         */
+
+
+        if (isset($atts['slide']) && $atts['slide'] == 1) { //If slide is set then checks for max and order attributes, and ratify the $args array accordingly
+            $slide = 1;
+            if (isset($atts['max'])) {
+                $args['posts_per_page'] = $atts['max'];
+            }
+            if (isset($atts['odr'])) {
+                $args['order'] = $atts['odr'];
+            }
+        } elseif (isset($atts['id'])) { //If id of the testimonial is set, ratify the $args array accordingly
+            $args['p'] = $atts['id'];
+        } elseif (isset($atts['rand'])) { // If rand(for showing a random testimonial) is set, ratify the $args array accordingly
+            $args['orderby'] = 'rand';
+            $args['posts_per_page'] = 1;
+
+        }
 
 
 
@@ -63,7 +89,14 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
         $testimonial = new WP_Query($args);
 
         if ($testimonial->have_posts()) {
-            $output = '<div class="slider_one_big_picture">';
+
+            if (isset($slide)) {
+
+                $output = '<div class="slider_one_big_picture">';
+            } else {
+                $output = '';
+            }
+
             while($testimonial->have_posts()){
                 $testimonial->the_post();
                 $post_id = $testimonial->post->ID;
@@ -90,7 +123,10 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
 
                 $permalink = get_the_permalink();
 
-                $output .= <<<EOL
+                if (isset($slide)) {
+
+
+                    $output .= <<<EOL
                 <div>
                 <img id="image" src="{$wpblog_fetrdimg}" alt="image">
     <p id="rs-dr-title">{$title}</p>
@@ -102,16 +138,34 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
     <span class="rs-dr-ci">Rating: {$client_rating}</span>
 </div>
 EOL;
+                } else {
+                    $output .= <<<EOL
+                <div>
+                <img id="image" src="{$wpblog_fetrdimg}" alt="image">
+    <p id="rs-dr-title">{$title}</p>
+    <p id="rs-dr-content" class="custom-css-excerpt">{$excerpt}<span><a href="{$permalink}"> &nbsp;Read More...</a></p>
+    <span class="rs-dr-ci">Client's Name: {$client_name}</span>
+    <span class="rs-dr-ci">Client's Email: {$client_email}</span>
+    <span class="rs-dr-ci">Client's Position: {$client_position}</span>
+    <span class="rs-dr-ci">Client's Location: {$client_location}</span>
+    <span class="rs-dr-ci">Rating: {$client_rating}</span>
+</div>
+EOL;
+                }
+
 
 
             }
-            $output .= <<<EOL
+            if (isset($slide)) {
+
+                $output .= <<<EOL
         <div class="next_button" style="display: inline-block;"></div>
         <div class="prev_button"></div>
-      
+      </div>
 EOL;
+            }
 
-            return $output . "</div>";
+            return $output;
         }else{
 
             return 'No Testimonial Found';
