@@ -213,6 +213,50 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
             'rs_dr_testimonial_cache_options_section',
             array('id' => 'use_caching', 'name' => 'rs_dr_cache_options', 'type' => 'checkbox')
         );
+
+        add_settings_field(
+            'flush_caching',
+            'Flush Caching',
+            array($this, 'display_button'),
+            'rs-dr-testimonial-cache-option-page',
+            'rs_dr_testimonial_cache_options_section',
+            array('id' => 'flush_caching', 'name' => 'rs_dr_flush_cache', 'value' => 'flush_cache')
+        );
+    }
+
+    /**
+     * Validate and sanitize input for basic options
+     *
+     * @since 1.0.0
+     */
+    public function rs_dr_testimonial_validate_basic_option(array $input): array
+    {
+        return $input;
+    }
+
+    /**
+     * Validate and sanitize input for review options
+     *
+     * @since 1.0.0
+     */
+    public function rs_dr_testimonial_validate_reviewed_option(array $input): array
+    {
+        return $input;
+    }
+
+    /**
+     * Validate and sanitize input for cache options
+     *
+     * @since 1.0.0
+     */
+    public function rs_dr_testimonial_validate_cache_option(array $input): array
+    {
+
+        if (isset($_POST['rs_dr_flush_cache'])) {
+            // Call a method for deleting cache
+            $this->delete_all_transients();
+        }
+        return $input;
     }
 
     /**
@@ -326,4 +370,30 @@ EOL;
         }
     }
 
+    /**
+     * HTML Link callback function
+     *
+     * @since 1.0.0
+     */
+    public function display_button(array $data = []): void
+    {
+        // Brake up the array; make each key a variable identifier and corresponding value -the variable value
+        extract($data);
+
+        $html = <<<EOL
+<button class="button-primary" name="{$name}" value="{$value}">Flush Cache</button>
+EOL;
+
+        echo $html;
+    }
+
+    /**
+     * Deletes all saved transients
+     *
+     * @since 1.0.0
+     */
+    private function delete_all_transients(): void
+    {
+
+    }
 }
