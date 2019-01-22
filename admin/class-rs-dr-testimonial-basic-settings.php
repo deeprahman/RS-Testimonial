@@ -220,7 +220,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
             array($this, 'display_button'),
             'rs-dr-testimonial-cache-option-page',
             'rs_dr_testimonial_cache_options_section',
-            array('id' => 'flush_caching', 'name' => 'rs_dr_flush_cache', 'value' => 'flush_cache')
+            array('id' => 'flush_caching', 'name' => 'rs_dr_flush_cache', 'value' => 'flush_cache_ok', 'page' => 'rs-dr-testimonial-basic-settings-page', 'tab' => 'cache-tab')
         );
     }
 
@@ -252,10 +252,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
     public function rs_dr_testimonial_validate_cache_option(array $input): array
     {
 
-        if (isset($_POST['rs_dr_flush_cache'])) {
-            // Call a method for deleting cache
-            $this->delete_all_transients();
-        }
+
         return $input;
     }
 
@@ -380,11 +377,23 @@ EOL;
         // Brake up the array; make each key a variable identifier and corresponding value -the variable value
         extract($data);
 
-        $html = <<<EOL
-<button class="button-primary" name="{$name}" value="{$value}">Flush Cache</button>
+        if (isset($name) && isset($page) && isset($id) && isset($tab)) {
+
+            if (isset($_GET[$name])) {
+                // Call a method for deleting cache
+                $this->delete_all_transients();
+            }
+
+            $link_to = add_query_arg(['page' => $page, 'tab' => $tab, $name => $id], admin_url('admin.php'));
+
+            $html = <<<EOL
+<a href="{$link_to}" class="button-primary">Flush Cache</a>
 EOL;
 
-        echo $html;
+            echo $html;
+        }
+
+
     }
 
     /**
