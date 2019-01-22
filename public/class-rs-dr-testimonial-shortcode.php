@@ -52,6 +52,10 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
 //    Displaying content of the shortcode
     public function rs_dr_display_testmonial_shortcode($atts)
     {
+        // cache checkbox is set and transient is set
+        if (($option = get_option('rs_dr_cache_options')) && $output_short = get_transient('rs_dr_t_shorcode')) {
+            return $output_short;
+        }
 
 
         $args = [];
@@ -83,9 +87,6 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
 
         }
 
-
-
-
         $testimonial = new WP_Query($args);
 
         if ($testimonial->have_posts()) {
@@ -106,7 +107,6 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
                 $client_location = get_post_meta($post_id, 'rs_dr_testimonial_location', true);
                 $client_rating = get_post_meta($post_id, 'rs_dr_testimonial_rating', true);
 
-                
 
                 $wpblog_fetrdimg = wp_get_attachment_url(get_post_thumbnail_id($post_id));
 
@@ -117,16 +117,12 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
                 } else {
                     $length = get_option('rs_dr_testimonial_options');
                     $length = $length['length_excerpt'];
-
                     $excerpt = wp_trim_words(get_the_content(), $length);
                 }
 
                 $permalink = get_the_permalink();
 
-                if (isset($slide)) {
-
-
-                    $output .= <<<EOL
+                $output .= <<<EOL
                 <div>
                 <img id="image" src="{$wpblog_fetrdimg}" alt="image">
     <p id="rs-dr-title">{$title}</p>
@@ -138,22 +134,6 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
     <span class="rs-dr-ci">Rating: {$client_rating}</span>
 </div>
 EOL;
-                } else {
-                    $output .= <<<EOL
-                <div>
-                <img id="image" src="{$wpblog_fetrdimg}" alt="image">
-    <p id="rs-dr-title">{$title}</p>
-    <p id="rs-dr-content" class="custom-css-excerpt">{$excerpt}<span><a href="{$permalink}"> &nbsp;Read More...</a></p>
-    <span class="rs-dr-ci">Client's Name: {$client_name}</span>
-    <span class="rs-dr-ci">Client's Email: {$client_email}</span>
-    <span class="rs-dr-ci">Client's Position: {$client_position}</span>
-    <span class="rs-dr-ci">Client's Location: {$client_location}</span>
-    <span class="rs-dr-ci">Rating: {$client_rating}</span>
-</div>
-EOL;
-                }
-
-
 
             }
             if (isset($slide)) {
@@ -164,10 +144,14 @@ EOL;
       </div>
 EOL;
             }
+            // Check if cache option is set
 
+            if ($option = get_option('rs_dr_cache_options')) {
+                // Set Transients
+                set_transient('rs_dr_t_shorcode', $output);
+            }
             return $output;
         }else{
-
             return 'No Testimonial Found';
         }
     }

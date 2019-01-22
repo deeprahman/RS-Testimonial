@@ -403,6 +403,13 @@ EOL;
      */
     private function delete_all_transients(): void
     {
+        $name = [
+            'rs_dr_t_widget_trans',
+            'rs_dr_t_shorcode'
+        ];
+        foreach ($name as $value) {
 
+            delete_transient($value);
+        }
     }
 }

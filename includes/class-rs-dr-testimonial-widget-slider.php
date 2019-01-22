@@ -30,6 +30,8 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
      */
     private $plugin_name;
 
+    public static $instance_counter = 0;
+
     /**
      * Register widget with WordPress.
      */
@@ -43,6 +45,9 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
         $control				= array( 'width' => '', 'height' => '' );
 
         parent::__construct( false, $name, $opts, $control );
+
+        //Increment the instance counter by 1
+        Rs_Dr_Testimonial_Widget_Slider::$instance_counter++;
 
     } // __construct()
 
@@ -154,73 +159,42 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
                 'posts_per_page' => $count
         ];
 
-//        Initiate WP_Query
-        $testimonial = new WP_Query($query_args);
+        $widget_display_path = plugin_dir_path(dirname(__FILE__)) . 'includes/partials/rs-dr-testimonial-widget-slider-display.php';
 
-        if($testimonial->have_posts()){
 
-            $output = '';
-            echo $before_widget;
-            echo $before_title;
-            echo apply_filters('widget_title', $title);
-            echo $after_title;
+        // Check for cache checkbox
+        $options = get_option('rs_dr_cache_options');
 
-            echo "<div class=\"slider_one_big_picture\">";
+        if (!empty($options['use_caching'])) { // box is checked
 
-            while($testimonial->have_posts()){
-                $testimonial->the_post();
-                $post_id = $testimonial->post->ID;
-                $client_name = get_post_meta($post_id, 'rs_dr_testimonial_client_name', true);
-                $client_email = get_post_meta($post_id, 'rs_dr_testimonial_email', true);
-                $client_position = get_post_meta($post_id, 'rs_dr_testimonial_position', true);
-                $client_location = get_post_meta($post_id, 'rs_dr_testimonial_location', true);
-                $client_rating = get_post_meta($post_id, 'rs_dr_testimonial_rating', true);
+            // Check if transient is set or not
+            $name = 'rs_dr_t_widget_trans';
 
-                $length = get_option('rs_dr_testimonial_options');
-                $length = $length['length_excerpt'];
+            if ($value = get_transient($name)) { // Transient is set
 
-                $wpblog_fetrdimg = wp_get_attachment_url(get_post_thumbnail_id($post_id));
+                echo $value;
 
-                $title = get_the_title();
+            } else { //transient is not set
 
-                if (has_excerpt()) {
-                    $excerpt = wp_trim_excerpt();
-                } else {
-                    $length = get_option('rs_dr_testimonial_options');
-                    $length = $length['length_excerpt'];
+                // Start output buffering
+                ob_start();
+                require $widget_display_path;
+                $output = ob_get_clean();
 
-                    $excerpt = wp_trim_words(get_the_content(), $length);
-                }
+                // Set the transient
+                $expire = $options['cache_time'];
+                set_transient($name, $output, $expire);
 
-                $permalink = get_the_permalink();
-
-                $output .= <<<EOL
-                <div>
-                <img id="image" src="{$wpblog_fetrdimg}" alt="image">
-    <p id="rs-dr-title">{$title}</p>
-    <p id="rs-dr-content" class="custom-css-excerpt">{$excerpt}<span><a href="{$permalink}"> &nbsp;Read More...</a></p>
-    <span class="rs-dr-ci">Client's Name: {$client_name}</span>
-    <span class="rs-dr-ci">Client's Email: {$client_email}</span>
-    <span class="rs-dr-ci">Client's Position: {$client_position}</span>
-    <span class="rs-dr-ci">Client's Location: {$client_location}</span>
-    <span class="rs-dr-ci">Rating: {$client_rating}</span>
-</div>
-EOL;
-
+                // Get data from transient and print on the screen
+                echo get_transient($name);
 
             }
 
-            $output .= <<<EOL
-        <div class="next_button" style="display: inline-block;"></div>
-        <div class="prev_button"></div>
-      
-EOL;
-
-            echo $output."</div>".$after_widget;
-        }else{
-
-            echo "No Testimonial Has been published";
+        } else { // box is unchecked
+            require $widget_display_path;
         }
+
+
 
     } // widget()
 
