@@ -150,7 +150,6 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
         $order_by = (!empty($instance['date']) ? $instance['date'] : 'date');
         $order = (!empty($instance['ASC']) ? $instance['ASC'] : 'DESC');
 
-
         //Arguments for WP_Query
         $query_args = [
                 'post_type' => 'rs_dr_testimonial',
@@ -161,40 +160,7 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
 
         $widget_display_path = plugin_dir_path(dirname(__FILE__)) . 'includes/partials/rs-dr-testimonial-widget-slider-display.php';
 
-
-        // Check for cache checkbox
-        $options = get_option('rs_dr_cache_options');
-
-        if (!empty($options['use_caching'])) { // box is checked
-
-            // Check if transient is set or not
-            $name = 'rs_dr_t_widget_trans';
-
-            if ($value = get_transient($name)) { // Transient is set
-
-                echo $value;
-
-            } else { //transient is not set
-
-                // Start output buffering
-                ob_start();
-                require $widget_display_path;
-                $output = ob_get_clean();
-
-                // Set the transient
-                $expire = $options['cache_time'];
-                set_transient($name, $output, $expire);
-
-                // Get data from transient and print on the screen
-                echo get_transient($name);
-
-            }
-
-        } else { // box is unchecked
-            require $widget_display_path;
-        }
-
-
+        require $widget_display_path;
 
     } // widget()
 

@@ -127,15 +127,22 @@ class Rs_Dr_Testimonial {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-rs-dr-testimonial-public.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-rs-dr-testimonial-shortcode.php';
 
-		$this->loader = new Rs_Dr_Testimonial_Loader();
-
         /**
          * The class responsible for defining all actions that occur in the public as well as admin facing
          * side of the site for slider widget.
          */
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-rs-dr-testimonial-widget-slider.php';
 
-	}
+        /**
+         * The class responsible caching the widget content.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-rs-dr-testimonial-widget-cache.php';
+
+
+        $this->loader = new Rs_Dr_Testimonial_Loader();
+
+
+    }
 
 	/**
 	 * Define the locale for this plugin for internationalization.
@@ -207,9 +214,10 @@ class Rs_Dr_Testimonial {
 	 */
 	private function define_public_hooks() {
 
+
 		$plugin_public = new Rs_Dr_Testimonial_Public( $this->get_plugin_name(), $this->get_version() );
         $plugin_shortcode = new Rs_Dr_Testimonial_Shortcode($this->get_plugin_name(), $this->get_version());
-
+        $plugin_widget_cache = new Rs_Dr_Testimonial_Widget_cache();
 
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
@@ -220,6 +228,12 @@ class Rs_Dr_Testimonial {
         $this->loader->add_filter('excerpt_length', $plugin_public, 'custom_excerpt_length', 999);
         //For printing custom css on the head of the public facing pages
         $this->loader->add_filter('wp_head', $plugin_public, 'printCustomCss', 999);
+
+        //For printing widgets from cache
+
+
+        $this->loader->add_action('widget_display_callback', $plugin_widget_cache, 'cache_widget_output', 10, 3);
+
     }
 
     /**

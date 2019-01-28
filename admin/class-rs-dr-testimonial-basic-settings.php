@@ -403,13 +403,11 @@ EOL;
      */
     private function delete_all_transients(): void
     {
-        $name = [
-            'rs_dr_t_widget_trans',
-            'rs_dr_t_shorcode'
-        ];
-        foreach ($name as $value) {
 
-            delete_transient($value);
-        }
+        global $wpdb;
+
+
+        $sql_delete = 'DELETE FROM wp_options WHERE option_name LIKE "%rs_dr_cache_store%"';
+        $wpdb->query($sql_delete);
     }
 }
