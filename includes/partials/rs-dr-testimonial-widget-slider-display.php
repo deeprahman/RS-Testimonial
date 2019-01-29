@@ -5,7 +5,6 @@ $testimonial = new WP_Query($query_args);
 
 if ($testimonial->have_posts()) {
 
-
     $output = '';
     echo $before_widget;
     echo $before_title;
@@ -58,12 +57,12 @@ if ($testimonial->have_posts()) {
     <span class="rs-dr-ci">Client's Position: {$client_position}</span>
     <span class="rs-dr-ci">Client's Location: {$client_location}</span>
     <span class="rs-dr-ci">Rating: {$client_rating}</span>
-</div>
+
 EOL;
 
-        // JSON-LD option is on
-        if (isset($options['output_review_markup'])) {
-            $json_ld .= <<<JSON
+
+        if (isset($options['output_review_markup'])) { // JSON-LD option is on
+            $output .= <<<JSON
             <!--JSON-LD for search engine readability-->
 <script type='application/ld+json'>
     {
@@ -85,8 +84,9 @@ EOL;
 JSON;
 
         }
+        $output .= "</div>";
     }
-    $output .= $json_ld;
+
     $output .= <<<EOL
         <div class="next_button" style="display: inline-block;"></div>
         <div class="prev_button"></div>
