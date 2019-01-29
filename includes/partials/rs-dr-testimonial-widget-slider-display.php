@@ -23,6 +23,13 @@ if ($testimonial->have_posts()) {
         $client_location = get_post_meta($post_id, 'rs_dr_testimonial_location', true);
         $client_rating = get_post_meta($post_id, 'rs_dr_testimonial_rating', true);
 
+        //Get Global Review if Global Review is set
+        if (isset($options['use_global_item_reviewed'])) {
+            if (empty($client_location)) {
+                $client_location = $options['global_item_reviewed'];
+            }
+        }
+
         $length = get_option('rs_dr_testimonial_options');
         $length = $length['length_excerpt'];
 
@@ -52,7 +59,34 @@ if ($testimonial->have_posts()) {
     <span class="rs-dr-ci">Client's Location: {$client_location}</span>
     <span class="rs-dr-ci">Rating: {$client_rating}</span>
 </div>
+     
+    
 EOL;
+    }
+    // JSON-LD option is on
+    if (isset($options['output_review_markup'])) {
+        $json_ld = <<<JSON
+
+    {
+        "@context":"http://schema.org",
+        "@type":"Review",
+        "itemReviewed":{"name": "{$client_location}"},
+        "reviewRating":{
+            "@type":"Rating",
+            "ratingValue":"{$client_rating}"
+        },
+        "name":"{$title}",
+        "author":{
+        "@type":"person",
+        "name":"{$client_name}"
+        },
+        "reviewBody":"{$excerpt}"
+    }
+
+JSON;
+        // Put JSON-LD inside of script tag
+        $html_comment = "<!--JSON-LD for search engine readability-->";
+        $output .= $html_comment . "<script type='application/ld+json'>{$json_ld}</script>";
     }
 
     $output .= <<<EOL

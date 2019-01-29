@@ -158,6 +158,10 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
                 'posts_per_page' => $count
         ];
 
+        // Get the review option array form the database
+        $options = get_option('rs_dr_review_settings_options');
+
+
         $widget_display_path = plugin_dir_path(dirname(__FILE__)) . 'includes/partials/rs-dr-testimonial-widget-slider-display.php';
 
         require $widget_display_path;
