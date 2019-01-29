@@ -59,14 +59,13 @@ if ($testimonial->have_posts()) {
     <span class="rs-dr-ci">Client's Location: {$client_location}</span>
     <span class="rs-dr-ci">Rating: {$client_rating}</span>
 </div>
-     
-    
 EOL;
-    }
-    // JSON-LD option is on
-    if (isset($options['output_review_markup'])) {
-        $json_ld = <<<JSON
 
+        // JSON-LD option is on
+        if (isset($options['output_review_markup'])) {
+            $json_ld .= <<<JSON
+            <!--JSON-LD for search engine readability-->
+<script type='application/ld+json'>
     {
         "@context":"http://schema.org",
         "@type":"Review",
@@ -82,13 +81,12 @@ EOL;
         },
         "reviewBody":"{$excerpt}"
     }
-
+</script>
 JSON;
-        // Put JSON-LD inside of script tag
-        $html_comment = "<!--JSON-LD for search engine readability-->";
-        $output .= $html_comment . "<script type='application/ld+json'>{$json_ld}</script>";
-    }
 
+        }
+    }
+    $output .= $json_ld;
     $output .= <<<EOL
         <div class="next_button" style="display: inline-block;"></div>
         <div class="prev_button"></div>
