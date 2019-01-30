@@ -72,91 +72,241 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
      */
     public function register_display_settings()
     {
-
+        //Register Excerpt Settings
         register_setting(
-            'rs_dr_testimonial_display_settings_group',
-            'rs_dr_testimonial_display_options',
-            [&$this, 'display_settings_validator']
+            'rs_dr_t_excerpt_group',
+            'rs_dr_excerpt_options',
+            array(&$this, 'excerpt_validator')
+        );
+        register_setting(
+            'rs_dr_t_date_group',
+            'rs_dr_date_options',
+            array(&$this, 'date_validator')
+        );
+        register_setting(
+            'rs_dr_t_image_group',
+            'rs_dr_image_options',
+            array(&$this, 'image_validator')
         );
     }
-
     /**
-     * Adds sections for display settings
+     * Validator Callback Function for excerpt
      *
-     * @since 1.0.0
+     * @since   1.0.0
      */
-    public function register_display_sections()
+    public function excerpt_validator($input)
     {
-
-        add_settings_section(
-            'rs_dr_testimonial_display_section',
-            'Display Section',
-            [&$this, 'display_section_description_callback'],
-            'rs-dr-testimonial-display-settings-page' //This is same as the display submenu slug
-        );
-    }
-
-    /**
-     * Adds fields for display section
-     *
-     * @since 1.0.0
-     */
-    public function register_display_options_fields()
-    {
-
-        add_settings_field(
-            'rs_dr_testimonial_display_excerpt_id',
-            'Excerpt Lenth',
-            [&$this, 'display_textbox_input_field'],
-            'rs-dr-testimonial-display-settings-page', //Same as the settings section slug
-            'rs_dr_testimonial_display_section', //Same as the section id
-            ['id' => 'rs_dr_testimonial_display_excerpt_id', 'name' => 'rs_dr_testimonial_display_options', 'type' => 'number']
-        );
-
-    }
-
-    /**
-     * Validates and sanitizes the display option input
-     *
-     * @since 1.0.0
-     * @param $input
-     * @return mixed
-     */
-    public function display_settings_validator($input)
-    {
-
-        $input['rs_dr_testimonial_display_excerpt_id'] = (intval($input['rs_dr_testimonial_display_excerpt_id']));
         return $input;
     }
 
     /**
-     * Display the brief description of the display section
+     * Validator callback function for date
+     *
+     * @since   1.0.0
      */
-    public function display_section_description_callback()
+    public function date_validator($input)
     {
-
-        echo "This section is for controlling display on the public facing pages";
+        return $input;
     }
 
-    public function display_textbox_input_field($data = [])
+    /**
+     * Validator callback function for image
+     *
+     * @since   1.0.0
+     */
+    public function image_validator($input)
+    {
+        return $input;
+    }
+
+    /**
+     * Create sections for display
+     *
+     * @since   1.0.0
+     */
+    public function create_display_sections()
+    {
+        //Excerpt Section
+        add_settings_section(
+            'rs_dr_t_excerpt_section_id',
+            'Excerpt Section',
+            array(&$this, 'excerpt_section_description_callback'),
+            'rs-dr-t-excerpt-section-page'
+        );
+        //Date Section
+        add_settings_section(
+            'rs_dr_t_date_section_id',
+            'Date Section',
+            array(&$this, 'date_section_description_callback'),
+            'rs-dr-t-date-section-page'
+        );
+        //Image Section
+        add_settings_section(
+            'rs_dr_t_image_section_id',
+            'Image Section',
+            array(&$this, 'image_section_description_callback'),
+            'rs-dr-t-image-section-page'
+        );
+    }
+
+    /**
+     * Excerpt section callback
+     *
+     * @since   1.0.0
+     */
+    public function excerpt_section_description_callback()
+    {
+        print "Takes Value for the excerpt length";
+    }
+
+    /**
+     * Date section callback
+     *
+     * @since   1.0.0
+     */
+    public function date_section_description_callback()
+    {
+        print 'Takes format specifier for displaying date';
+    }
+
+    /**
+     * Image section callback
+     *
+     * @since   1.0.0
+     */
+    public function image_section_description_callback()
+    {
+        print 'Activate or deactivate different options for testimonial image';
+    }
+
+    /**
+     * Create fields for displaying excerpt
+     *
+     * @since   1.0.0
+     */
+    public function create_excerpt_fields()
+    {
+        // The Excerpt Length Field
+        add_settings_field(
+            'display_excerpt_char',
+            'Excerpt Length',
+            array(&$this, 'display_text_field'),
+            'rs-dr-t-excerpt-section-page',
+            'rs_dr_t_excerpt_section_id',
+            array('id' => 'display_excerpt_char', 'name' => 'rs_dr_excerpt_options', 'type' => 'number')
+        );
+    }
+
+    /**
+     * Create fields for displaying date
+     *
+     * @since 1.0.0
+     */
+    public function create_date_fields()
+    {
+        //The date format field
+        add_settings_field(
+            'display_date_format',
+            'Date Format',
+            array(&$this, 'display_text_field'),
+            'rs-dr-t-date-section-page',
+            'rs_dr_t_date_section_id',
+            array('id' => 'display_date_format', 'name' => 'rs_dr_date_options', 'type' => 'text')
+        );
+    }
+
+    /**
+     * Create fields for displaying testimonial image
+     *
+     * @since   1.0.0
+     */
+    public function create_image_fields()
+    {
+        //Display testimonial image Field
+        add_settings_field(
+            'show_testimonial_image',
+            'Display Image',
+            array(&$this, 'display_check_box'),
+            'rs-dr-t-image-section-page',
+            'rs_dr_t_image_section_id',
+            array('id' => 'show_testimonial_image', 'name' => 'rs_dr_image_options', 'type' => 'checkbox')
+        );
+        // testimonial image size field
+        add_settings_field(
+            'image_size',
+            'Image Size',
+            array(&$this, 'display_select_field'),
+            'rs-dr-t-image-section-page',
+            'rs_dr_t_image_section_id',
+            array('id' => 'image_size', 'name' => 'rs_dr_image_options', 'type' => 'select')
+        );
+        //Fallback Image Field
+        add_settings_field(
+            'fallback_image',
+            'Fallback Image',
+            array(&$this, 'display_radio_button'),
+            'rs-dr-t-image-section-page',
+            'rs_dr_t_image_section_id',
+            array('id' => 'fallback_image', 'name' => 'rs_dr_image_options', 'type' => 'radio')
+        );
+        //Use gravater field
+        add_settings_field(
+            'use_gravaters',
+            'Use Gravater',
+            array(&$this, 'display_check_box'),
+            'rs_dr_t_image_section_id',
+            'rs_dr_t_image_section_id',
+            array('id' => 'use_gravaters', 'name' => 'rs_dr_image_options', 'type' => 'checkbox')
+        );
+    }
+
+    /**
+     * Text-box display callback function
+     *
+     * @since 1.0.0
+     */
+    public function display_text_field(array $data = [])
     {
         extract($data);
-        if (isset($id) && isset($name) && isset($type)) {
-            //Value of the name attribute of the input field
+        if (isset($name) && isset($id) && isset($type)) {
+            //Value of the name attribute in the input field
             $name_attr = $name . '[' . $id . ']';
-            //Get the relevant options from the database
-            $options = get_option($name, Rs_Dr_Testimonial_Display_Settings::$default_excerpt_settings);
-            //Get the relevant value from the option array
+            //Fetch the options form the database
+            $options = get_option($name);
+            //The value of the text field
             $value = esc_html($options[$id]);
-
-            $html = <<<EOL
-<input type="{$type}" name="{$name_attr}" value="{$value}" >
-EOL;
-            echo $html;
+            //HTML for text input field
+            $html = <<<INPUT
+<input type="{$type}" name="{$name_attr}" value="{$value}" size="40">
+INPUT;
+            print $html;
         } else {
-            echo 'Something wrong in the text field';
+            print "Something wrong in the settings field!";
         }
     }
 
-
+    /**
+     * Checkbox display field
+     *
+     * @since   1.0.0
+     */
+    public function display_checkbox_field(array $data = [])
+    {
+        extract($data);
+        if (isset($name) && isset($id) && isset($type)) {
+            //Value of the name attribute in the input field
+            $name_attr = $name . '[' . $id . ']';
+            // Fetch the options from the database
+            $options = get_option($name);
+            //Value of the checkbox field
+            $value = intval(isset($options[$id]) ? $options[$id] : 0);
+            //Whether checked or not
+            $checked = checked($value, 1, false);
+            $html = <<<INPUT
+<input type="{$type}" name="{$name_attr}" value="1" size="40" {$checked}>
+INPUT;
+        } else {
+            print "Something wrong in the checkbox field";
+        }
+    }
 }

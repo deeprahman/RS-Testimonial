@@ -200,10 +200,8 @@ class Rs_Dr_Testimonial {
         $this->loader->add_action('admin_init', $plugin_basic_settings, 'register_item_reviewed_options_fields');
         $this->loader->add_action('admin_init', $plugin_basic_settings, 'register_cache_options_fields');
 //        Plugin's' Display Settings
-        $this->loader->add_action('admin_init', $plugin_display_settings, 'register_display_settings');
-        $this->loader->add_action('admin_init', $plugin_display_settings, 'register_display_sections');
-        $this->loader->add_action('admin_init', $plugin_display_settings, 'register_display_options_fields');
-	}
+
+    }
 
 	/**
 	 * Register all of the hooks related to the public-facing functionality
