@@ -24,7 +24,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
      * The ID of this plugin.
      *
      * @since    1.0.0
-     * @access   private
+     * @access   privateK
      * @var      string $plugin_name The ID of this plugin.
      */
     private $plugin_name;
@@ -41,12 +41,30 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
     /**
      * @since  1.0.0
      * @access public static
-     * @var array $default_display_settings Default values of the display settings
+     * @var array $default_excerpt_settings Default values of the display settings
      */
-    public static $default_display_settings = [
-        'rs_dr_testimonial_display_excerpt_id' => 20
+    public static $default_excerpt_settings = [
+        'display_excerpt_char' => 20
     ];
-
+    /**
+     * @since   1.0.0
+     * @access  Public Static
+     * @var array $default_date_settings Default values for the date settings
+     */
+    public static $default_date_settings = [
+        'display_date_format' => 'F J, y'
+    ];
+    /**
+     * @since   1.0.0
+     * @access  Public Static
+     * @var array $default_image_settings Default values for the image settings
+     */
+    public static $default_image_settings = [
+        'show_testimonial_image' => 1,
+        'image_size' => 1, //There are two image sizes; 1:150x150 px, 2: 300x300 px
+        'fallback_image' => 3, //There are three types of fallback images, 1:Mystery Person; 2:Smart Text Avatar, 3:No Fallback Image
+        'use_gravaters' => 1 //Use Gravatar if one is found with a matching email address
+    ];
     /**
      * Registers all display settings
      *
@@ -127,7 +145,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             //Value of the name attribute of the input field
             $name_attr = $name . '[' . $id . ']';
             //Get the relevant options from the database
-            $options = get_option($name, Rs_Dr_Testimonial_Display_Settings::$default_display_settings);
+            $options = get_option($name, Rs_Dr_Testimonial_Display_Settings::$default_excerpt_settings);
             //Get the relevant value from the option array
             $value = esc_html($options[$id]);
 

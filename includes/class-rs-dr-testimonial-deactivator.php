@@ -30,15 +30,14 @@ class Rs_Dr_Testimonial_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
-
-        delete_option('rs_dr_testimonial_display_options');
-
+        //Delete Basic Settings
         delete_option('rs_dr_basic_settings_options');
-
         delete_option('rs_dr_review_settings_options');
-
         delete_option('rs_dr_cache_options');
+        //Delete Display Settings
+        delete_option('rs_dr_excerpt_options');
+        delete_option('rs_dr_date_options');
+        delete_option('rs_dr_image_options');
     }
 
 }
