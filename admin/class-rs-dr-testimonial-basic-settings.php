@@ -46,8 +46,6 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
         'show_in_search' => '1',
         'allow_html_tags' => '1',
         'css_all_screens' => '',
-
-
     ];
 
     public static $default_review_settings = [
@@ -350,14 +348,12 @@ EOL;
     {
         extract($data);
         if (isset($name) && isset($id) && isset($type)) {
-
 //        Value of the name attribute of the input field
             $name_attr = $name . '[' . $id . ']';
 //        Get the options from the database
             $option = get_option($name);
 //            The Value of the text field
             $value = esc_html($option[$id]);
-
             $html = <<<EOL
 <textarea id="{$id}" name="{$name_attr}" rows="7" cols="50">{$value}</textarea>
 EOL;
@@ -376,24 +372,17 @@ EOL;
     {
         // Brake up the array; make each key a variable identifier and corresponding value -the variable value
         extract($data);
-
         if (isset($name) && isset($page) && isset($id) && isset($tab)) {
-
             if (isset($_GET[$name])) {
                 // Call a method for deleting cache
                 $this->delete_all_transients();
             }
-
             $link_to = add_query_arg(['page' => $page, 'tab' => $tab, $name => $id], admin_url('admin.php'));
-
             $html = <<<EOL
 <a href="{$link_to}" class="button-primary">Flush Cache</a>
 EOL;
-
             echo $html;
         }
-
-
     }
 
     /**
@@ -403,10 +392,7 @@ EOL;
      */
     private function delete_all_transients(): void
     {
-
         global $wpdb;
-
-
         $sql_delete = 'DELETE FROM wp_options WHERE option_name LIKE "%rs_dr_cache_store%"';
         $wpdb->query($sql_delete);
     }

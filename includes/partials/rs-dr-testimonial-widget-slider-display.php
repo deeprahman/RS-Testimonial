@@ -2,17 +2,13 @@
 
 //        Initiate WP_Query
 $testimonial = new WP_Query($query_args);
-
 if ($testimonial->have_posts()) {
-
     $output = '';
     echo $before_widget;
     echo $before_title;
     echo apply_filters('widget_title', $title);
     echo $after_title;
-
     echo "<div class=\"slider_one_big_picture\">";
-
     while ($testimonial->have_posts()) {
         $testimonial->the_post();
         $post_id = $testimonial->post->ID;
@@ -21,32 +17,24 @@ if ($testimonial->have_posts()) {
         $client_position = get_post_meta($post_id, 'rs_dr_testimonial_position', true);
         $client_location = get_post_meta($post_id, 'rs_dr_testimonial_location', true);
         $client_rating = get_post_meta($post_id, 'rs_dr_testimonial_rating', true);
-
         //Get Global Review if Global Review is set
         if (isset($options['use_global_item_reviewed'])) {
             if (empty($client_location)) {
                 $client_location = $options['global_item_reviewed'];
             }
         }
-
         $length = get_option('rs_dr_testimonial_options');
         $length = $length['length_excerpt'];
-
         $wpblog_fetrdimg = wp_get_attachment_url(get_post_thumbnail_id($post_id));
-
         $title = get_the_title();
-
         if (has_excerpt()) {
             $excerpt = wp_trim_excerpt();
         } else {
             $length = get_option('rs_dr_testimonial_options');
             $length = $length['length_excerpt'];
-
             $excerpt = wp_trim_words(get_the_content(), $length);
         }
-
         $permalink = get_the_permalink();
-
         $output .= <<<EOL
                 <div>
                 <img id="image" src="{$wpblog_fetrdimg}" alt="image">
@@ -59,8 +47,6 @@ if ($testimonial->have_posts()) {
     <span class="rs-dr-ci">Rating: {$client_rating}</span>
 
 EOL;
-
-
         if (isset($options['output_review_markup'])) { // JSON-LD option is on
             $output .= <<<JSON
             <!--JSON-LD for search engine readability-->
@@ -82,22 +68,15 @@ EOL;
     }
 </script>
 JSON;
-
         }
         $output .= "</div>";
     }
-
     $output .= <<<EOL
         <div class="next_button" style="display: inline-block;"></div>
-        <div class="prev_button"></div>
-      
+        <div class="prev_button"></div>     
 EOL;
-
     echo $output . "</div>" . $after_widget;
     // Get the buffered output and clean the buffer
-
-
 } else {
-
     echo "No Testimonial Has been published";
 }

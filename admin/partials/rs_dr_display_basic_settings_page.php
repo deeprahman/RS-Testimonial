@@ -20,7 +20,7 @@ $cache_tab = add_query_arg(
 
 
     <?php
-    $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'review-tab';
+    $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'basic-tab'; // Default tab is the basic-settings tab
     ?>
     <h2 class="nav-tab-wrapper">
 
