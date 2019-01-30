@@ -226,7 +226,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
         add_settings_field(
             'show_testimonial_image',
             'Display Image',
-            array(&$this, 'display_check_box'),
+            array(&$this, 'display_checkbox_field'),
             'rs-dr-t-image-section-page',
             'rs_dr_t_image_section_id',
             array('id' => 'show_testimonial_image', 'name' => 'rs_dr_image_options', 'type' => 'checkbox')
@@ -253,8 +253,8 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
         add_settings_field(
             'use_gravaters',
             'Use Gravater',
-            array(&$this, 'display_check_box'),
-            'rs_dr_t_image_section_id',
+            array(&$this, 'display_checkbox_field'),
+            'rs-dr-t-image-section-page',
             'rs_dr_t_image_section_id',
             array('id' => 'use_gravaters', 'name' => 'rs_dr_image_options', 'type' => 'checkbox')
         );
@@ -305,6 +305,7 @@ INPUT;
             $html = <<<INPUT
 <input type="{$type}" name="{$name_attr}" value="1" size="40" {$checked}>
 INPUT;
+            print $html;
         } else {
             print "Something wrong in the checkbox field";
         }
@@ -367,12 +368,12 @@ EOL;
                 $checked = checked($rdo_value, $value, false);
                 $html_rdo .= <<<RADIO
 <label>
-    {$label}
+    {$label}&nbsp;
     <input type="radio" name="{$name_attr}" value="{$value}" {$checked}>
-</label>
+</label><br><br>
 RADIO;
-                print $html_rdo;
             }
+            print $html_rdo;
         } else {
             print 'Something is wrong with radio button';
         }
