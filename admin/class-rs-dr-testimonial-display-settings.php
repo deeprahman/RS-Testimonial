@@ -238,7 +238,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             array(&$this, 'display_select_field'),
             'rs-dr-t-image-section-page',
             'rs_dr_t_image_section_id',
-            array('id' => 'image_size', 'name' => 'rs_dr_image_options', 'type' => 'select')
+            array('id' => 'image_size', 'name' => 'rs_dr_image_options', 'values' => ['1' => 'Thumbnail 150 x 150 px', '2' => 'Medium 300 x 300 px'])
         );
         //Fallback Image Field
         add_settings_field(
@@ -247,7 +247,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             array(&$this, 'display_radio_button'),
             'rs-dr-t-image-section-page',
             'rs_dr_t_image_section_id',
-            array('id' => 'fallback_image', 'name' => 'rs_dr_image_options', 'type' => 'radio')
+            array('id' => 'fallback_image', 'name' => 'rs_dr_image_options', 'values' => ['1' => 'Mystery Person', '2' => 'Smart Text Avatar', '3' => 'No Fallback Image'])
         );
         //Use gravater field
         add_settings_field(
@@ -286,7 +286,7 @@ INPUT;
     }
 
     /**
-     * Checkbox display field
+     * Checkbox display callback
      *
      * @since   1.0.0
      */
@@ -307,6 +307,74 @@ INPUT;
 INPUT;
         } else {
             print "Something wrong in the checkbox field";
+        }
+    }
+
+    /**
+     * HTML Select display callback
+     *
+     * @since   1.0.0
+     * @param array $data
+     */
+    public function display_select_field(array $data = [])
+    {
+        extract($data);
+        if (isset($id) && isset($name) && isset($values)) {
+            // Value of the name attribute in the select field
+            $name_attr = $name . '[' . $id . ']';
+            // Fetch the option from the database
+            $options = get_option($name);
+            //Value of the selected field
+            $opt_value = $options[$id];
+            // Loop through the values array, and generate option html element
+            $html_opt = '';
+            foreach ($values as $value => $label) {
+                $selected = selected($opt_value, $value, false);
+                $html_opt .= <<<OPTION
+<option value="{$value}" {$selected}>{$label}</option>
+OPTION;
+            }
+            // Construct HTML select
+            $html_select = <<<EOL
+<select name="{$name_attr}">{$html_opt}</select>
+EOL;
+            print $html_select;
+
+        } else {
+            print "Something wrong with the select field";
+        }
+    }
+
+    /**
+     * Display radio button callback
+     *
+     * @since   1.0.0
+     * @param array $data
+     */
+    public function display_radio_button(array $data = []): void
+    {
+        extract($data);
+        if (isset($id) && isset($name) && isset($values)) {
+            // Value of the name attribute in the radio button field
+            $name_attr = $name . '[' . $id . ']';
+            // Fetch the options from the database
+            $options = get_option($name);
+            // The current value of the field
+            $rdo_value = $options[$id];
+            // Loop through the values array, generate html input element for radio button
+            $html_rdo = '';
+            foreach ($values as $value => $label) {
+                $checked = checked($rdo_value, $value, false);
+                $html_rdo .= <<<RADIO
+<label>
+    {$label}
+    <input type="radio" name="{$name_attr}" value="{$value}" {$checked}>
+</label>
+RADIO;
+                print $html_rdo;
+            }
+        } else {
+            print 'Something is wrong with radio button';
         }
     }
 }
