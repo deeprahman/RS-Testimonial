@@ -39,8 +39,45 @@ if ($testimonial->have_posts()) {
         //Get the post date
         $date = get_the_date($date_format, $post_id);
         $output .= <<<EOL
-                <div>
-                <img id="image" src="{$wpblog_fetrdimg}" alt="image">
+<div>               
+EOL;
+
+        {//Begin Display Testimonial image section
+            //Fetch the value of image indicator form database
+            $img_ind = get_option('rs_dr_image_options');
+            if (isset($img_ind['show_testimonial_image'])) {
+                //No image uploaded
+                if (empty($wpblog_fetrdimg) || !isset($wpblog_fetrdimg)) {
+                    // Get the value of the fallback image from the database
+                    $fallback_img = $img_ind['fallback_image'];
+                    //Switch for fallback image
+                    switch ($fallback_img) {
+                        case 1:
+                            {
+                                $mystery_image_path = PLUGIN_URL . '/public/asset/mystery-person-clipart-1.jpg';
+                                $image_testimonial = <<<EOL
+<img id="image" src="{$mystery_image_path}" alt="image-fall">
+EOL;
+                                break;
+                            }
+                        case 2:
+                            {
+                                $image_testimonial = '';
+                            }
+                    }
+                } else {
+                    $image_testimonial = <<<EOL
+<img id="image" src="{$wpblog_fetrdimg}" alt="image">
+EOL;
+                }
+            } else {
+                $image_testimonial = '';
+            }
+        }//End Display Testimonial image section
+
+        $output = $output . $image_testimonial;
+        $output .= <<<EOL
+                
     <p id="rs-dr-title">{$title}</p>
     <p id="rs-dr-content" class="custom-css-excerpt">{$excerpt}<span><a href="{$permalink}"> &nbsp;Read More...</a></p>
     <span class="rs-dr-ci">Client's Name: {$client_name}</span>

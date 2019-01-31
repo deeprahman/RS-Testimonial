@@ -247,7 +247,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             array(&$this, 'display_radio_button'),
             'rs-dr-t-image-section-page',
             'rs_dr_t_image_section_id',
-            array('id' => 'fallback_image', 'name' => 'rs_dr_image_options', 'values' => ['1' => 'Mystery Person', '2' => 'Smart Text Avatar', '3' => 'No Fallback Image'])
+            array('id' => 'fallback_image', 'name' => 'rs_dr_image_options', 'values' => ['1' => 'Mystery Person', '2' => 'No Fallback Image'])
         );
         //Use gravater field
         add_settings_field(
