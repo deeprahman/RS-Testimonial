@@ -23,18 +23,21 @@ if ($testimonial->have_posts()) {
                 $client_location = $options['global_item_reviewed'];
             }
         }
-        $length = get_option('rs_dr_testimonial_options');
-        $length = $length['length_excerpt'];
         $wpblog_fetrdimg = wp_get_attachment_url(get_post_thumbnail_id($post_id));
         $title = get_the_title();
         if (has_excerpt()) {
-            $excerpt = wp_trim_excerpt();
+            $excerpt = wp_trim_excerpt(); //It uses the 'excerpt_length' filter hook
         } else {
-            $length = get_option('rs_dr_testimonial_options');
-            $length = $length['length_excerpt'];
+            $length = get_option('rs_dr_excerpt_options');
+            $length = $length['display_excerpt_char'];
             $excerpt = wp_trim_words(get_the_content(), $length);
         }
         $permalink = get_the_permalink();
+        //Get the date format from the database
+        $date_format = get_option('rs_dr_date_options');
+        $date_format = $date_format['display_date_format'];
+        //Get the post date
+        $date = get_the_date($date_format, $post_id);
         $output .= <<<EOL
                 <div>
                 <img id="image" src="{$wpblog_fetrdimg}" alt="image">
@@ -45,7 +48,7 @@ if ($testimonial->have_posts()) {
     <span class="rs-dr-ci">Client's Position: {$client_position}</span>
     <span class="rs-dr-ci">Client's Location: {$client_location}</span>
     <span class="rs-dr-ci">Rating: {$client_rating}</span>
-
+    <span class="rs-dr-ci">Date: {$date}</span>
 EOL;
         if (isset($options['output_review_markup'])) { // JSON-LD option is on
             $output .= <<<JSON

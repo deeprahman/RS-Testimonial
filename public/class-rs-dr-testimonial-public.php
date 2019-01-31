@@ -79,12 +79,13 @@ class Rs_Dr_Testimonial_Public
      * Fetch the excerpt length form database
      *
      * @param $length
-     * @return mixed|void
+     * @return int
      */
-    public function custom_excerpt_length($length)
+    public function custom_excerpt_length($length): int
     {
-        $length = get_option('rs_dr_testimonial_display_options');
-        $length = $length['rs_dr_testimonial_display_excerpt_id'];
+
+        $length = get_option('rs_dr_excerpt_options');
+        $length = $length['display_excerpt_char'];
         return $length;
     }
 
