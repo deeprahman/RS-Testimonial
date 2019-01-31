@@ -108,4 +108,44 @@ EOL;
 
         }
     }
+
+    /**
+     * Custom CSS for Displaying testimonial Image
+     *
+     * @since   1.0.0
+     */
+    public function image_display_css()
+    {
+        //Fetch the image-size indicator form the database
+        $img_siz_indcr = get_option('rs_dr_image_options');
+        $img_siz_indcr = $img_siz_indcr['image_size'] ?? false;
+        //A switch for selecting
+        switch ($img_siz_indcr) {
+            case 1 :
+                {
+                    $html = <<<EOL
+<style>
+#image{
+height: 150px;
+width:150px;
+}
+</style>
+EOL;
+                    break;
+                }
+            case 2:
+                {
+                    $html = <<<EOL
+<style>
+#image{
+height: 300px;
+width: 300px;
+}
+</style>
+EOL;
+                    break;
+                }
+        }
+        print $html;
+    }
 }
