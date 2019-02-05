@@ -390,7 +390,7 @@ EOL;
      *
      * @since 1.0.0
      */
-    private function delete_all_transients(): void
+    private function delete_all_transients()
     {
         global $wpdb;
         $sql_delete = 'DELETE FROM wp_options WHERE option_name LIKE "%rs_dr_cache_store%"';

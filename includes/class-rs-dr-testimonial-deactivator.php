@@ -38,6 +38,9 @@ class Rs_Dr_Testimonial_Deactivator {
         delete_option('rs_dr_excerpt_options');
         delete_option('rs_dr_date_options');
         delete_option('rs_dr_image_options');
+        //Delete advanced settings
+        delete_option('rs_dr_shortcode_options');
+
     }
 
 }

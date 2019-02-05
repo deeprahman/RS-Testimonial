@@ -122,6 +122,7 @@ class Rs_Dr_Testimonial
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-settings.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-basic-settings.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-display-settings.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-advanced-settings.php';
 
         /**
          * The class responsible for defining all actions that occur in the public-facing
@@ -182,6 +183,8 @@ class Rs_Dr_Testimonial
         $plugin_basic_settings = new Rs_Dr_Testimonial_Basic_Settings($this->get_plugin_name(), $this->get_version());
 //        Instance of the Display Settings class
         $plugin_display_settings = new Rs_Dr_Testimonial_Display_Settings($this->get_plugin_name(), $this->get_version());
+//        Instance of advanced settings class
+        $plugin_advanced_settings = new Rs_Dr_Testimonial_Advanced_Settings($this->get_plugin_name(), $this->get_version());
 
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
@@ -210,6 +213,10 @@ class Rs_Dr_Testimonial
         $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_excerpt_fields');
         $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_date_fields');
         $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_image_fields');
+//        Plugin's Advanced Settings
+        $this->loader->add_action('admin_init', $plugin_advanced_settings, 'register_advanced_settings');
+        $this->loader->add_action('admin_menu', $plugin_advanced_settings, 'create_shortcode_section');
+        $this->loader->add_action('admin_menu', $plugin_advanced_settings, 'create_shortcode_field');
     }
 
     /**
