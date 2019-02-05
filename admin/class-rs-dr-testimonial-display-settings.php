@@ -62,7 +62,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
     public static $default_image_settings = [
         'show_testimonial_image' => 1,
         'image_size' => 1, //There are two image sizes; 1:150x150 px, 2: 300x300 px
-        'fallback_image' => 3, //There are three types of fallback images, 1:Mystery Person; 2:Smart Text Avatar, 3:No Fallback Image
+        'fallback_image' => 1, //There are three types of fallback images, 1:Mystery Person; 2:Smart Text Avatar, 3:No Fallback Image
         'use_gravaters' => 1 //Use Gravatar if one is found with a matching email address
     ];
     /**
@@ -352,7 +352,7 @@ EOL;
      * @since   1.0.0
      * @param array $data
      */
-    public function display_radio_button(array $data = []): void
+    public function display_radio_button(array $data = [])
     {
         extract($data);
         if (isset($id) && isset($name) && isset($values)) {

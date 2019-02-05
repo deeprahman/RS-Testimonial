@@ -368,7 +368,7 @@ EOL;
      *
      * @since 1.0.0
      */
-    public function display_button(array $data = []): void
+    public function display_button(array $data = [])
     {
         // Brake up the array; make each key a variable identifier and corresponding value -the variable value
         extract($data);
