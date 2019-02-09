@@ -49,7 +49,7 @@ class Rs_Dr_Testimonial_Public
 
         wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/rs-dr-testimonial-public.css', array(), $this->version, 'all');
 
-        wp_enqueue_style('easy-slide', plugin_dir_url(__FILE__) . 'css/jquery.easy_slides.css', array(), null, 'all');
+        wp_enqueue_style('easy-slide', plugin_dir_url(__FILE__) . 'css/jquery.easy_slides.css', array(), $this->version, 'all');
 
 
     }
@@ -68,9 +68,10 @@ class Rs_Dr_Testimonial_Public
 
 //        Jquery From CDN
         wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js', array(), null, false);
+//        wp_enqueue_script('jquery');
 
-        wp_enqueue_script('easy-slider-js', plugin_dir_url(__FILE__) . 'js/jquery.easy_slides.js', array(), null, false);
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/rs-dr-testimonial-public.js', array(), null, true);
+        wp_enqueue_script('easy-slider-js', plugin_dir_url(__FILE__) . 'js/jquery.easy_slides.js', array('jquery'), null, false);
+        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/rs-dr-testimonial-public.js', array('jquery'), null, true);
 
 
     }

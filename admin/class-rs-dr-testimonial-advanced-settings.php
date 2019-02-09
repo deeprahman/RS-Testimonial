@@ -98,7 +98,7 @@ class Rs_Dr_Testimonial_Advanced_Settings extends Rs_Dr_Testimonial_Settings
     {
         add_settings_field(
             'rs_dr_t_shortcode',
-            'Shortcode Identifier',
+            'Shortcode',
             array(&$this, 'display_text_field'),
             'rs-dr-t-shortcode-settings-page',
             'rs_dr_t_shortcode_id',

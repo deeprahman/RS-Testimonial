@@ -46,14 +46,16 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
 //	Add shortcode
     public function register_shortcodes()
     {
-        add_shortcode('rs_dr_testimonial', [$this, 'rs_dr_display_testmonial_shortcode']);
+        // Retrieve the value of shortcode option form the database
+        $shortcode = get_option('rs_dr_shortcode_options')['rs_dr_t_shortcode'];
+        add_shortcode($shortcode, [$this, 'rs_dr_display_testmonial_shortcode']);
     }
 
 //    Displaying content of the shortcode
     public function rs_dr_display_testmonial_shortcode($atts)
     {
         // cache checkbox is set and transient is set
-        if (($option = get_option('rs_dr_cache_options')) && $output_short = get_transient('rs_dr_t_shorcode')) {
+        if ((isset(get_option('rs_dr_cache_options')['use_caching'])) && $output_short = get_transient('rs_dr_cache_store_shortcode')) {
             return $output_short;
         }
 
@@ -74,17 +76,19 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
         if (isset($atts['slide']) && $atts['slide'] == 1) { //If slide is set then checks for max and order attributes, and ratify the $args array accordingly
             $slide = 1;
             if (isset($atts['max'])) {
-                $args['posts_per_page'] = $atts['max'];
+                $args['posts_per_page'] = intval($atts['max']);
             }
             if (isset($atts['odr'])) {
                 $args['order'] = $atts['odr'];
             }
         } elseif (isset($atts['id'])) { //If id of the testimonial is set, ratify the $args array accordingly
             $args['p'] = $atts['id'];
-        } elseif (isset($atts['rand'])) { // If rand(for showing a random testimonial) is set, ratify the $args array accordingly
+        } elseif (isset($atts['rand'])) { // If rand(for showing a random testimonial) is set, ratify the $args array accordingly; rand = 'rand'
             $args['orderby'] = 'rand';
             $args['posts_per_page'] = 1;
 
+        } elseif (isset($atts['odr'])) {//When odr='ASC' or odr='DESC'
+            $args['order'] = $atts['odr'];
         }
 
         $testimonial = new WP_Query($args);
@@ -122,6 +126,7 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
 
                 $permalink = get_the_permalink();
 
+
                 $output .= <<<EOL
                 <div>
                 <img id="image" src="{$wpblog_fetrdimg}" alt="image">
@@ -145,10 +150,10 @@ EOL;
 EOL;
             }
             // Check if cache option is set
-
-            if ($option = get_option('rs_dr_cache_options')) {
+            $option = get_option('rs_dr_cache_options');
+            if (isset($option['use_caching'])) {
                 // Set Transients
-                set_transient('rs_dr_t_shorcode', $output);
+                set_transient('rs_dr_cache_store_shortcode', $output, $option['cache_time']);
             }
             return $output;
         }else{

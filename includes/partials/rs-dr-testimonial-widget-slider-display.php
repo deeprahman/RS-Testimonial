@@ -45,8 +45,10 @@ EOL;
         {//Begin Display Testimonial image section
             //Fetch the value of image indicator from database
             $img_ind = get_option('rs_dr_image_options');
-            if (($gravatar = get_avatar($client_email)) && isset($img_ind['use_gravaters']) && empty($wpblog_fetrdimg)) { //If email address has a gravatar, and no image uploaded
-                $image_testimonial = $gravatar;
+            if (($gravatar = get_avatar_url($client_email)) && isset($img_ind['use_gravaters']) && empty($wpblog_fetrdimg)) { //If email address has a gravatar, and no image uploaded
+                $image_testimonial = <<<EOL
+<img id="image" src="{$gravatar}" alt="image-fall">
+EOL;
             } else { //No gravater found block
                 if (isset($img_ind['show_testimonial_image'])) {
                     //No image uploaded
@@ -81,7 +83,8 @@ EOL;
 
         $output = $output . $image_testimonial;
         $output .= <<<EOL
-                
+     <div class="rs-dr-container">
+     
     <p id="rs-dr-title">{$title}</p>
     <p id="rs-dr-content" class="custom-css-excerpt">{$excerpt}<span><a href="{$permalink}"> &nbsp;Read More...</a></p>
     <span class="rs-dr-ci">Client's Name: {$client_name}</span>
@@ -90,6 +93,7 @@ EOL;
     <span class="rs-dr-ci">Client's Location: {$client_location}</span>
     <span class="rs-dr-ci">Rating: {$client_rating}</span>
     <span class="rs-dr-ci">Date: {$date}</span>
+</div>           
 EOL;
         if (isset($options['output_review_markup'])) { // JSON-LD option is on
             $output .= <<<JSON

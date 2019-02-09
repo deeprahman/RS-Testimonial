@@ -40,8 +40,6 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
      */
     private $version;
 
-
-
     /**
      * Registers Menu page
      *
@@ -93,6 +91,15 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
             [&$this, 'rs_dr_display_themes_settings_page']
         );
 
+        add_submenu_page(
+            'rs-dr-testimonial-basic-settings-page',
+            'Shortcode Generation',
+            'Shortcode',
+            'manage_options',
+            'rs-dr-testimonial-shortcode-generation-page',
+            [&$this, 'rs_dr_t_display_shortcode_generation_page']
+        );
+
     }
 
     /**
@@ -134,5 +141,22 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
     {
         require_once plugin_dir_path(__FILE__) . 'partials/rs_dr_display_themes_settings_page.php';
     }
+
+    /**
+     * Display Shortcode generation page
+     *
+     * @since   1.0.0
+     */
+    public function rs_dr_t_display_shortcode_generation_page()
+    {
+
+
+        require_once plugin_dir_path(__FILE__) . 'partials/rs_dr_display_shortcode_generation_page.php';
+
+        wp_reset_postdata();
+    }
+
+
+
 
 }

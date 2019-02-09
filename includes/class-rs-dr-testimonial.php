@@ -123,6 +123,7 @@ class Rs_Dr_Testimonial
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-basic-settings.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-display-settings.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-advanced-settings.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-shortcode-generation.php';
 
         /**
          * The class responsible for defining all actions that occur in the public-facing
@@ -185,10 +186,16 @@ class Rs_Dr_Testimonial
         $plugin_display_settings = new Rs_Dr_Testimonial_Display_Settings($this->get_plugin_name(), $this->get_version());
 //        Instance of advanced settings class
         $plugin_advanced_settings = new Rs_Dr_Testimonial_Advanced_Settings($this->get_plugin_name(), $this->get_version());
+//        Instance of Shortcode Generation class
+        $plugin_shortcode_gen = new Rs_Dr_Testimonial_Shortcode_Generation($this->get_plugin_name(), $this->get_version());
 
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
-
+        /**
+         * AJAX HOOKS
+         */
+//        AJAX call for shortcode generation(hook wp_ajax + action value in js data object)
+        $this->loader->add_action('wp_ajax_rs_dr_t_shortcode_gen', $plugin_shortcode_gen, 'handle_ajax_request');
 
 //		hook for custom post type: Testimonials
         $this->loader->add_action('init', $plugin_admin, 'rs_dr_create_testimonial_post_type');
@@ -217,6 +224,9 @@ class Rs_Dr_Testimonial
         $this->loader->add_action('admin_init', $plugin_advanced_settings, 'register_advanced_settings');
         $this->loader->add_action('admin_menu', $plugin_advanced_settings, 'create_shortcode_section');
         $this->loader->add_action('admin_menu', $plugin_advanced_settings, 'create_shortcode_field');
+//        Plugin's shortcode generation options
+        $this->loader->add_action('admin_enqueue_scripts', $plugin_shortcode_gen, 'enqueue_scripts_shortcode_gen_page');
+        $this->loader->add_action('admin_enqueue_scripts', $plugin_shortcode_gen, 'enqueue_styles_shortcode_gen_page');
     }
 
     /**
