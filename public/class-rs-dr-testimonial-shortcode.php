@@ -72,24 +72,53 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
          * To show the lists of the testimonial: [rs_dr_testimonial]
          */
 
-
-        if (isset($atts['slide']) && $atts['slide'] == 1) { //If slide is set then checks for max and order attributes, and ratify the $args array accordingly
-            $slide = 1;
-            if (isset($atts['max'])) {
-                $args['posts_per_page'] = intval($atts['max']);
+        //Three types of Testimonial display: i)rand ii)cycle and iii) single
+        if (isset($atts['type'])) {
+            switch ($atts['type']) {
+                //When type is rand
+                case 'rand':
+                    {
+                        $args['orderby'] = $atts['type'];
+                        $args['posts_per_page'] = 1;
+                        break;
+                    }
+                case 'cycle':
+                    {
+                        $slide = 1;
+                        $args['posts_per_page'] = intval($atts['count']);
+                        break;
+                    }
+                case 'single':
+                    {
+                        $args['p'] = $atts['id'];
+                        $args['posts_per_page'] = 1;
+                        break;
+                    }
             }
-            if (isset($atts['odr'])) {
+        } else {
+
+            if (isset($atts['slide']) && $atts['slide'] == 1) { //If slide is set then checks for max and order attributes, and ratify the $args array accordingly
+                $slide = 1;
+                if (isset($atts['max'])) {
+                    $args['posts_per_page'] = intval($atts['max']);
+                }
+                if (isset($atts['odr'])) {
+                    $args['order'] = $atts['odr'];
+                }
+            } elseif (isset($atts['id'])) { //If id of the testimonial is set, ratify the $args array accordingly
+                $args['p'] = $atts['id'];
+            } elseif (isset($atts['rand'])) { // If rand(for showing a random testimonial) is set, ratify the $args array accordingly; rand = 'rand'
+                $args['orderby'] = 'rand';
+                $args['posts_per_page'] = 1;
+
+            } elseif (isset($atts['odr'])) {//When odr='ASC' or odr='DESC'
                 $args['order'] = $atts['odr'];
             }
-        } elseif (isset($atts['id'])) { //If id of the testimonial is set, ratify the $args array accordingly
-            $args['p'] = $atts['id'];
-        } elseif (isset($atts['rand'])) { // If rand(for showing a random testimonial) is set, ratify the $args array accordingly; rand = 'rand'
-            $args['orderby'] = 'rand';
-            $args['posts_per_page'] = 1;
-
-        } elseif (isset($atts['odr'])) {//When odr='ASC' or odr='DESC'
-            $args['order'] = $atts['odr'];
         }
+
+
+
+
 
         $testimonial = new WP_Query($args);
 
@@ -127,17 +156,23 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
                 $permalink = get_the_permalink();
 
 
+                $output .= "<div>";
+                if (isset($atts['image'])) {
+                    $output .= "<img id=\"image\" src=\"{$wpblog_fetrdimg}\" alt=\"image\">";
+                }
+                if (isset($atts['title'])) {
+                    $output .= "<p id=\"rs-dr-title\">{$title}</p>";
+                }
+                if (isset($atts['excerpt'])) {
+                    $output .= "<p id=\"rs-dr-content\" class=\"custom-css-excerpt\">{$excerpt}<span><a href=\"{$permalink}\"> &nbsp;Read More...</a></p>";
+                }
                 $output .= <<<EOL
-                <div>
-                <img id="image" src="{$wpblog_fetrdimg}" alt="image">
-    <p id="rs-dr-title">{$title}</p>
-    <p id="rs-dr-content" class="custom-css-excerpt">{$excerpt}<span><a href="{$permalink}"> &nbsp;Read More...</a></p>
-    <span class="rs-dr-ci">Client's Name: {$client_name}</span>
-    <span class="rs-dr-ci">Client's Email: {$client_email}</span>
-    <span class="rs-dr-ci">Client's Position: {$client_position}</span>
-    <span class="rs-dr-ci">Client's Location: {$client_location}</span>
-    <span class="rs-dr-ci">Rating: {$client_rating}</span>
-</div>
+<span class="rs-dr-ci">Client's Name: {$client_name}</span>
+<span class="rs-dr-ci">Client's Email: {$client_email}</span>
+<span class="rs-dr-ci">Client's Position: {$client_position}</span>
+<span class="rs-dr-ci">Client's Location: {$client_location}</span>
+<span class="rs-dr-ci">Rating: {$client_rating}</span>
+//</div>
 EOL;
 
             }
