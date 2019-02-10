@@ -111,7 +111,7 @@ class Rs_Dr_Testimonial_Advanced_Settings extends Rs_Dr_Testimonial_Settings
      * @param array $data
      * @since   1.0.0
      */
-    public function display_text_field(array $data = []): void
+    public function display_text_field(array $data = [])
     {
         extract($data);
         if (isset($name) && isset($id) && isset($type)) {

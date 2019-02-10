@@ -143,6 +143,11 @@ class Rs_Dr_Testimonial
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-rs-dr-testimonial-widget-cache.php';
 
+        /**
+         * The class responsible for changing themes
+         */
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-themes-settings.php';
+
 
         $this->loader = new Rs_Dr_Testimonial_Loader();
 
@@ -188,9 +193,15 @@ class Rs_Dr_Testimonial
         $plugin_advanced_settings = new Rs_Dr_Testimonial_Advanced_Settings($this->get_plugin_name(), $this->get_version());
 //        Instance of Shortcode Generation class
         $plugin_shortcode_gen = new Rs_Dr_Testimonial_Shortcode_Generation($this->get_plugin_name(), $this->get_version());
+//        Instance of the Theme Settings class
+        $plugin_theme_settings = new Rs_Dr_Testimonial_Themes_Settings($this->get_plugin_name(), $this->get_version());
+
+
+        /*==============================================================*/
 
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
+
         /**
          * AJAX HOOKS
          */
@@ -227,6 +238,9 @@ class Rs_Dr_Testimonial
 //        Plugin's shortcode generation options
         $this->loader->add_action('admin_enqueue_scripts', $plugin_shortcode_gen, 'enqueue_scripts_shortcode_gen_page');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_shortcode_gen, 'enqueue_styles_shortcode_gen_page');
+//        Plugin's Theme Settings
+        $this->loader->add_action('admin_enqueue_scripts', $plugin_theme_settings, 'enqueue_theme_styles_scripts');
+        $this->loader->add_action('admin_post_save_theme_option', $plugin_theme_settings, 'theme_save');
     }
 
     /**
@@ -257,6 +271,8 @@ class Rs_Dr_Testimonial
 
         //Printing Image-Size css in the head element of the public facing pages
         $this->loader->add_action('wp_head', $plugin_public, 'image_display_css');
+//        Print Theme css in the head element of the public facing face
+        $this->loader->add_action('wp_head', $plugin_public, 'theme_change_css');
     }
 
     /**

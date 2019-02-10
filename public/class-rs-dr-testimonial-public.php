@@ -45,9 +45,7 @@ class Rs_Dr_Testimonial_Public
     {
 
 
-
-
-        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/rs-dr-testimonial-public.css', array(), $this->version, 'all');
+        wp_enqueue_style($this->plugin_name, PLUGIN_URL . 'includes/css/rs-dr-testimonial-public.css', array(), $this->version, 'all');
 
         wp_enqueue_style('easy-slide', plugin_dir_url(__FILE__) . 'css/jquery.easy_slides.css', array(), $this->version, 'all');
 
@@ -148,5 +146,63 @@ EOL;
                 }
         }
         print $html;
+    }
+
+    /**
+     * Theme change css
+     *
+     * @since   1.0.0
+     */
+    public function theme_change_css()
+    {
+
+        // Get the theme options form the database
+        $options = get_option('rs_dr_theme_options');
+        $value = intval(isset($options['theme_value']) ? $options['theme_value'] : 1);
+        switch ($value) {
+            case 1:
+                {
+                    $style = <<<EOL
+
+EOL;
+                    break;
+                }
+            case 2:
+                {
+                    $style = <<<EOL
+<style>
+    .rs-dr-container{
+                background:#555653;
+                color:silver;
+            }
+</style>
+EOL;
+                    break;
+                }
+            case 3:
+                {
+                    $style = <<<EOL
+<style>
+    .rs-dr-container{
+                background:#ebede6;
+                color: #161616
+            }
+</style>
+EOL;
+                    break;
+                }
+            default:
+                {
+                    $style = <<<EOL
+<style>
+    .rs-dr-container{
+                border: none;
+            }
+</style>
+EOL;
+                    break;
+                }
+        }
+        print($style);
     }
 }

@@ -61,6 +61,10 @@ class Rs_Dr_Testimonial_Activator {
             require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-advanced-settings.php';
             add_option('rs_dr_shortcode_options', Rs_Dr_Testimonial_Advanced_Settings::$default_shortcode_setting);
         }
+        if (false === get_option('rs_dr_theme_options')) {
+
+            add_option('rs_dr_theme_options', Rs_Dr_Testimonial_Themes_Settings::$default_theme_value);
+        }
     }
 
 }

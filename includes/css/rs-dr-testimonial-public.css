@@ -3,11 +3,12 @@
  * included in this file.
  */
 /*CSS for Displaying Testimonial list*/
+
 .rs-dr-container{
     /*margin:auto;*/
-    width: 100%;
+    /*width: 100%;*/
     padding: 8px;
-    background-color: #f5f2d6;
+
     border:solid gray 1px;
     border-radius: 10px;
     margin: auto;

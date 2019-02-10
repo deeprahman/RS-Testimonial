@@ -156,7 +156,7 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
                 $permalink = get_the_permalink();
 
 
-                $output .= "<div>";
+                $output .= "<div class='rs-dr-container'>";
                 if (isset($atts['image'])) {
                     $output .= "<img id=\"image\" src=\"{$wpblog_fetrdimg}\" alt=\"image\">";
                 }
