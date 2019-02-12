@@ -40,6 +40,11 @@ define( 'PLUGIN_NAME_VERSION', '1.0.0' );
  * Define Plugin url
  */
 define('PLUGIN_URL', plugin_dir_url(__FILE__));
+
+/**
+ * Define plugin directory
+ */
+define('RS_DR_TEST_DIR', plugin_dir_path(__FILE__));
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-rs-dr-testimonial-activator.php

@@ -76,7 +76,7 @@ class Rs_Dr_Testimonial_Shortcode_Generation extends Rs_Dr_Testimonial_Settings
      */
     public function enqueue_styles_shortcode_gen_page()
     {
-        // Get the Loaded JavaScript Information Object
+        // Get the Loaded JavaScript files Information Object
         $wp_scripts = wp_scripts();
         // Load the jquery-ui-theme-smoothness css
         wp_enqueue_style(

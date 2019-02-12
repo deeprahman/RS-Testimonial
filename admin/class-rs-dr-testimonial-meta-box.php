@@ -207,6 +207,10 @@ class Rs_Dr_Testimonial_Meta_Box
         );
     }
 
+    /**
+     * Displays the meta-box
+     * @param $post
+     */
     public function rs_dr_display_client_information_meta_box($post){
 
         require_once plugin_dir_path( __FILE__ ) . 'partials/rs_dr_display_client_information_meta_box.php';

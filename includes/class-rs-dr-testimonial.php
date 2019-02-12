@@ -27,6 +27,9 @@
  * @subpackage Rs_Dr_Testimonial/includes
  * @author     Deep Rahman <dp.rahman@gmail.com>
  */
+
+use admin\mics\Rs_Dr_Testimonial_Post_Management_Columns;
+
 class Rs_Dr_Testimonial
 {
 
@@ -81,7 +84,7 @@ class Rs_Dr_Testimonial
         $this->define_admin_hooks();
         $this->define_public_hooks();
         $this->define_widget_hooks();
-
+        $this->define_post_manage_hooks();
     }
 
     /**
@@ -147,7 +150,10 @@ class Rs_Dr_Testimonial
          * The class responsible for changing themes
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-themes-settings.php';
-
+        /**
+         * The class responsible for managing columns in post list
+         */
+        require_once RS_DR_TEST_DIR . '/admin/mics/class-rs-dr-testimonial-post-management-columns.php';
 
         $this->loader = new Rs_Dr_Testimonial_Loader();
 
@@ -285,6 +291,23 @@ class Rs_Dr_Testimonial
     {
 
         $this->loader->add_action('widgets_init', $this, 'widgets_init');
+
+    }
+
+    /**
+     * Register all the hooks for Post Management Screen
+     * @since   1.0.0
+     * @access  private
+     */
+    private function define_post_manage_hooks()
+    {
+        $plugin_post_manage = new Rs_Dr_Testimonial_Post_Management_Columns($this->get_plugin_name(), $this->get_version(), 'rs_dr_testimonial');
+        // Display the manage post table head
+        $this->loader->add_filter("manage_{$plugin_post_manage->post_type}_posts_columns", $plugin_post_manage, 'add_columns');
+        // Display each row
+        $this->loader->add_action('manage_posts_custom_column', $plugin_post_manage, 'populate_column', 10, 2);
+        // Make column sortable
+        $this->loader->add_filter("manage_edit-{$plugin_post_manage->post_type}_sortable_columns", $plugin_post_manage, 'sortable_columns');
 
     }
 
