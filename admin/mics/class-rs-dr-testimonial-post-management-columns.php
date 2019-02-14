@@ -137,10 +137,8 @@ EOL;
                     the_author();
                     break;
                 }
-
         }
     }
-
     /**
      * Makes columns sortable
      *

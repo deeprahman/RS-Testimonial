@@ -30,6 +30,7 @@
 
 use admin\mics\Rs_Dr_Testimonial_Post_Management_Columns;
 
+
 class Rs_Dr_Testimonial
 {
 
@@ -85,6 +86,7 @@ class Rs_Dr_Testimonial
         $this->define_public_hooks();
         $this->define_widget_hooks();
         $this->define_post_manage_hooks();
+        $this->define_form_shortcode_hooks();
     }
 
     /**
@@ -154,6 +156,17 @@ class Rs_Dr_Testimonial
          * The class responsible for managing columns in post list
          */
         require_once RS_DR_TEST_DIR . '/admin/mics/class-rs-dr-testimonial-post-management-columns.php';
+
+        /**
+         * The class responsible for displaying form in the front-end
+         */
+        require_once RS_DR_TEST_DIR . 'public/class-rs-dr-testimonial-shortcode-form.php';
+
+        /**
+         * The class containing various sanitation methods
+         */
+        require_once RS_DR_TEST_DIR . "includes/class-rs-dr-testimonial-sanitation.php";
+
 
         $this->loader = new Rs_Dr_Testimonial_Loader();
 
@@ -309,6 +322,22 @@ class Rs_Dr_Testimonial
         // Make column sortable
         $this->loader->add_filter("manage_edit-{$plugin_post_manage->post_type}_sortable_columns", $plugin_post_manage, 'sortable_columns');
 
+    }
+
+    /**
+     * Register all the hooks for printing form in the front-end
+     *
+     * @since    1.0.0
+     * @access   private
+     */
+    private function define_form_shortcode_hooks()
+    {
+        $plugin_form_shortcode = new Rs_Dr_Testimonial_Shortcode_Form($this->get_plugin_name(), $this->get_version());
+
+        // register a shortcode
+        $this->loader->add_action('init', $plugin_form_shortcode, 'reg_form_shortcode');
+        // Trigger a function when form is submitted
+        $this->loader->add_action('admin_post_contact_form', $plugin_form_shortcode, 'form_submission');
     }
 
     /**
