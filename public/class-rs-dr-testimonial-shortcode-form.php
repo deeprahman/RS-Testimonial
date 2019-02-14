@@ -63,14 +63,10 @@ class Rs_Dr_Testimonial_Shortcode_Form extends Rs_Dr_Testimonial_Public
             return "You need to be logged in to submit a form!";
         }
         ob_start();
-        if ($_GET['message'] === '1') {
-            echo "<strong style='color: green'>Testimonial created and waiting for moderation!</strong>";
-        } elseif ($_GET['message'] === '2') {
-            echo "<strong style='color: red'>Something Wrong!</strong>";
-        } elseif ($_GET['message'] === '3') {
-            echo "<strong style='color: red;'>reCapcha Validation Failed!</strong>";
-        } else {
-            echo "<strong>Submit Testimonial</strong>";
+        if (isset($_GET)) {
+            foreach ($_GET as $value) {
+                echo "<strong>$value</strong><br>";
+            }
         }
         // Include the HTML form
         require_once RS_DR_TEST_DIR . "public/partials/rs-dr-testimonial-form.php";
@@ -111,7 +107,7 @@ class Rs_Dr_Testimonial_Shortcode_Form extends Rs_Dr_Testimonial_Public
 
         $msg_array['message'] = 4;
         // Check if the recaptcha is pressed and then check for recaptcha
-        if (isset($_POST['g-recaptcha-response'])) {
+        if (isset($_POST['g-recaptcha-response'])) { // isset($_POST['g-recaptcha-response'])
             //Get the reCaptcha response key
             $response_key = $_POST['g-recaptcha-response'];
             // The recaptcha secret key
@@ -124,8 +120,9 @@ class Rs_Dr_Testimonial_Shortcode_Form extends Rs_Dr_Testimonial_Public
             $recap_status = file_get_contents($url);
             // Decode the JSON data
             $recap_status = json_decode($recap_status);
-            if (false) { // reCaptcha is temporarily shutdown  $recap_status->success
-                $msg_array['message'] = 3;
+
+            if (!$recap_status->success) { // reCaptcha is temporarily shutdown  $recap_status->success
+                $msg_array['message'] = "reCaptcha Problem";
             } else {
                 if (isset($_POST['form_nonce']) && wp_verify_nonce($_POST['form_nonce'], 'rs_dr_t_from')) {
                     //Validation of the form
@@ -141,29 +138,36 @@ class Rs_Dr_Testimonial_Shortcode_Form extends Rs_Dr_Testimonial_Public
                     $usr_data['test_cat'] = intval($_POST['test_cat']);
                     $usr_data['title'] = $sanitize->validate_text_field($_POST['title']);
                     $usr_data['testi_content'] = $sanitize->validate_textarea($_POST['testi_content']);
+                    $usr_data['file'] = $sanitize->validate_file($_FILES['client_pic'], 200000);
 
+                    if (!empty($sanitize->validation_error)) {
+                        $msg_array = $sanitize->validation_error;
+                    } else {
 
-                    if ((!in_array(false, $usr_data))) {
-                        $testimonial_post_data = [
-                            'post_title' => $usr_data['title'],
-                            'post_content' => $usr_data['testi_content'],
-                            'post_status' => 'pending',
-                            'post_author' => $current_user->ID,
-                            'post_type' => 'rs_dr_testimonial'
-                        ];
-                        if ($post_id = wp_insert_post($testimonial_post_data)) {
-                            // Post meta update
-                            update_post_meta($post_id, 'rs_dr_testimonial_client_name', $client_name);
-                            update_post_meta($post_id, 'rs_dr_testimonial_email', $client_email);
-                            update_post_meta($post_id, 'rs_dr_testimonial_position', $web_address);
-                            update_post_meta($post_id, 'rs_dr_testimonial_location', $product_review);
-                            $this->handle_inage_upload('client_pic', $post_id);
-                            wp_set_object_terms($post_id, $testimonial_category, 'rs_dr_testimonial_type');
-                            $msg_array = ['message' => '1'];
-                        } else {
-                            $msg_array = ['message' => '2'];
+                        if ((!in_array(false, $usr_data))) {
+                            $testimonial_post_data = [
+                                'post_title' => $usr_data['title'],
+                                'post_content' => $usr_data['testi_content'],
+                                'post_status' => 'pending',
+                                'post_author' => $current_user->ID,
+                                'post_type' => 'rs_dr_testimonial'
+                            ];
+                            // Insert the data to a new post
+                            if ($post_id = wp_insert_post($testimonial_post_data)) {
+                                // Post meta update
+                                update_post_meta($post_id, 'rs_dr_testimonial_client_name', $usr_data['client_name']);
+                                update_post_meta($post_id, 'rs_dr_testimonial_email', $usr_data['client_email']);
+                                update_post_meta($post_id, 'rs_dr_testimonial_position', $usr_data['web_address']);
+                                update_post_meta($post_id, 'rs_dr_testimonial_location', $usr_data['product_review']);
+                                $this->handle_inage_upload('client_pic', $post_id);
+                                wp_set_object_terms($post_id, $usr_data['test_cat'], 'rs_dr_testimonial_type');
+                                $msg_array['message'] = "Submitted";
+                            } else {
+                                $msg_array['message'] = "Not Submitted";
+                            }
                         }
                     }
+
                 }
             }
         }

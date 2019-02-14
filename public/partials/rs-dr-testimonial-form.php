@@ -14,7 +14,7 @@
     <div>
 
         <label for="rs-dr-email">Your Email Address</label><br><br>
-        <input type="email" id="rs-dr-email" name="client_email">
+        <input type="text" id="rs-dr-email" name="client_email">
     </div>
     <div>
         <label for="rs-dr-review">Product Review</label><br>
@@ -22,7 +22,7 @@
     </div>
     <div>
         <label for="rs-dr-webaddress">Web Address</label><br>
-        <input type="url" name="client_web_address">
+        <input type="text" name="client_web_address">
     </div>
     <div>
         <label>Product Rating<br>

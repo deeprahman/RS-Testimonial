@@ -88,10 +88,11 @@ class Rs_Dr_Testimonial_Sanitation
      * @param string $value
      * @return bool|int|string
      */
-    public function validate_radio(int $min, int $max, string $value)
+    public function validate_radio(int $min, int $max, $value)
     {
+
         $value = intval($value);
-        if (($value <= $min) && ($value >= $max)) {
+        if (($value < $min) && ($value > $max)) {
             $this->error_msg('radio', 'Rating value is not properly entered');
             return false;
         }
@@ -117,7 +118,7 @@ class Rs_Dr_Testimonial_Sanitation
     public function validate_file(array $file, int $size): bool
     {
         $out = false;
-        $this->error_msg('file_size', "Maximum Filesize should not be more than $size byte");
+
         //check the file size
         $file_size = filesize($file['tmp_name']);
         $type = mime_content_type($file['tmp_name']);
@@ -126,6 +127,7 @@ class Rs_Dr_Testimonial_Sanitation
         if ($file_size >= $size) {
             $this->error_msg('file_size', "Maximum Filesize should not be more than $size byte");
             $out = false;
+            return $out;
         }
         if (!in_array($type, $allowed)) {
             $this->error_msg('mime_type', "MIME type does not match");
@@ -142,7 +144,7 @@ class Rs_Dr_Testimonial_Sanitation
      * @param string $value
      * @return array
      */
-    public function error_msg(string $key, string $value): array
+    public function error_msg(string $key, string $value)
     {
         $this->validation_error[$key] = $value;
     }
