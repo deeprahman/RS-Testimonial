@@ -41,14 +41,6 @@ class Rs_Dr_Testimonial_Shortcode_Form extends Rs_Dr_Testimonial_Public
      */
     private $version;
 
-    /**
-     * Responsible for holding the instance of the Sanitation class
-     *
-     * @since   1.0.0
-     * @access  public
-     * @var     object $sanitize The Sanitation instance
-     */
-    public $sanitation;
 
     /**
      * Register a shortcode
@@ -132,29 +124,29 @@ class Rs_Dr_Testimonial_Shortcode_Form extends Rs_Dr_Testimonial_Public
             $recap_status = file_get_contents($url);
             // Decode the JSON data
             $recap_status = json_decode($recap_status);
-            if (!$recap_status->success) {
+            if (false) { // reCaptcha is temporarily shutdown  $recap_status->success
                 $msg_array['message'] = 3;
             } else {
                 if (isset($_POST['form_nonce']) && wp_verify_nonce($_POST['form_nonce'], 'rs_dr_t_from')) {
-                    $client_name = sanitize_text_field($_POST['client_name']);
-                    $client_email = sanitize_email($_POST['client_email']);
-                    $web_address = esc_url_raw($_POST['client_web_address']);
-                    $product_review = sanitize_text_field($_POST['product_review']);
-                    $rating = intval($_POST['rating']);
-                    $testimonial_category = intval($_POST['test_cat']);
-                    $testimonial_title = sanitize_text_field($_POST['title']);
-                    $testimonial_content = sanitize_text_field($_POST['testi_content']);
-
                     //Validation of the form
                     // Instance of the sanitation class
-                    $this->sanitation = new Rs_Dr_Testimonial_Sanitation();
-                    $name = $this->sanitation->var;
+                    $sanitize = new Rs_Dr_Testimonial_Sanitation();
+
+                    $usr_data = array();
+                    $usr_data['client_name'] = $sanitize->validate_text_field($_POST['client_name']);
+                    $usr_data['client_email'] = $sanitize->validate_email($_POST['client_email']);
+                    $usr_data['web_address'] = $sanitize->validate_url($_POST['client_web_address']);
+                    $usr_data['product_review'] = $sanitize->validate_text_field($_POST['product_review']);
+                    $usr_data['rating'] = $sanitize->validate_radio(1, 5, $_POST['rating']);
+                    $usr_data['test_cat'] = intval($_POST['test_cat']);
+                    $usr_data['title'] = $sanitize->validate_text_field($_POST['title']);
+                    $usr_data['testi_content'] = $sanitize->validate_textarea($_POST['testi_content']);
 
 
-                    if (($testimonial_content != '') && ($testimonial_title != '')) {
+                    if ((!in_array(false, $usr_data))) {
                         $testimonial_post_data = [
-                            'post_title' => $testimonial_title,
-                            'post_content' => $testimonial_content,
+                            'post_title' => $usr_data['title'],
+                            'post_content' => $usr_data['testi_content'],
                             'post_status' => 'pending',
                             'post_author' => $current_user->ID,
                             'post_type' => 'rs_dr_testimonial'
