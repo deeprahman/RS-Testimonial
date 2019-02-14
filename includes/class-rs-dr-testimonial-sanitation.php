@@ -43,6 +43,7 @@ class Rs_Dr_Testimonial_Sanitation
         $testarea = sanitize_textarea_field($textarea);
         if ($testarea != '') {
             return $testarea;
+
         }
         return false;
     }
