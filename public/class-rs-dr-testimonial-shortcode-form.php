@@ -194,6 +194,8 @@ class Rs_Dr_Testimonial_Shortcode_Form extends Rs_Dr_Testimonial_Public
         $attachment_id = media_handle_upload($file, $post_id);
 
         update_post_meta($post_id, '_thumbmail_id', $attachment_id);
+        //Set as the image as featured image
+        set_post_thumbnail($post_id, $attachment_id);
         return $attachment_id;
     }
 }

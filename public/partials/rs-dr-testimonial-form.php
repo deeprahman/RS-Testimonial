@@ -12,7 +12,6 @@
         <input type="text" id="rs-dr-name" name="client_name">
     </div>
     <div>
-
         <label for="rs-dr-email">Your Email Address</label><br><br>
         <input type="text" id="rs-dr-email" name="client_email">
     </div>
