@@ -29,7 +29,7 @@
  */
 
 use admin\mics\Rs_Dr_Testimonial_Post_Management_Columns;
-
+use admin\Rs_Dr_Testimonial_Import_Export_Settings;
 
 class Rs_Dr_Testimonial
 {
@@ -87,6 +87,7 @@ class Rs_Dr_Testimonial
         $this->define_widget_hooks();
         $this->define_post_manage_hooks();
         $this->define_form_shortcode_hooks();
+        $this->define_import_export_hooks();
     }
 
     /**
@@ -166,7 +167,10 @@ class Rs_Dr_Testimonial
          * The class containing various sanitation methods
          */
         require_once RS_DR_TEST_DIR . "includes/class-rs-dr-testimonial-sanitation.php";
-
+        /**
+         * The file containing the class responsible for testimonial import and export to csv format
+         */
+        require_once RS_DR_TEST_DIR . "admin/class-rs-dr-testimonial-import-export-settings.php";
 
         $this->loader = new Rs_Dr_Testimonial_Loader();
 
@@ -340,6 +344,16 @@ class Rs_Dr_Testimonial
         $this->loader->add_action('admin_post_contact_form', $plugin_form_shortcode, 'form_submission');
     }
 
+    /**
+     * Register all of the hooks related to the import/export testimonial
+     *
+     * @since    1.0.0
+     * @access   private
+     */
+    private function define_import_export_hooks()
+    {
+
+    }
     /**
      * Registers widgets with WordPress
      *

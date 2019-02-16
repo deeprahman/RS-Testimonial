@@ -100,6 +100,15 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
             [&$this, 'rs_dr_t_display_shortcode_generation_page']
         );
 
+        add_submenu_page(
+            'rs-dr-testimonial-basic-settings-page',
+            'Import/Export',
+            'Import/Export Testimonial',
+            'manage_options',
+            'rs-dr-testimonial-import-export-page',
+            [&$this, 'rs_dr_t_display_import_export_page']
+        );
+
     }
 
     /**
@@ -156,7 +165,10 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
         wp_reset_postdata();
     }
 
-
+    public function rs_dr_t_display_import_export_page()
+    {
+        require_once plugin_dir_path(__FILE__) . "partials/rs-dr-display-import-export-page.php";
+    }
 
 
 }
