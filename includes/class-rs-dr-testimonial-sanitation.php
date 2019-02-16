@@ -142,10 +142,39 @@ class Rs_Dr_Testimonial_Sanitation
     /**
      * @param string $key
      * @param string $value
-     * @return array
      */
     public function error_msg(string $key, string $value)
     {
         $this->validation_error[$key] = $value;
+    }
+
+    /**
+     * @param array $file The path of the file
+     * @param int $size The maximum size of the file
+     * @param array $allowed_files An array containing the allowed mime-types
+     * @return bool
+     */
+    public function validate_file_general(array $file, int $size, array $allowed_files): bool
+    {
+
+
+        //check the file size
+        $file_size = filesize($file['tmp_name']);
+        $type = mime_content_type($file['tmp_name']);
+        $allowed = $allowed_files;
+        //Check the size of the file
+        if ($file_size >= $size) {
+            $this->error_msg('file_size', "Maximum File size should not be more than $size byte");
+            $out = false;
+            return $out;
+        } //End File size
+        if (!in_array($type, $allowed)) {
+            $this->error_msg('mime_type', "MIME type does not match");
+            $out = false;
+        } else {
+            $out = true;
+        }// End Check type
+        return $out;
+
     }
 }

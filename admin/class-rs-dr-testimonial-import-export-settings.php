@@ -12,8 +12,7 @@
 /**
  * Deals With plugin's Import/Export testimonials
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
+ * Defines the plugin name, version, and methods for import and/or export testimonial
  *
  * @package    Rs_Dr_Testimonial
  * @subpackage Rs_Dr_Testimonial/admin
@@ -21,6 +20,8 @@
  */
 
 namespace admin;
+
+use includes\Rs_Dr_Testimonial_Sanitation;
 
 class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_Box
 {
@@ -42,6 +43,9 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
      */
     private $version;
 
+    /**
+     * All testimonial posts are made available for download in CSV form mat
+     */
     public function export_to_csv()
     {
         // Check the privilege of the current user
@@ -85,4 +89,21 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
 
 
     }
+
+    public function import_to_wp()
+    {
+        if (!current_user_can('manage_options')) {
+            wp_die('Not Allowed');
+        }
+        //Check if the request came form wordpress admin part with a nonce, and submit button is clicked
+        if (check_admin_referer('import-testimonial', 'the-import-nonce')) {
+            // Instance of the sanitation class
+            $validator = new Rs_Dr_Testimonial_Sanitation();
+            //Allowed mime-type
+            $allowed = ['text/csv'];
+            //Check and store the uploaded file
+            $file = isset($_FILES['testimonials']);
+        }// End nonce and submit check block(Main block)
+    }
+
 }
