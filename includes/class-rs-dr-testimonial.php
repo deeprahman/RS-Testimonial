@@ -352,7 +352,10 @@ class Rs_Dr_Testimonial
      */
     private function define_import_export_hooks()
     {
+        $plugin_export = new Rs_Dr_Testimonial_Import_Export_Settings($this->get_plugin_name(), $this->get_version());
 
+        // Call a action for exporting CSV file
+        $this->loader->add_action('admin_post_export-testimonial', $plugin_export, 'export_to_csv');
     }
     /**
      * Registers widgets with WordPress

@@ -21,18 +21,30 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'export-tab';
         <a href="<?= $import ?>" class="nav-tab <?= $active_tab === 'import-tab' ? 'nav-tab-active' : '' ?>">Import
             Options</a>
     </h2>
-    <form action="admin-post.php" method="post">
+
         <?php switch ($active_tab): ?>
 <?php case 'export-tab': ?>
-                <br>
-                <label for="rs-dr-export"><strong>Click here to Export all testimonial post in to a CSV
-                        file</strong></label><br><br>
-                <input class="button button-primary" type="button" name="export" value="file-export">
+                <form action="admin-post.php" method="post">
+                    <!--    The hidden action field for admin_post hook suffix-->
+                    <input type="hidden" name="action" value="export-testimonial">
+                    <!--    Create a wordpress nonce for added security-->
+                    <?php wp_nonce_field('export-testimonial', 'the-export-nonce') ?>
+                    <br>
+                    <label for="rs-dr-export"><strong>Click here to Export all testimonial post in to a CSV
+                            file</strong></label><br><br>
+                    <input class="button button-primary" type="submit" name="export_btn" value="file-export">
+                </form>
                 <?php break; ?>
             <?php case 'import-tab': ?>
-                <label for="rs-dr-import"><strong>Upload a CSV file</strong></label><br>
-                <input type="file" name="testimonials"><br><br>
-                <input class="button button-primary" type="submit" name="submit" value="submit">
+                <form action="admin-post.php" method="post">
+                    <!--    The hidden action field for admin_post hook suffix-->
+                    <input type="hidden" name="action" value="import-testimonial">
+                    <!--    Create a wordpress nonce for added security-->
+                    <?php wp_nonce_field('import-testimonial', 'the-import-nonce') ?>
+                    <label for="rs-dr-import"><strong>Upload a CSV file</strong></label><br>
+                    <input type="file" name="testimonials"><br><br>
+                    <input class="button button-primary" type="submit" name="import_btn" value="submit">
+                </form>
                 <?php break; ?>
             <?php endswitch; ?>
     </form>
