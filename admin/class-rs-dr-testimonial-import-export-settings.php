@@ -179,7 +179,7 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
                 } else {
 
                     break;
-                }// End insert posts
+                }// End if:  insert posts
             }// End while
         }// End nonce and submit check block(Main block)
         $defaults = [
