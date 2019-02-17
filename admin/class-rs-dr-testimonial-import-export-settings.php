@@ -69,7 +69,7 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
                 header('Expires: 0');
                 // Create a file pointer in write mode
                 $file = fopen('php://output', 'w');
-//                fputcsv($file, array('ID','Author_ID','Date','Content','Excerpt')); For testing: we may need field headings
+//                fputcsv($file, array('ID','Author_ID','Date','Title','Content','Excerpt'));
 
                 foreach ($arr_post as $my_post) {
                     // cast wp_post object to array
@@ -77,21 +77,27 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
                     $id = $data['ID'];
                     $author_id = $data['post_author'];
                     $date = $data['post_date'];
+                    $title = $data['post_title'];
                     $content = $data['post_content'];
                     $excerpt = $data['post_excerpt'];
+                    $client_name = get_post_meta($id, 'rs_dr_testimonial_client_name', true);
+                    $email = get_post_meta($id, 'rs_dr_testimonial_email', true);
+                    $position = get_post_meta($id, 'rs_dr_testimonial_position', true);
+                    $location = get_post_meta($id, 'rs_dr_testimonial_location', true);
+                    $rating = get_post_meta($id, 'rs_dr_testimonial_rating', true);
                     //Write each post on each row
-                    $row = [$id, $author_id, $date, $content, $excerpt];
-                    fputcsv($file, $row);
+                    $row = [$id, $author_id, $date, $title, $content, $excerpt, $client_name, $email, $position, $location, $rating];
+                    fputcsv($file, $row, ',', '"', "\\");
                 }// end foreach $arr_post
             }// end $arr_post not empty block
 
         }
 
-
     }
 
     public function import_to_wp()
     {
+        $my_var = 'Deep';
         if (!current_user_can('manage_options')) {
             wp_die('Not Allowed');
         }
@@ -100,10 +106,63 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
             // Instance of the sanitation class
             $validator = new Rs_Dr_Testimonial_Sanitation();
             //Allowed mime-type
-            $allowed = ['text/csv'];
+            $allowed = ['text/plain'];
             //Check and store the uploaded file
-            $file = isset($_FILES['testimonials']);
-        }// End nonce and submit check block(Main block)
-    }
+            $file = isset($_FILES['testimonials']) ? $_FILES['testimonials'] : null;
 
-}
+            // Sanitize and validate the the input file
+            $validator->validate_file_general($file, 2000000, $allowed);
+            //Begin Validation failed block
+            if (!empty($args = $validator->validation_error) && ($file['type'] !== 'text/csv')) {
+                $defaults = [
+                    'page' => 'rs-dr-testimonial-import-export-page',
+                    'tab' => 'import-tab'
+                ];
+                $query_string = wp_parse_args($args, $defaults);
+                wp_redirect(
+                    add_query_arg(
+                        $query_string,
+                        admin_url('admin.php')
+                    )
+                );
+
+                exit();
+
+            }//End Validation Failed Block
+            //Create a file pointer in read mode
+            $handle = fopen($file['tmp_name'], 'r');
+            //Read each row at a time
+            global $current_user;
+            while ($row = fgetcsv($handle, 0, ',', '"', '\\')) {
+
+                $testimonial_post_date = [
+                    'post_title' => $row[3],
+                    'post_content' => $row[4],
+                    'post_status' => 'publish',
+                    'post_author' => $current_user->ID,
+                    'post_type' => 'rs_dr_testimonial'
+                ];
+                if ($post_id = wp_insert_post($testimonial_post_date)) {
+                    update_post_meta($post_id, 'rs_dr_testimonial_client_name', $row[6]);
+                    update_post_meta($post_id, 'rs_dr_testimonial_email', $row[7]);
+                    update_post_meta($post_id, 'rs_dr_testimonial_position', $row[8]);
+                    update_post_meta($post_id, 'rs_dr_testimonial_location', $row[9]);
+                    update_post_meta($post_id, 'rs_dr_testimonial_rating', $row[10]);
+                    $msg = 1;
+                }// End if: post insert
+            }
+        }// End nonce and submit check block(Main block)
+        $defaults = [
+            'page' => 'rs-dr-testimonial-import-export-page',
+            'tab' => 'import-tab',
+            'msg' => 1
+        ];
+        wp_redirect(
+            add_query_arg(
+                $defaults,
+                admin_url('admin.php')
+            )
+        );
+    }//End method
+
+}//End class

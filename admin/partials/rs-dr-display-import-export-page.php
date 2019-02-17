@@ -36,7 +36,20 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'export-tab';
                 </form>
                 <?php break; ?>
             <?php case 'import-tab': ?>
-                <form action="admin-post.php" method="post">
+                <div>
+                    <?php if (isset($_GET['invalid_type'])): ?>
+                        <strong style="color: red">Invalid Mime Type</strong><br><br>
+                    <?php endif; ?>
+                    <?php if (isset($_GET['size_exceed'])): ?>
+                        <strong style="color: red;">File should not exceed <?= $_GET['size_exceed'] ?> bytes</strong>
+                        <br><br>
+                    <?php endif; ?>
+
+                    <?php if (isset($_GET['msg'])): ?>
+                        <strong style="color: green;">File Successfully Imported </strong><br><br>
+                    <?php endif; ?>
+                </div>
+                <form action="admin-post.php" method="post" enctype="multipart/form-data">
                     <!--    The hidden action field for admin_post hook suffix-->
                     <input type="hidden" name="action" value="import-testimonial">
                     <!--    Create a wordpress nonce for added security-->

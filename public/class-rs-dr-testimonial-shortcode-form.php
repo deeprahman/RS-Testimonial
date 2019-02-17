@@ -159,6 +159,7 @@ class Rs_Dr_Testimonial_Shortcode_Form extends Rs_Dr_Testimonial_Public
                                 update_post_meta($post_id, 'rs_dr_testimonial_email', $usr_data['client_email']);
                                 update_post_meta($post_id, 'rs_dr_testimonial_position', $usr_data['web_address']);
                                 update_post_meta($post_id, 'rs_dr_testimonial_location', $usr_data['product_review']);
+                                update_post_meta($post_id, 'rs_dr_testimonial_rating', $usr_data['rating']);
                                 $this->handle_inage_upload('client_pic', $post_id);
                                 wp_set_object_terms($post_id, $usr_data['test_cat'], 'rs_dr_testimonial_type');
                                 $msg_array['message'] = "Submitted";
