@@ -89,7 +89,19 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
                     $row = [$id, $author_id, $date, $title, $content, $excerpt, $client_name, $email, $position, $location, $rating];
                     fputcsv($file, $row, ',', '"', "\\");
                 }// end foreach $arr_post
-            }// end $arr_post not empty block
+            } else {
+                $defaults = [
+                    'page' => 'rs-dr-testimonial-import-export-page',
+                    'tab' => 'export-tab',
+                    'msg' => 0
+                ];
+                wp_redirect(
+                    add_query_arg(
+                        $defaults,
+                        admin_url('admin.php')
+                    )
+                );
+            }
 
         }
 
@@ -103,6 +115,8 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
         if (!current_user_can('manage_options')) {
             wp_die('Not Allowed');
         }
+        // Insert post status
+        $msg = 0;
         //Check if the request came form wordpress admin part with a nonce, and submit button is clicked
         if (check_admin_referer('import-testimonial', 'the-import-nonce')) {
             // Instance of the sanitation class
@@ -137,12 +151,16 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
             global $current_user;
             //The row counter for CSV data
             $row_count = 1;
+
             while ($row = fgetcsv($handle, 0, ',', '"', '\\')) {
+                // Ignore the First row of the data
                 if ($row_count === 1) {
+                    //Increase the counter
+                    $row_count++;
                     continue;
                 }// End count check
-                //Increase the counter
-                $row_count++;
+
+
                 //Array of arguments for programmatically creating posts
                 $testimonial_post_date = [
                     'post_title' => $row[3],
@@ -158,13 +176,16 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
                     update_post_meta($post_id, 'rs_dr_testimonial_location', $row[9]);
                     update_post_meta($post_id, 'rs_dr_testimonial_rating', $row[10]);
                     $msg = 1;
-                }// End if: post insert
-            }
+                } else {
+
+                    break;
+                }// End insert posts
+            }// End while
         }// End nonce and submit check block(Main block)
         $defaults = [
             'page' => 'rs-dr-testimonial-import-export-page',
             'tab' => 'import-tab',
-            'msg' => 1
+            'msg' => $msg
         ];
         wp_redirect(
             add_query_arg(

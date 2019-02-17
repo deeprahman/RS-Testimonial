@@ -24,6 +24,9 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'export-tab';
 
         <?php switch ($active_tab): ?>
 <?php case 'export-tab': ?>
+                <?php if (isset($_GET['msg']) && $_GET['msg'] === '0'): ?>
+                    <strong style="color: orange;">No Post available </strong><br><br>
+                <?php endif; ?>
                 <form action="admin-post.php" method="post">
                     <!--    The hidden action field for admin_post hook suffix-->
                     <input type="hidden" name="action" value="export-testimonial">
@@ -45,8 +48,12 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'export-tab';
                         <br><br>
                     <?php endif; ?>
 
-                    <?php if (isset($_GET['msg'])): ?>
+                    <?php if (isset($_GET['msg']) && $_GET['msg'] === '1'): ?>
                         <strong style="color: green;">File Successfully Imported </strong><br><br>
+                    <?php endif; ?>
+
+                    <?php if (isset($_GET['msg']) && $_GET['msg'] === '0'): ?>
+                        <strong style="color: red;">File Import Unsuccessful </strong><br><br>
                     <?php endif; ?>
                 </div>
                 <form action="admin-post.php" method="post" enctype="multipart/form-data">
