@@ -69,7 +69,7 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
                 header('Expires: 0');
                 // Create a file pointer in write mode
                 $file = fopen('php://output', 'w');
-//                fputcsv($file, array('ID','Author_ID','Date','Title','Content','Excerpt'));
+                fputcsv($file, array('ID', 'Author_ID', 'Date', 'Title', 'Content', 'Excerpt', 'Client\'s Name', 'Client\'s Email', 'Client\'s Web address', 'Client\'s Location', 'Rating'));
 
                 foreach ($arr_post as $my_post) {
                     // cast wp_post object to array
@@ -95,9 +95,11 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
 
     }
 
+    /**
+     * Creates posts form uploaded CSV file
+     */
     public function import_to_wp()
     {
-        $my_var = 'Deep';
         if (!current_user_can('manage_options')) {
             wp_die('Not Allowed');
         }
@@ -133,8 +135,15 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
             $handle = fopen($file['tmp_name'], 'r');
             //Read each row at a time
             global $current_user;
+            //The row counter for CSV data
+            $row_count = 1;
             while ($row = fgetcsv($handle, 0, ',', '"', '\\')) {
-
+                if ($row_count === 1) {
+                    continue;
+                }// End count check
+                //Increase the counter
+                $row_count++;
+                //Array of arguments for programmatically creating posts
                 $testimonial_post_date = [
                     'post_title' => $row[3],
                     'post_content' => $row[4],
@@ -163,6 +172,6 @@ class Rs_Dr_Testimonial_Import_Export_Settings extends \Rs_Dr_Testimonial_Meta_B
                 admin_url('admin.php')
             )
         );
-    }//End method
+    }//End method import_to_wp
 
 }//End class
