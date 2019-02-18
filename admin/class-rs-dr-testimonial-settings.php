@@ -58,7 +58,7 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
 
         add_submenu_page(
             'rs-dr-testimonial-basic-settings-page',
-            'RS Testimonial Settings',
+            __('RS Testimonial Settings', 'rs-dr-testimonial'),
             __('Basic', 'rs-dr-testimonial'),
             'manage_options',
             'rs-dr-testimonial-basic-settings-page'
@@ -66,8 +66,8 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
 
         add_submenu_page(
             'rs-dr-testimonial-basic-settings-page',
-            'Display Settings',
-            'Display',
+            __('Display Settings', 'rs-dr-testimonial'),
+            __('Display', 'rs-dr-testimonial'),
             'manage_options',
             'rs-dr-testimonial-display-settings-page',
             [&$this, 'rs_dr_display_display_settings_page']
@@ -75,8 +75,8 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
 
         add_submenu_page(
             'rs-dr-testimonial-basic-settings-page',
-            'Advances Settings',
-            'Advanced',
+            __('Advances Settings', 'rs-dr-testimonial'),
+            __('Advanced', 'rs-dr-testimonial'),
             'manage_options',
             'rs-dr-testimonial-advanced-settings-page',
             [&$this, 'rs_dr_display_advanced_settings_page']
@@ -84,8 +84,8 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
 
         add_submenu_page(
             'rs-dr-testimonial-basic-settings-page',
-            'Themes Settings',
-            'Themes',
+            __('Themes Settings', 'rs-dr-testimonial'),
+            __('Themes', 'rs-dr-testimonial'),
             'manage_options',
             'rs-dr-testimonial-themes-settings-page',
             [&$this, 'rs_dr_display_themes_settings_page']
@@ -93,8 +93,8 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
 
         add_submenu_page(
             'rs-dr-testimonial-basic-settings-page',
-            'Shortcode Generation',
-            'Shortcode',
+            __('Shortcode Generation', 'rs-dr-testimonial'),
+            __('Shortcode', 'rs-dr-testimonial'),
             'manage_options',
             'rs-dr-testimonial-shortcode-generation-page',
             [&$this, 'rs_dr_t_display_shortcode_generation_page']
@@ -102,8 +102,8 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
 
         add_submenu_page(
             'rs-dr-testimonial-basic-settings-page',
-            'Import/Export',
-            'Import/Export Testimonial',
+            __('Import/Export', 'rs-dr-testimonial'),
+            __('Import/Export Testimonial', 'rs-dr-testimonial'),
             'manage_options',
             'rs-dr-testimonial-import-export-page',
             [&$this, 'rs_dr_t_display_import_export_page']

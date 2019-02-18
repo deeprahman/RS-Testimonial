@@ -103,14 +103,14 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
 //        Reviewed Settings
         add_settings_section(
             'rs_dr_testimonial_item_reviewed_options_section',
-            'Item Reviewed Options',
+            __('Item Reviewed Options', 'rs-dr-testimonial'),
             array($this, 'rs_dr_testimonial_item_reviewed_options_section_callback'),
             'rs-dr-testimonial-reviewed-option-page'
         );
 //        Cache Settings
         add_settings_section(
             'rs_dr_testimonial_cache_options_section',
-            'Cache Options',
+            __('Cache Options', 'rs-dr-testimonial'),
             array($this, 'rs_dr_testimonial_cache_options_section_callback'),
             'rs-dr-testimonial-cache-option-page'
         );
@@ -126,7 +126,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
 
         add_settings_field(
             'show_in_search',
-            'Show in Search',
+            __('Show in Search', 'rs-dr-testimonial'),
             array($this, 'display_checkbox_field'),
             'rs-dr-testimonial-basic-option-page',
             'rs_dr_testimonial_basic_options_section',
@@ -135,7 +135,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
 
         add_settings_field(
             'allow_html_tags',
-            'Allow Html Tags in Testimonial',
+            __('Allow Html Tags in Testimonial', 'rs-dr-testimonial'),
             array($this, 'display_checkbox_field'),
             'rs-dr-testimonial-basic-option-page',
             'rs_dr_testimonial_basic_options_section',
@@ -144,7 +144,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
 
         add_settings_field(
             'css_all_screens',
-            'Custom CSS (All Screens)',
+            __('Custom CSS (All Screens)', 'rs-dr-testimonial'),
             array($this, 'display_textarea_field'),
             'rs-dr-testimonial-basic-option-page',
             'rs_dr_testimonial_basic_options_section',
@@ -161,7 +161,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
     {
         add_settings_field(
             'output_review_markup',
-            'Output Review Markup',
+            __('Output Review Markup', 'rs-dr-testimonial'),
             array($this, 'display_checkbox_field'),
             'rs-dr-testimonial-reviewed-option-page',
             'rs_dr_testimonial_item_reviewed_options_section',
@@ -170,7 +170,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
 
         add_settings_field(
             'global_item_reviewed',
-            'Global Item Reviewed',
+            __('Global Item Reviewed', 'rs-dr-testimonial'),
             array($this, 'display_text_field'),
             'rs-dr-testimonial-reviewed-option-page',
             'rs_dr_testimonial_item_reviewed_options_section',
@@ -179,7 +179,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
 
         add_settings_field(
             'use_global_item_reviewed',
-            'Use Global Item Reviewed',
+            __('Use Global Item Reviewed', 'rs-dr-testimonial'),
             array($this, 'display_checkbox_field'),
             'rs-dr-testimonial-reviewed-option-page',
             'rs_dr_testimonial_item_reviewed_options_section',
@@ -205,7 +205,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
 
         add_settings_field(
             'use_caching',
-            'Use Caching',
+            __('Use Caching', 'rs-dr-testimonial'),
             array($this, 'display_checkbox_field'),
             'rs-dr-testimonial-cache-option-page',
             'rs_dr_testimonial_cache_options_section',
@@ -214,7 +214,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
 
         add_settings_field(
             'flush_caching',
-            'Flush Caching',
+            __('Flush Caching', 'rs-dr-testimonial'),
             array($this, 'display_button'),
             'rs-dr-testimonial-cache-option-page',
             'rs_dr_testimonial_cache_options_section',
@@ -306,7 +306,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
 EOL;
             echo $html;
         } else {
-            echo "Something wrong in the text field";
+            echo __("Something wrong in the text field", 'rs-dr-testimonial');
         }
 
 
