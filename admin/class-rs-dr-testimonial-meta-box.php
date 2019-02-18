@@ -44,9 +44,9 @@ class Rs_Dr_Testimonial_Meta_Box
     /**
      * @var array $args The arguments for registering custom post type: rs_dr_testimonial
      */
-	private $args = [
-        'labels' => [
-            'name' => 'Testimonials',
+    private $args = array(
+        'labels' => array(
+            'name' => "Testimonials",
             'singular_name' => 'Testimonial',
             'add_new' => 'Add New Testimonial',
             'add_new_item' => 'Add New Testimonial',
@@ -59,7 +59,7 @@ class Rs_Dr_Testimonial_Meta_Box
             'not_found' => 'No Testimonial Found',
             'not_found_in_trash' => 'No Testimonials Found in Trash',
             'parent' => 'Parent Testimonial'
-        ],
+        ),
 //        'public' => true,
         'menu_position' => 20,
         'supports' => [
@@ -75,7 +75,7 @@ class Rs_Dr_Testimonial_Meta_Box
         'taxonomies' => [],
         'menu_icon' => 'dashicons-format-quote',
         'has_archive' => true
-    ];
+    );
 
     /**
      * Argument array for the register_taxonomy function.

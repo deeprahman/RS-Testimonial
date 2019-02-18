@@ -96,7 +96,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
 //        Basic Settings
         add_settings_section(
             'rs_dr_testimonial_basic_options_section',
-            'Basic Options',
+            __('Basic Options', 'rs-dr-testimonial'),
             array($this, 'rs_dr_testimonial_basic_options_section_callback'),
             'rs-dr-testimonial-basic-option-page'
         );
@@ -196,7 +196,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
     {
         add_settings_field(
             'cache_time',
-            'Cache Time',
+            __('Cache Time', 'rs-dr-testimonial'),
             array($this, 'display_text_field'),
             'rs-dr-testimonial-cache-option-page',
             'rs_dr_testimonial_cache_options_section',

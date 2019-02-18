@@ -34,11 +34,16 @@ class Rs_Dr_Testimonial_i18n {
 	 */
 	public function load_plugin_textdomain() {
 
+
 		load_plugin_textdomain(
 			'rs-dr-testimonial',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
+        load_theme_textdomain(
+            'rs-dr-testimonial',
+            dirname(dirname(plugin_basename(__FILE__))) . '/languages'
+        );
 
 	}
 

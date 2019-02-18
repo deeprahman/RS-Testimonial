@@ -8,7 +8,7 @@
     <input type="hidden" name="action" value="contact_form">
     <?php wp_nonce_field('rs_dr_t_from', 'form_nonce') ?>
     <div>
-        <label for="rs-dr-name"><?php esc_html_e('Your Full Name', 'rs-dr-testimonial') ?></label><br>
+        <label for="rs-dr-name"><?= __('Your Full Name', 'rs-dr-testimonial') ?></label><br>
         <input type="text" id="rs-dr-name" name="client_name">
     </div>
     <div>
@@ -46,11 +46,11 @@
         <input type="file" name="client_pic"><br><br>
     </div>
     <div>
-        <label for="rs-dr-title"><?= esc_html_x('Title', 'Title of the Testimonial', 'rs-dr-testimonial') ?></label><br>
+        <label for="rs-dr-title"><?= esc_html__('Title', 'rs-dr-testimonial') ?></label><br>
         <input type="text" id="rs-dr-title" name="title">
     </div>
     <div>
-        <label for="rs-dr-testimonial"><?= esc_html_x('Testimonial', 'The content of the testimonial', 'rs-dr-testimonial') ?></label>
+        <label for="rs-dr-testimonial"><?= esc_html__('Testimonial', 'rs-dr-testimonial') ?></label>
         <textarea name="testi_content" id="rs-dr-testimonial" cols="30" rows="10"></textarea>
     </div>
     <br>

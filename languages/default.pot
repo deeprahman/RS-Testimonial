@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: RS Testimonial\n"
-"POT-Creation-Date: 2019-02-18 13:07+0600\n"
-"PO-Revision-Date: 2019-02-18 13:10+0600\n"
+"Project-Id-Version: rs-dr-testimonial\n"
+"POT-Creation-Date: 2019-02-18 18:54+0600\n"
+"PO-Revision-Date: 2019-02-18 18:56+0600\n"
 "Last-Translator: \n"
 "Language-Team: RS Software\n"
 "Language: en_US\n"
@@ -12,9 +12,20 @@ msgstr ""
 "X-Generator: Poedit 2.2.1\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-KeywordsList: __;_e;_x;esc_html__;esc_html_e;esc_html_x;esc_attr__;"
-"esc_attr_e;esc_attr_x\n"
+"X-Poedit-KeywordsList: __;esc_html_e;esc_html_x;esc_html__\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:99
+msgid "Basic Options"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:199
+msgid "Cache Time"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-settings.php:62
+msgid "Basic"
+msgstr ""
 
 #: includes/class-rs-dr-testimonial-widget-slider.php:42
 msgid "RS Testimonial Cycle"
@@ -74,8 +85,4 @@ msgstr ""
 
 #: public/partials/rs-dr-testimonial-form.php:53
 msgid "Testimonial"
-msgstr ""
-
-#: public/partials/rs-dr-testimonial-form.php:60
-msgid "Submit Testimonial"
 msgstr ""

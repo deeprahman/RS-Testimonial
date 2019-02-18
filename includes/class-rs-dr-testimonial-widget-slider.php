@@ -41,7 +41,7 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
 
         $name 					= esc_html__( 'RS Testimonial Cycle', 'rs-dr-testimonial' );
         $opts['classname'] 		= 'rs-dr-testimonial-html-class';
-        $opts['description'] 	= esc_html__( 'Display Testimonial Slide-show', 'now-hiring' );
+        $opts['description'] = esc_html__('Display Testimonial Slide-show', 'rs-dr-testimonial');
         $control				= array( 'width' => '', 'height' => '' );
 
         parent::__construct( false, $name, $opts, $control );

@@ -1,20 +1,31 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: RS Testimonial\n"
-"POT-Creation-Date: 2019-02-18 13:07+0600\n"
-"PO-Revision-Date: 2019-02-18 13:10+0600\n"
-"Last-Translator: \n"
+"Project-Id-Version: rs-dr-testimonial\n"
+"POT-Creation-Date: 2019-02-18 18:54+0600\n"
+"PO-Revision-Date: 2019-02-18 19:09+0600\n"
 "Language-Team: RS Software\n"
-"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.2.1\n"
 "X-Poedit-Basepath: ..\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-KeywordsList: __;_e;_x;esc_html__;esc_html_e;esc_html_x;esc_attr__;"
-"esc_attr_e;esc_attr_x\n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"X-Poedit-KeywordsList: __;esc_html_e;esc_html_x;esc_html__\n"
+"Last-Translator: \n"
+"Language: bn_BD\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:99
+msgid "Basic Options"
+msgstr "বেসিক অপশন"
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:199
+msgid "Cache Time"
+msgstr "ক্যাশে সময়"
+
+#: admin/class-rs-dr-testimonial-settings.php:62
+msgid "Basic"
+msgstr "মৌলিক"
 
 #: includes/class-rs-dr-testimonial-widget-slider.php:42
 msgid "RS Testimonial Cycle"
@@ -26,19 +37,19 @@ msgstr ""
 
 #: public/partials/rs-dr-testimonial-form.php:11
 msgid "Your Full Name"
-msgstr ""
+msgstr "আপনার পূর্ণ নাম"
 
 #: public/partials/rs-dr-testimonial-form.php:15
 msgid "Your Email Address"
-msgstr ""
+msgstr "আপনার ইমেইল ঠিকানা"
 
 #: public/partials/rs-dr-testimonial-form.php:19
 msgid "Product Review"
-msgstr ""
+msgstr "পণ্য পর্যালোচনা"
 
 #: public/partials/rs-dr-testimonial-form.php:23
 msgid "Web Address"
-msgstr ""
+msgstr "ওয়েব ঠিকানা"
 
 #: public/partials/rs-dr-testimonial-form.php:27
 msgid "Product Rating"
@@ -66,16 +77,12 @@ msgstr ""
 
 #: public/partials/rs-dr-testimonial-form.php:42
 msgid "Testimonial Category"
-msgstr ""
+msgstr "প্রশংসাপত্র বিভাগ"
 
 #: public/partials/rs-dr-testimonial-form.php:49
 msgid "Title"
-msgstr ""
+msgstr "খেতাব"
 
 #: public/partials/rs-dr-testimonial-form.php:53
 msgid "Testimonial"
-msgstr ""
-
-#: public/partials/rs-dr-testimonial-form.php:60
-msgid "Submit Testimonial"
-msgstr ""
+msgstr "এজাহারনামা"
