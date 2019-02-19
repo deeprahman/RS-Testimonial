@@ -16,20 +16,22 @@ $cache_tab = add_query_arg(
 ?>
 <div class="wrap">
     <div id="icon-themes" class="icon32"></div>
-    <h2>RS Testimonial- Settings</h2>
-
+    <h2><?= esc_html__('RS Testimonial- Settings', 'rs-dr-testimonial') ?></h2>
 
     <?php
     $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'basic-tab'; // Default tab is the basic-settings tab
     ?>
     <h2 class="nav-tab-wrapper">
 
-        <a href="<?= $basic_tab ?>" class="nav-tab <?= $active_tab === 'basic-tab' ? 'nav-tab-active' : '' ?>">Basic
-            Options</a>
-        <a href="<?= $review_tab ?>" class="nav-tab <?= $active_tab === 'review-tab' ? 'nav-tab-active' : '' ?>">Review
-            Options</a>
-        <a href="<?= $cache_tab ?>" class="nav-tab <?= $active_tab === 'cache-tab' ? 'nav-tab-active' : '' ?>">Cache
-            Options</a>
+        <a href="<?= $basic_tab ?>"
+           class="nav-tab <?= $active_tab === 'basic-tab' ? 'nav-tab-active' : '' ?>"><?= esc_html__('Basic Options', 'rs-dr-testimonial') ?>
+        </a>
+        <a href="<?= $review_tab ?>"
+           class="nav-tab <?= $active_tab === 'review-tab' ? 'nav-tab-active' : '' ?>"><?= esc_html__('Review Options', 'rs-dr-testimonial') ?>
+        </a>
+        <a href="<?= $cache_tab ?>"
+           class="nav-tab <?= $active_tab === 'cache-tab' ? 'nav-tab-active' : '' ?>"><?= esc_html__('Cache
+            Options', 'rs-dr-testimonial') ?></a>
 
     </h2>
     <div class="from">

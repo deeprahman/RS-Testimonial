@@ -235,7 +235,7 @@ class Rs_Dr_Testimonial
         $this->loader->add_action('init', $plugin_admin, 'rs_dr_create_testimonial_post_type');
 
 //		Fires after all built-in meta boxes have been added.
-        $this->loader->add_action('add_meta_boxes', $plugin_admin, 'rs_dr_admin_init');
+        $this->loader->add_action('add_meta_boxes_rs_dr_testimonial', $plugin_admin, 'rs_dr_admin_init');
 //		Save the meta box data
         $this->loader->add_action('save_post', $plugin_admin, 'rs_dr_save_client_info');
 

@@ -150,7 +150,12 @@ class Rs_Dr_Testimonial_Sanitation
     {
         //check the file size
         $file_size = filesize($file['tmp_name']);
-        $type = mime_content_type($file['tmp_name']);
+        if (!empty($file['tmp_name'])) {
+
+            $type = mime_content_type($file['tmp_name']);
+        } else {
+            $type = null;
+        }
 //        $type = $file['type'];
         $allowed = $allowed_files;
         //Check the size of the file

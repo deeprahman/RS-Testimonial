@@ -48,8 +48,8 @@ class Rs_Dr_Testimonial_Settings extends Rs_Dr_Testimonial_Meta_Box
     public function rs_dr_settings_menu()
     {
         add_menu_page(
-            'RS Testimonial Settings',
-            'RS Testimonial Settings',
+            __('RS Testimonial Settings', 'rs-dr-testimonial'),
+            __('RS Testimonial Settings', 'rs-dr-testimonial'),
             'manage_options',
             'rs-dr-testimonial-basic-settings-page',
             [$this, 'rs_dr_display_basic_settings_page'],

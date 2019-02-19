@@ -261,7 +261,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
      */
     public function rs_dr_testimonial_basic_options_section_callback()
     {
-        echo "Basic Options Section";
+        _e("Basic Options Section", 'rs-dr-testimonial');
     }
 
     /**
@@ -271,7 +271,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
      */
     public function rs_dr_testimonial_item_reviewed_options_section_callback()
     {
-        echo "Item Reviewed Options Section";
+        _e("Item Reviewed Options Section", 'rs-dr-testimonial');
     }
 
     /**
@@ -281,7 +281,7 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
      */
     public function rs_dr_testimonial_cache_options_section_callback()
     {
-        echo "Cache Options Section";
+        _e("Cache Options Section", 'rs-dr-testimonial');
     }
 
     /**
@@ -335,14 +335,14 @@ EOL;
 EOL;
             echo $html;
         } else {
-            echo "Something wrong in the checkbox field";
+            echo __("Something wrong in the checkbox field", 'rs-dr-testimonial');
         }
     }
 
     /**
      * Textarea field callback function
      *
-     * @since 1.0.0
+     * @param array $data
      */
     public function display_textarea_field($data = [])
     {
@@ -359,14 +359,14 @@ EOL;
 EOL;
             echo $html;
         } else {
-            echo "Something wrong in the textarea";
+            echo __("Something wrong in the textarea", 'rs-dr-testimonial');
         }
     }
 
     /**
      * HTML Link callback function
      *
-     * @since 1.0.0
+     * @param array $data
      */
     public function display_button(array $data = [])
     {

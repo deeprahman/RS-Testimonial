@@ -33,17 +33,22 @@ if ($testimonial->have_posts()) {
         }
 
         $permalink = get_the_permalink();
-
+        //labels for showing in html
+        $lbl_name = esc_html__('Client\'s Name:', 'rs-dr-testimonial');
+        $lbl_email = esc_html__('Client\'s Email:', 'rs-dr-testimonial');
+        $lbl_position = esc_html__('Client\'s Position:', 'rs-dr-testimonial');
+        $lbl_location = esc_html__('Client\'s Location:', 'rs-dr-testimonial');
+        $lbl_rating = esc_html__('Rating:', 'rs-dr-testimonial');
         $output .= <<<EOL
                 <div>
                 <img id="image" src="{$wpblog_fetrdimg}" alt="image">
     <p id="rs-dr-title">{$title}</p>
     <p id="rs-dr-content" class="custom-css-excerpt">{$excerpt}<span><a href="{$permalink}"> &nbsp;Read More...</a></p>
-    <span class="rs-dr-ci">Client's Name: {$client_name}</span>
-    <span class="rs-dr-ci">Client's Email: {$client_email}</span>
-    <span class="rs-dr-ci">Client's Position: {$client_position}</span>
-    <span class="rs-dr-ci">Client's Location: {$client_location}</span>
-    <span class="rs-dr-ci">Rating: {$client_rating}</span>
+    <span class="rs-dr-ci">{$lbl_name} {$client_name}</span>
+    <span class="rs-dr-ci">{$lbl_email} {$client_email}</span>
+    <span class="rs-dr-ci">{$lbl_position} {$client_position}</span>
+    <span class="rs-dr-ci">{$lbl_location} {$client_location}</span>
+    <span class="rs-dr-ci"> {$client_rating}</span>
 </div>
 EOL;
 

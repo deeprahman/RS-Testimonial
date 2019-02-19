@@ -129,21 +129,21 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
         //Excerpt Section
         add_settings_section(
             'rs_dr_t_excerpt_section_id',
-            'Excerpt Section',
+            __('Excerpt Section', 'rs-dr-testimonial'),
             array(&$this, 'excerpt_section_description_callback'),
             'rs-dr-t-excerpt-section-page'
         );
         //Date Section
         add_settings_section(
             'rs_dr_t_date_section_id',
-            'Date Section',
+            __('Date Section', 'rs-dr-testimonial'),
             array(&$this, 'date_section_description_callback'),
             'rs-dr-t-date-section-page'
         );
         //Image Section
         add_settings_section(
             'rs_dr_t_image_section_id',
-            'Image Section',
+            __('Image Section', 'rs-dr-testimonial'),
             array(&$this, 'image_section_description_callback'),
             'rs-dr-t-image-section-page'
         );
@@ -156,7 +156,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
      */
     public function excerpt_section_description_callback()
     {
-        print "Takes Value for the excerpt length";
+        _e("Takes Value for the excerpt length", 'rs-dr-testimonial');
     }
 
     /**
@@ -166,7 +166,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
      */
     public function date_section_description_callback()
     {
-        print 'Takes format specifier for displaying date';
+        _e('Takes format specifier for displaying date', 'rs-');
     }
 
     /**
@@ -176,7 +176,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
      */
     public function image_section_description_callback()
     {
-        print 'Activate or deactivate different options for testimonial image';
+        _e('Activate or deactivate different options for testimonial image', 'rs-dr-testimonial');
     }
 
     /**
@@ -189,7 +189,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
         // The Excerpt Length Field
         add_settings_field(
             'display_excerpt_char',
-            'Excerpt Length',
+            __('Excerpt Length', 'rs-dr-testimonial'),
             array(&$this, 'display_text_field'),
             'rs-dr-t-excerpt-section-page',
             'rs_dr_t_excerpt_section_id',
@@ -207,7 +207,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
         //The date format field
         add_settings_field(
             'display_date_format',
-            'Date Format',
+            __('Date Format', 'rs-dr-testimonial'),
             array(&$this, 'display_text_field'),
             'rs-dr-t-date-section-page',
             'rs_dr_t_date_section_id',
@@ -225,7 +225,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
         //Display testimonial image Field
         add_settings_field(
             'show_testimonial_image',
-            'Display Image',
+            __('Display Image', 'rs-dr-testimonial'),
             array(&$this, 'display_checkbox_field'),
             'rs-dr-t-image-section-page',
             'rs_dr_t_image_section_id',
@@ -234,7 +234,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
         // testimonial image size field
         add_settings_field(
             'image_size',
-            'Image Size',
+            __('Image Size', 'rs-dr-testimonial'),
             array(&$this, 'display_select_field'),
             'rs-dr-t-image-section-page',
             'rs_dr_t_image_section_id',
@@ -243,7 +243,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
         //Fallback Image Field
         add_settings_field(
             'fallback_image',
-            'Fallback Image',
+            __('Fallback Image', 'rs-dr-testimonial'),
             array(&$this, 'display_radio_button'),
             'rs-dr-t-image-section-page',
             'rs_dr_t_image_section_id',
@@ -252,7 +252,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
         //Use gravater field
         add_settings_field(
             'use_gravaters',
-            'Use Gravater',
+            __('Use Gravater', 'rs-dr-testimonial'),
             array(&$this, 'display_checkbox_field'),
             'rs-dr-t-image-section-page',
             'rs_dr_t_image_section_id',
@@ -281,7 +281,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
 INPUT;
             print $html;
         } else {
-            print "Something wrong in the settings field!";
+            _e("Something wrong in the settings field!", 'rs-dr-testimonial');
         }
     }
 
@@ -307,7 +307,7 @@ INPUT;
 INPUT;
             print $html;
         } else {
-            print "Something wrong in the checkbox field";
+            _e("Something wrong in the checkbox field", 'rs-dr-testimonial');
         }
     }
 
@@ -342,7 +342,7 @@ EOL;
             print $html_select;
 
         } else {
-            print "Something wrong with the select field";
+            _e("Something wrong with the select field", 'rs-dr-testimonial');
         }
     }
 
@@ -375,7 +375,7 @@ RADIO;
             }
             print $html_rdo;
         } else {
-            print 'Something is wrong with radio button';
+            _e('Something is wrong with radio button', 'rs-dr-testimonial');
         }
     }
 }

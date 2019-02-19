@@ -78,7 +78,7 @@ class Rs_Dr_Testimonial_Advanced_Settings extends Rs_Dr_Testimonial_Settings
     {
         add_settings_section(
             'rs_dr_t_shortcode_id',
-            'Shortcode',
+            __('Shortcode', 'rs-dr-testimonial'),
             [&$this, 'shortcode_section_description_callback'],
             'rs-dr-t-shortcode-settings-page'
         );
@@ -86,7 +86,7 @@ class Rs_Dr_Testimonial_Advanced_Settings extends Rs_Dr_Testimonial_Settings
 
     public function shortcode_section_description_callback()
     {
-        print 'Change the shortcode.';
+        _e('Change the shortcode.', 'rs-dr-testimonial');
     }
 
     /**
@@ -98,7 +98,7 @@ class Rs_Dr_Testimonial_Advanced_Settings extends Rs_Dr_Testimonial_Settings
     {
         add_settings_field(
             'rs_dr_t_shortcode',
-            'Shortcode',
+            __('Shortcode', 'rs-dr-testimonial'),
             array(&$this, 'display_text_field'),
             'rs-dr-t-shortcode-settings-page',
             'rs_dr_t_shortcode_id',
@@ -128,7 +128,7 @@ INPUT;
             print $html;
             return;
         } else {
-            print "Something wrong in the settings field!";
+            _e("Something wrong in the settings field!", 'rs-dr-testimonial');
             return;
         }
     }

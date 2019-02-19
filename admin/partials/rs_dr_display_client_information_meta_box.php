@@ -11,37 +11,37 @@ $rs_dr_testimonial_rating = intval(get_post_meta($post->ID, 'rs_dr_testimonial_r
     <?php wp_nonce_field( 'rs_dr_testimonial_client_info_action', 'rs_dr_testimonial_client_info_nonce' );?>
 <table>
     <tr>
-        <td>Client's Name:</td>
+        <td><?= esc_html__('Client\'s Name:', 'rs-dr-testimonial') ?></td>
         <td><input type="text" name="rs_dr_testimonial_client_name" value="<?= $rs_dr_testimonial_client_name?>"></td>
     </tr>
     <tr>
-        <td>Email Address:</td>
+        <td><?= esc_html__('Email Address:', 'rs-dr-testimonial') ?></td>
         <td><input type="text" name="rs_dr_testimonial_email" value="<?= $rs_dr_testimonial_email?>"></td>
     </tr>
     <tr>
-        <td>Position/ Web Address/ Other:</td>
+        <td><?= esc_html__('Position/ Web Address/ Other:', 'rs-dr-testimonial') ?></td>
         <td><input type="text" name="rs_dr_testimonial_position" value="<?= $rs_dr_testimonial_position?>"></td>
     </tr>
 
     <tr>
-        <td>Location Reviewed/ Product Reviewed/ Item Reviewed:</td>
+        <td><?= esc_html__('Location Reviewed/ Product Reviewed/ Item Reviewed:', 'rs-dr-testimonial') ?></td>
         <td><input type="text" name="rs_dr_testimonial_location" value="<?= $rs_dr_testimonial_location?>"></td>
     </tr>
     <tr>
         <td>Rating:</td>
         <td>
-            1
+            <?= esc_html__('1', 'rs-dr-testimonial') ?>
             <input type="radio" name="rs_dr_testimonial_rating" value="1" <?php checked( '1', $rs_dr_testimonial_rating ); ?>>&nbsp;&nbsp;
-            2
+            <?= esc_html__('2', 'rs-dr-testimonial') ?>
             <input type="radio" name="rs_dr_testimonial_rating" value="2" <?php checked( '2', $rs_dr_testimonial_rating ); ?>>&nbsp;&nbsp;
-            3
+            <?= esc_html__('3', 'rs-dr-testimonial') ?>
             <input type="radio" name="rs_dr_testimonial_rating" value="3" <?php checked( '3', $rs_dr_testimonial_rating ); ?>>&nbsp;&nbsp;
-            4
+            <?= esc_html__('4', 'rs-dr-testimonial') ?>
             <input type="radio" name="rs_dr_testimonial_rating" value="4" <?php checked( '4', $rs_dr_testimonial_rating ); ?>>&nbsp;&nbsp;
-            5
+            <?= esc_html__('5', 'rs-dr-testimonial') ?>
             <input type="radio" name="rs_dr_testimonial_rating" value="5" <?php checked( '5', $rs_dr_testimonial_rating ); ?>>&nbsp;&nbsp;
         </td>
     </tr>
 </table>
 
-<?php
+

@@ -14,18 +14,21 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'export-tab';
 
 <div class="wrap">
     <div id="icon-theme" class="icon32"></div>
-    <h2>Import and Export Testimonial</h2>
+    <h2><?= esc_html__('Import and Export Testimonial', 'rs-dr-testimonial') ?></h2>
     <h2 class="nav-tab-wrapper">
-        <a href="<?= $export ?>" class="nav-tab <?= $active_tab === 'export-tab' ? 'nav-tab-active' : '' ?>">Excerpt
-            Option</a>
-        <a href="<?= $import ?>" class="nav-tab <?= $active_tab === 'import-tab' ? 'nav-tab-active' : '' ?>">Import
-            Options</a>
+        <a href="<?= $export ?>"
+           class="nav-tab <?= $active_tab === 'export-tab' ? 'nav-tab-active' : '' ?>"><?= esc_html__('Excerpt
+            Option', 'rs-dr-testimonial') ?></a>
+        <a href="<?= $import ?>"
+           class="nav-tab <?= $active_tab === 'import-tab' ? 'nav-tab-active' : '' ?>"><?= esc_html__('Import
+            Options', 'rs-dr-testimonial') ?></a>
     </h2>
 
         <?php switch ($active_tab): ?>
 <?php case 'export-tab': ?>
                 <?php if (isset($_GET['msg']) && $_GET['msg'] === '0'): ?>
-                    <strong style="color: orange;">No Post available </strong><br><br>
+                    <strong style="color: orange;"><?= esc_html__('No Post available', 'rs-dr-testimonial') ?></strong>
+                    <br><br>
                 <?php endif; ?>
                 <form action="admin-post.php" method="post">
                     <!--    The hidden action field for admin_post hook suffix-->
@@ -33,7 +36,7 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'export-tab';
                     <!--    Create a wordpress nonce for added security-->
                     <?php wp_nonce_field('export-testimonial', 'the-export-nonce') ?>
                     <br>
-                    <label for="rs-dr-export"><strong>Click here to Export all testimonial post in to a CSV
+                    <label for="rs-dr-export"><strong><?= esc_html__('Click here to Export all testimonial post in to a CSV', 'rs-dr-testimonial') ?>
                             file</strong></label><br><br>
                     <input class="button button-primary" type="submit" name="export_btn" value="file-export">
                 </form>
@@ -41,19 +44,23 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'export-tab';
             <?php case 'import-tab': ?>
                 <div>
                     <?php if (isset($_GET['invalid_type'])): ?>
-                        <strong style="color: red">Invalid Mime Type</strong><br><br>
+                        <strong style="color: red"><?= esc_html__('Invalid Mime Type', 'rs-dr-testimonial') ?></strong>
+                        <br><br>
                     <?php endif; ?>
                     <?php if (isset($_GET['size_exceed'])): ?>
-                        <strong style="color: red;">File should not exceed <?= $_GET['size_exceed'] ?> bytes</strong>
+                        <strong style="color: red;"><?= esc_html__('File should not exceed', 'rs-dr-testimonial') ?> <?= $_GET['size_exceed'] ?>
+                            bytes</strong>
                         <br><br>
                     <?php endif; ?>
 
                     <?php if (isset($_GET['msg']) && $_GET['msg'] === '1'): ?>
-                        <strong style="color: green;">File Successfully Imported </strong><br><br>
+                        <strong style="color: green;"><?= esc_html__('File Successfully Imported', 'rs-dr-testimonial') ?> </strong>
+                        <br><br>
                     <?php endif; ?>
 
                     <?php if (isset($_GET['msg']) && $_GET['msg'] === '0'): ?>
-                        <strong style="color: red;">File Import Unsuccessful </strong><br><br>
+                        <strong style="color: red;"><?= esc_html__('File Import Unsuccessful', 'rs-dr-testimonial') ?> </strong>
+                        <br><br>
                     <?php endif; ?>
                 </div>
                 <form action="admin-post.php" method="post" enctype="multipart/form-data">
@@ -61,11 +68,11 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'export-tab';
                     <input type="hidden" name="action" value="import-testimonial">
                     <!--    Create a wordpress nonce for added security-->
                     <?php wp_nonce_field('import-testimonial', 'the-import-nonce') ?>
-                    <label for="rs-dr-import"><strong>Upload a CSV file</strong></label><br>
+                    <label for="rs-dr-import"><strong><?= esc_html__('Upload a CSV file', 'rs-dr-testimonial') ?></strong></label><br>
                     <input type="file" name="testimonials"><br><br>
                     <input class="button button-primary" type="submit" name="import_btn" value="submit">
                 </form>
                 <?php break; ?>
             <?php endswitch; ?>
-    </form>
+
 </div>
