@@ -1,0 +1,528 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: RS Testimonial\n"
+"POT-Creation-Date: 2019-02-19 18:55+0600\n"
+"PO-Revision-Date: 2019-02-19 18:56+0600\n"
+"Last-Translator: \n"
+"Language-Team: RS Software\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;_x;esc_html__;esc_html_e;esc_html_x\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/class-rs-dr-testimonial-advanced-settings.php:81
+#: admin/class-rs-dr-testimonial-advanced-settings.php:101
+#: admin/class-rs-dr-testimonial-settings.php:97
+msgid "Shortcode"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-advanced-settings.php:89
+msgid "Change the shortcode."
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-advanced-settings.php:131
+#: admin/class-rs-dr-testimonial-display-settings.php:284
+msgid "Something wrong in the settings field!"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:99
+#: admin/partials/rs_dr_display_basic_settings_page.php:27
+msgid "Basic Options"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:106
+msgid "Item Reviewed Options"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:113
+msgid "Cache Options"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:129
+msgid "Show in Search"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:138
+msgid "Allow Html Tags in Testimonial"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:147
+msgid "Custom CSS (All Screens)"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:164
+msgid "Output Review Markup"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:173
+msgid "Global Item Reviewed"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:182
+msgid "Use Global Item Reviewed"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:199
+msgid "Cache Time"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:208
+msgid "Use Caching"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:217
+msgid "Flush Caching"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:264
+msgid "Basic Options Section"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:274
+msgid "Item Reviewed Options Section"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:284
+msgid "Cache Options Section"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:309
+msgid "Something wrong in the text field"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:338
+#: admin/class-rs-dr-testimonial-display-settings.php:310
+msgid "Something wrong in the checkbox field"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-basic-settings.php:362
+msgid "Something wrong in the textarea"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:132
+msgid "Excerpt Section"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:139
+msgid "Date Section"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:146
+msgid "Image Section"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:159
+msgid "Takes Value for the excerpt length"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:169
+msgid "Takes format specifier for displaying date"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:179
+msgid "Activate or deactivate different options for testimonial image"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:192
+msgid "Excerpt Length"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:210
+msgid "Date Format"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:228
+msgid "Display Image"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:237
+msgid "Image Size"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:246
+msgid "Fallback Image"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:255
+msgid "Use Gravater"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:345
+msgid "Something wrong with the select field"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-display-settings.php:378
+msgid "Something is wrong with radio button"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:83
+msgid "Testimonials"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:84
+#: public/partials/rs-dr-testimonial-form.php:53
+msgid "Testimonial"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:85
+#: admin/class-rs-dr-testimonial-meta-box.php:86
+msgid "Add New Testimonial"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:87
+msgid "Edit"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:88
+msgid "Edit Testimonial"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:89
+msgid "New Testimonial"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:90
+msgid "View"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:91
+msgid "View Testimonial"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:92
+msgid "Search Testimonial"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:93
+msgid "No Testimonial Found"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:94
+msgid "No Testimonial Found in Trash"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:95
+msgid "Parent Testimonial"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:108
+msgid "Testimonial Type"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:109
+msgid "Add New Testimonial Type"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:110
+msgid "Add New Testimonial Name"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-meta-box.php:217
+msgid "Client Information Details"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-settings.php:51
+#: admin/class-rs-dr-testimonial-settings.php:52
+#: admin/class-rs-dr-testimonial-settings.php:61
+msgid "RS Testimonial Settings"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-settings.php:62
+msgid "Basic"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-settings.php:69
+#: admin/partials/rs_dr_display_display_settings_page.php:22
+msgid "Display Settings"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-settings.php:70
+msgid "Display"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-settings.php:78
+msgid "Advances Settings"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-settings.php:79
+msgid "Advanced"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-settings.php:87
+msgid "Themes Settings"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-settings.php:88
+msgid "Themes"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-settings.php:96
+msgid "Shortcode Generation"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-settings.php:105
+msgid "Import/Export"
+msgstr ""
+
+#: admin/class-rs-dr-testimonial-settings.php:106
+msgid "Import/Export Testimonial"
+msgstr ""
+
+#: admin/partials/rs-dr-display-import-export-page.php:17
+msgid "Import and Export Testimonial"
+msgstr ""
+
+#: admin/partials/rs-dr-display-import-export-page.php:20
+msgid ""
+"Excerpt\n"
+"            Option"
+msgstr ""
+
+#: admin/partials/rs-dr-display-import-export-page.php:23
+msgid ""
+"Import\n"
+"            Options"
+msgstr ""
+
+#: admin/partials/rs-dr-display-import-export-page.php:30
+msgid "No Post available"
+msgstr ""
+
+#: admin/partials/rs-dr-display-import-export-page.php:39
+msgid "Click here to Export all testimonial post in to a CSV"
+msgstr ""
+
+#: admin/partials/rs-dr-display-import-export-page.php:47
+msgid "Invalid Mime Type"
+msgstr ""
+
+#: admin/partials/rs-dr-display-import-export-page.php:51
+msgid "File should not exceed"
+msgstr ""
+
+#: admin/partials/rs-dr-display-import-export-page.php:57
+msgid "File Successfully Imported"
+msgstr ""
+
+#: admin/partials/rs-dr-display-import-export-page.php:62
+msgid "File Import Unsuccessful"
+msgstr ""
+
+#: admin/partials/rs-dr-display-import-export-page.php:71
+msgid "Upload a CSV file"
+msgstr ""
+
+#: admin/partials/rs_dr_display_basic_settings_page.php:19
+msgid "RS Testimonial- Settings"
+msgstr ""
+
+#: admin/partials/rs_dr_display_basic_settings_page.php:30
+msgid "Review Options"
+msgstr ""
+
+#: admin/partials/rs_dr_display_basic_settings_page.php:33
+msgid ""
+"Cache\n"
+"            Options"
+msgstr ""
+
+#: admin/partials/rs_dr_display_client_information_meta_box.php:14
+#: public/partials/rs-dr-testimonial-shortcode-display.php:37
+msgid "Client's Name:"
+msgstr ""
+
+#: admin/partials/rs_dr_display_client_information_meta_box.php:18
+msgid "Email Address:"
+msgstr ""
+
+#: admin/partials/rs_dr_display_client_information_meta_box.php:22
+msgid "Position/ Web Address/ Other:"
+msgstr ""
+
+#: admin/partials/rs_dr_display_client_information_meta_box.php:27
+msgid "Location Reviewed/ Product Reviewed/ Item Reviewed:"
+msgstr ""
+
+#: admin/partials/rs_dr_display_client_information_meta_box.php:33
+#: public/partials/rs-dr-testimonial-form.php:29
+msgid "1"
+msgstr ""
+
+#: admin/partials/rs_dr_display_client_information_meta_box.php:35
+#: public/partials/rs-dr-testimonial-form.php:31
+msgid "2"
+msgstr ""
+
+#: admin/partials/rs_dr_display_client_information_meta_box.php:37
+#: public/partials/rs-dr-testimonial-form.php:33
+msgid "3"
+msgstr ""
+
+#: admin/partials/rs_dr_display_client_information_meta_box.php:39
+#: public/partials/rs-dr-testimonial-form.php:35
+msgid "4"
+msgstr ""
+
+#: admin/partials/rs_dr_display_client_information_meta_box.php:41
+#: public/partials/rs-dr-testimonial-form.php:37
+msgid "5"
+msgstr ""
+
+#: admin/partials/rs_dr_display_display_settings_page.php:26
+msgid "Excerpt Option"
+msgstr ""
+
+#: admin/partials/rs_dr_display_display_settings_page.php:29
+msgid "Date Options"
+msgstr ""
+
+#: admin/partials/rs_dr_display_display_settings_page.php:32
+msgid ""
+"Image\n"
+"            Options"
+msgstr ""
+
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:19
+msgid "Shortcode Generation Page"
+msgstr ""
+
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:20
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:94
+msgid "Select a testimonial"
+msgstr ""
+
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:22
+msgid "Select Shortcode"
+msgstr ""
+
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:23
+msgid "Random Testimonial"
+msgstr ""
+
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:24
+msgid "Cycle Testimonial"
+msgstr ""
+
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:25
+msgid "Single Testimonial"
+msgstr ""
+
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:39
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:106
+msgid "Fields to Display"
+msgstr ""
+
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:43
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:74
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:110
+msgid "Show Featured Image"
+msgstr ""
+
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:47
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:78
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:114
+msgid "Show Testimonial Excerpt"
+msgstr ""
+
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:51
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:82
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:118
+msgid "Show Testimonial Title"
+msgstr ""
+
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:65
+msgid "Filter Testimonial"
+msgstr ""
+
+#: admin/partials/rs_dr_display_shortcode_generation_page.php:70
+msgid "Fields To Display"
+msgstr ""
+
+#: includes/class-rs-dr-testimonial-widget-slider.php:42
+msgid "RS Testimonial Cycle"
+msgstr ""
+
+#: includes/class-rs-dr-testimonial-widget-slider.php:44
+msgid "Display Testimonial Slide-show"
+msgstr ""
+
+#: includes/partials/rs-dr-testimonial-widget-form-display.php:18
+msgid "Order By"
+msgstr ""
+
+#: includes/partials/rs-dr-testimonial-widget-form-display.php:20
+msgid "Date"
+msgstr ""
+
+#: includes/partials/rs-dr-testimonial-widget-form-display.php:21
+msgid "Random"
+msgstr ""
+
+#: includes/partials/rs-dr-testimonial-widget-form-display.php:22
+msgid "ID"
+msgstr ""
+
+#: includes/partials/rs-dr-testimonial-widget-form-display.php:23
+msgid "Author"
+msgstr ""
+
+#: includes/partials/rs-dr-testimonial-widget-form-display.php:30
+msgid "Sort By"
+msgstr ""
+
+#: includes/partials/rs-dr-testimonial-widget-form-display.php:32
+msgid "Ascending Order"
+msgstr ""
+
+#: includes/partials/rs-dr-testimonial-widget-form-display.php:33
+msgid "Descending Order"
+msgstr ""
+
+#: public/partials/rs-dr-testimonial-form.php:11
+msgid "Your Full Name"
+msgstr ""
+
+#: public/partials/rs-dr-testimonial-form.php:15
+msgid "Your Email Address"
+msgstr ""
+
+#: public/partials/rs-dr-testimonial-form.php:19
+msgid "Product Review"
+msgstr ""
+
+#: public/partials/rs-dr-testimonial-form.php:23
+msgid "Web Address"
+msgstr ""
+
+#: public/partials/rs-dr-testimonial-form.php:27
+msgid "Product Rating"
+msgstr ""
+
+#: public/partials/rs-dr-testimonial-form.php:42
+msgid "Testimonial Category"
+msgstr ""
+
+#: public/partials/rs-dr-testimonial-form.php:49
+msgid "Title"
+msgstr ""
+
+#: public/partials/rs-dr-testimonial-shortcode-display.php:38
+msgid "Client's Email:"
+msgstr ""
+
+#: public/partials/rs-dr-testimonial-shortcode-display.php:39
+msgid "Client's Position:"
+msgstr ""
+
+#: public/partials/rs-dr-testimonial-shortcode-display.php:40
+msgid "Client's Location:"
+msgstr ""
+
+#: public/partials/rs-dr-testimonial-shortcode-display.php:41
+msgid "Rating:"
+msgstr ""
