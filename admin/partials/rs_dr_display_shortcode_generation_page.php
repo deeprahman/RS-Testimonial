@@ -16,13 +16,13 @@ if ($testimonial->have_posts()) {
 ?>
 
 
-<h2>Shortcode Generation Page</h2>
-<label for="testimonial">Select a testimonial
+<h2><?= esc_html__('Shortcode Generation Page', 'rs-dr-testimonial') ?></h2>
+<label for="testimonial"><?= esc_html__('Select a testimonial', 'rs-dr-testimonial') ?>
     <select id="testimonial">
-        <option value="">Select Shortcode</option>
-        <option value="random">Random Testimonial</option>
-        <option value="cycle">Cycle Testimonial</option>
-        <option value="single">Single Testimonial</option>
+        <option value=""><?= esc_html__('Select Shortcode', 'rs-dr-testimonial') ?></option>
+        <option value="random"><?= esc_html__('Random Testimonial', 'rs-dr-testimonial') ?></option>
+        <option value="cycle"><?= esc_html__('Cycle Testimonial', 'rs-dr-testimonial') ?></option>
+        <option value="single"><?= esc_html__('Single Testimonial', 'rs-dr-testimonial') ?></option>
     </select>
 </label>
 <?php add_thickbox() ?>
@@ -36,16 +36,19 @@ if ($testimonial->have_posts()) {
 
     <div class="jQuery_accordion">
 
-        <h3>Fields to Display</h3>
+        <h3><?= esc_html__('Fields to Display', 'rs-dr-testimonial') ?></h3>
         <div>
             <div>
-                <input type="checkbox" id="rs-dr-t-rand-image" name="image"> Show Featured Image
+                <input type="checkbox" id="rs-dr-t-rand-image"
+                       name="image"> <?= esc_html__('Show Featured Image', 'rs-dr-testimonial') ?>
             </div>
             <div>
-                <input type="checkbox" id="rs-dr-t-rand-excerpt" name="excerpt"> Show Testimonial Excerpt
+                <input type="checkbox" id="rs-dr-t-rand-excerpt"
+                       name="excerpt"><?= esc_html__('Show Testimonial Excerpt', 'rs-dr-testimonial') ?>
             </div>
             <div>
-                <input type="checkbox" id="rs-dr-t-rand-title" name="title"> Show Testimonial Title
+                <input type="checkbox" id="rs-dr-t-rand-title"
+                       name="title"><?= esc_html__('Show Testimonial Title', 'rs-dr-testimonial') ?>
             </div>
         </div>
     </div>
@@ -59,21 +62,24 @@ if ($testimonial->have_posts()) {
 <div id="rs-dr-t-cycle" style="display: none;">
 
     <div class="jQuery_accordion">
-        <h3>Filter Testimonial</h3>
+        <h3><?= esc_html__('Filter Testimonial') ?></h3>
         <div>
             <p>Count</p>
             <input type="number" id="rs-dr-t-cycle-count" name="count">
         </div>
-        <h3>Fields To Display</h3>
+        <h3><?= esc_html__('Fields To Display') ?></h3>
         <div>
             <div>
-                <input type="checkbox" id="rs-dr-t-cycle-image" name="image"> Show Featured Image
+                <input type="checkbox" id="rs-dr-t-cycle-image"
+                       name="image"><?= esc_html__('Show Featured Image', 'rs-dr-testimonial') ?>
             </div>
             <div>
-                <input type="checkbox" id="rs-dr-t-cycle-excerpt" name="excerpt"> Show Testimonial Excerpt
+                <input type="checkbox" id="rs-dr-t-cycle-excerpt"
+                       name="excerpt"><?= esc_html__('Show Testimonial Excerpt') ?>
             </div>
             <div>
-                <input type="checkbox" id="rs-dr-t-cycle-title" name="title"> Show Testimonial Title
+                <input type="checkbox" id="rs-dr-t-cycle-title"
+                       name="title"><?= esc_html__('Show Testimonial Title', 'rs-dr-testimonial') ?>
             </div>
         </div>
     </div>
@@ -85,7 +91,7 @@ if ($testimonial->have_posts()) {
 <!--HTML for single-->
 <div id="rs-dr-t-single" style="display: none;">
     <div>
-        <p>Select a testimonial</p>
+        <p><?= esc_html__('Select a testimonial', 'rs-dr-testimonial') ?></p>
         <div>
             <select id="rs-dr-t-single-post" name="id_post">
                 <?php foreach ($titles as $key => $value): ?>
@@ -97,16 +103,19 @@ if ($testimonial->have_posts()) {
     <br><br>
     <div class="jQuery_accordion">
 
-        <h3>Fields to Display</h3>
+        <h3><?= esc_html__("Fields to Display", 'rs-dr-testimonial') ?></h3>
         <div>
             <div>
-                <input type="checkbox" id="rs-dr-t-single-image" name="image"> Show Featured Image
+                <input type="checkbox" id="rs-dr-t-single-image"
+                       name="image"><?= esc_html__('Show Featured Image', 'rs-dr-testimonial') ?>
             </div>
             <div>
-                <input type="checkbox" id="rs-dr-t-single-excerpt" name="excerpt"> Show Testimonial Excerpt
+                <input type="checkbox" id="rs-dr-t-single-excerpt"
+                       name="excerpt"><?= esc_html__('Show Testimonial Excerpt', 'rs-dr-testimonial') ?>
             </div>
             <div>
-                <input type="checkbox" id="rs-dr-t-single-title" name="title"> Show Testimonial Title
+                <input type="checkbox" id="rs-dr-t-single-title"
+                       name="title"><?= esc_html__('Show Testimonial Title', 'rs-dr-testimonial') ?>
             </div>
         </div>
     </div>

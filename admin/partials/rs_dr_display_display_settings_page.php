@@ -19,15 +19,18 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'excerpt-tab';
 
     <!--Code for Wordpress HTML form-->
     <div id="icon-theme" class="icon32"></div>
-    <h2>Display Settings</h2>
+    <h2><?= esc_html__('Display Settings', 'rs-dr-testimonial') ?></h2>
     <!--Create Tabs-->
     <h2 class="nav-tab-wrapper">
-        <a href="<?= $excerpt_tab ?>" class="nav-tab <?= $active_tab === 'excerpt-tab' ? 'nav-tab-active' : '' ?>">Excerpt
-            Option</a>
-        <a href="<?= $date_tab ?>" class="nav-tab <?= $active_tab === 'date-tab' ? 'nav-tab-active' : '' ?>">Date
-            Options</a>
-        <a href="<?= $image_tab ?>" class="nav-tab <?= $active_tab === 'image-tab' ? 'nav-tab-active' : '' ?>">Image
-            Options</a>
+        <a href="<?= $excerpt_tab ?>"
+           class="nav-tab <?= $active_tab === 'excerpt-tab' ? 'nav-tab-active' : '' ?>"><?= esc_html__('Excerpt Option', 'rs-dr-testimonial') ?>
+        </a>
+        <a href="<?= $date_tab ?>"
+           class="nav-tab <?= $active_tab === 'date-tab' ? 'nav-tab-active' : '' ?>"><?= esc_html__('Date Options', 'rs-dr-testimonial') ?>
+        </a>
+        <a href="<?= $image_tab ?>"
+           class="nav-tab <?= $active_tab === 'image-tab' ? 'nav-tab-active' : '' ?>"><?= esc_html__('Image
+            Options') ?></a>
     </h2>
     <!--HTML Form-->
     <div class="form">
