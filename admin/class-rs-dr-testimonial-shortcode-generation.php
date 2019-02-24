@@ -105,11 +105,21 @@ class Rs_Dr_Testimonial_Shortcode_Generation extends Rs_Dr_Testimonial_Settings
         $image = isset($_POST['image']) ? 1 : null;
         $excerpt = isset($_POST['excerpt']) ? 1 : null;
         $title = isset($_POST['title']) ? 1 : null;
+        $name = isset($_POST['name']) ? 1 : null;
+        $email = isset($_POST['email']) ? 1 : null;
+        $location = isset($_POST['location']) ? 1 : null;
+        $position = isset($_POST['position']) ? 1 : null;
+        $review = isset($_POST['review']) ? 1 : null;
+        $rating = isset($_POST['rating']) ? 1 : null;
+        $date = isset($_POST['date']) ? 1 : null;
 
         switch ($type) {
             case 'rand':
                 {
-                    $output = "[$shortcode type='$type'" . ' ';
+
+                    $count = intval(isset($_POST['count']) ? $_POST['count'] : -1);
+                    $category = intval(isset($_POST['cat']) ? $_POST['cat'] : '2');
+                    $output = "[$shortcode odrby='rand' type='$type' count='$count' category='$category'" . ' ';
                     if ($image) {
                         $output .= "image='$image' ";
                     }
@@ -117,7 +127,28 @@ class Rs_Dr_Testimonial_Shortcode_Generation extends Rs_Dr_Testimonial_Settings
                         $output .= "excerpt='$excerpt' ";
                     }
                     if ($title) {
-                        $output .= "title='$title'";
+                        $output .= "title='$title' ";
+                    }
+                    if ($name) {
+                        $output .= "name='$name' ";;
+                    }
+                    if ($email) {
+                        $output .= "email='$email' ";
+                    }
+                    if ($location) {
+                        $output .= "location='$location' ";
+                    }
+                    if ($position) {
+                        $output .= "position='$position' ";
+                    }
+                    if ($review) {
+                        $output .= "review='$review' ";
+                    }
+                    if ($date) {
+                        $output .= "date='$date' ";
+                    }
+                    if ($rating) {
+                        $output .= "rating='$rating' ";
                     }
                     $output .= ']';
                     break;
@@ -125,7 +156,14 @@ class Rs_Dr_Testimonial_Shortcode_Generation extends Rs_Dr_Testimonial_Settings
             case 'cycle':
                 {
                     $count = intval(isset($_POST['count']) ? $_POST['count'] : -1);
-                    $output = "[$shortcode type='$type' count='$count'" . ' ';
+                    $cat = intval(isset($_POST['cat']) ? $_POST['cat'] : null);
+                    $ordby = sanitize_text_field($_POST['ordby'] ? $_POST['ordby'] : 'ID');
+                    $ord = sanitize_text_field($_POST['ord'] ? $_POST['ord'] : 'ASC');
+                    $output = "[$shortcode type='$type' count='$count' odr='$ord' odrby='$ordby'" . ' ';
+                    if ($cat) {
+                        $output .= "category='$cat' ";
+                    }
+                    //Followings are not WP_Query class parameter
                     if ($image) {
                         $output .= "image='$image' ";
                     }
@@ -133,7 +171,28 @@ class Rs_Dr_Testimonial_Shortcode_Generation extends Rs_Dr_Testimonial_Settings
                         $output .= "excerpt='$excerpt' ";
                     }
                     if ($title) {
-                        $output .= "title='$title'";
+                        $output .= "title='$title' ";
+                    }
+                    if ($name) {
+                        $output .= "name='$name' ";;
+                    }
+                    if ($email) {
+                        $output .= "email='$email' ";
+                    }
+                    if ($location) {
+                        $output .= "location='$location' ";
+                    }
+                    if ($position) {
+                        $output .= "position='$position' ";
+                    }
+                    if ($review) {
+                        $output .= "review='$review' ";
+                    }
+                    if ($date) {
+                        $output .= "date='$date' ";
+                    }
+                    if ($rating) {
+                        $output .= "rating='$rating' ";
                     }
                     $output .= ']';
                     break;
@@ -142,6 +201,7 @@ class Rs_Dr_Testimonial_Shortcode_Generation extends Rs_Dr_Testimonial_Settings
                 {
                     $id = intval(isset($_POST['post_id']) ? $_POST['post_id'] : null);
                     $output = "[$shortcode type='$type' id='$id'" . ' ';
+                    //Followings are not WP_Query class parameter
                     if ($image) {
                         $output .= "image='$image' ";
                     }
@@ -149,7 +209,28 @@ class Rs_Dr_Testimonial_Shortcode_Generation extends Rs_Dr_Testimonial_Settings
                         $output .= "excerpt='$excerpt' ";
                     }
                     if ($title) {
-                        $output .= "title='$title'";
+                        $output .= "title='$title' ";
+                    }
+                    if ($name) {
+                        $output .= "name='$name' ";;
+                    }
+                    if ($email) {
+                        $output .= "email='$email' ";
+                    }
+                    if ($location) {
+                        $output .= "location='$location' ";
+                    }
+                    if ($position) {
+                        $output .= "position='$position' ";
+                    }
+                    if ($review) {
+                        $output .= "review='$review' ";
+                    }
+                    if ($date) {
+                        $output .= "date='$date' ";
+                    }
+                    if ($rating) {
+                        $output .= "rating='$rating' ";
                     }
                     $output .= ']';
                     break;

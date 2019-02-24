@@ -81,20 +81,48 @@ EOL;
             }
         }//End Display Testimonial image section
 
-        $output = $output . $image_testimonial;
-        $output .= <<<EOL
-     <div class="rs-dr-container">
-     
-    <p id="rs-dr-title">{$title}</p>
-    <p id="rs-dr-content" class="custom-css-excerpt">{$excerpt}<span><a href="{$permalink}"> &nbsp;Read More...</a></p>
-    <span class="rs-dr-ci">Client's Name: {$client_name}</span>
-    <span class="rs-dr-ci">Client's Email: {$client_email}</span>
-    <span class="rs-dr-ci">Client's Position: {$client_position}</span>
-    <span class="rs-dr-ci">Client's Location: {$client_location}</span>
-    <span class="rs-dr-ci">Rating: {$client_rating}</span>
-    <span class="rs-dr-ci">Date: {$date}</span>
-</div>           
-EOL;
+        if ($show_image) {
+
+            $output = $output . $image_testimonial;
+        }
+        ?>
+        <?php
+        // Start the buffer
+        ob_start()
+        ?>
+        <div class="rs-dr-container">
+            <?php if ($show_rating == 1): ?>
+                <span class="rs-dr-ci">Rating: <?= $client_rating ?></span>
+            <?php endif; ?>
+            <?php if ($show_title): ?>
+                <p id="rs-dr-title"><?= $title ?></p>
+            <?php endif; ?>
+            <?php if (isset($show_excerpt)): ?>
+                <p id="rs-dr-content" class="custom-css-excerpt"><?= $excerpt ?><span><a href="<?= $permalink ?>"> &nbsp;Read More...</a>
+                </p>
+            <?php endif; ?>
+
+            <span class="rs-dr-ci">Client's Name: <?= $client_name ?></span>
+
+            <span class="rs-dr-ci">Client's Email: <?= $client_email ?></span>
+
+            <span class="rs-dr-ci">Client's Position: <?= $client_position ?></span>
+            <?php if (isset($show_review)): ?>
+                <span class="rs-dr-ci">Client's Location: <?= $client_location ?></span>
+            <?php endif; ?>
+            <?php if ($show_rating == 2): ?>
+                <span class="rs-dr-ci">Rating: <?= $client_rating ?></span>
+            <?php endif; ?>
+            <?php if ($show_date): ?>
+                <span class="rs-dr-ci">Date: <?= $date ?></span>
+            <?php endif; ?>
+        </div>
+
+        <?php
+        //get the buffered contented and clean the buffer
+        $output .= ob_get_clean();
+
+
         if (isset($options['output_review_markup'])) { // JSON-LD option is on
             $output .= <<<JSON
             <!--JSON-LD for search engine readability-->

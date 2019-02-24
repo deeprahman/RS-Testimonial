@@ -281,7 +281,13 @@ class Rs_Dr_Testimonial
 
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
+        $this->loader->add_action('init', $plugin_public, 'rs_session_start');
 
+        /*
+         * Ajax in front-end
+         */
+        $this->loader->add_action('wp_ajax_pagination_ajax_reply', $plugin_shortcode, 'pagination_ajax_reply');
+        $this->loader->add_action('wp_ajax_nopriv_pagination_ajax_reply', $plugin_shortcode, 'pagination_ajax_reply');
         //        For Registering Shortcode
         $this->loader->add_action('init', $plugin_shortcode, 'register_shortcodes');
 //        For limiting excerpt length

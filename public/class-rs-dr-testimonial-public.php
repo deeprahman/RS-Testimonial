@@ -48,6 +48,7 @@ class Rs_Dr_Testimonial_Public
         wp_enqueue_style($this->plugin_name, PLUGIN_URL . 'includes/css/rs-dr-testimonial-public.css', array(), $this->version, 'all');
 
         wp_enqueue_style('easy-slide', plugin_dir_url(__FILE__) . 'css/jquery.easy_slides.css', array(), $this->version, 'all');
+        wp_enqueue_style('simple-pagination', plugin_dir_url(__FILE__) . 'css/simplePagination.css', array(), $this->version, 'all');
 
 
     }
@@ -69,6 +70,10 @@ class Rs_Dr_Testimonial_Public
 //        wp_enqueue_script('jquery');
 
         wp_enqueue_script('easy-slider-js', plugin_dir_url(__FILE__) . 'js/jquery.easy_slides.js', array('jquery'), null, false);
+        wp_enqueue_script('simple-pagination-plugin-js', plugin_dir_url(__FILE__) . 'js/jquery.simplePagination.js', array('jquery'), null, false);
+        wp_enqueue_script('pagination-ajax-js', plugin_dir_url(__FILE__) . 'js/pagination.ajax.js', array('jquery', 'simple-pagination-plugin-js'), null, true);
+        wp_localize_script('pagination-ajax-js', 'pageAjaxObj', ['ajax_url' => admin_url('admin-ajax.php')]);
+
         wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/rs-dr-testimonial-public.js', array('jquery'), null, true);
 
 
@@ -187,6 +192,7 @@ EOL;
                 background:#ebede6;
                 color: #161616
             }
+            
 </style>
 EOL;
                     break;
@@ -204,5 +210,10 @@ EOL;
                 }
         }
         print($style);
+    }
+
+    public function rs_session_start()
+    {
+        session_start();
     }
 }
