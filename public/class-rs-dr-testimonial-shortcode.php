@@ -69,6 +69,9 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
             return $output_short;
         }
 
+        //Fetch and store the output review option value form the data base
+        $output_review = get_option('rs_dr_review_settings_options');
+        $output_review = isset($output_review['output_review_markup']) ? $output_review['output_review_markup'] : null;
 
         // Evaluates to true iff all display fields are not set
         $eval_displays_ettings = !isset($atts['image']) && !isset($atts['title']) && !isset($atts['excerpt']) && !isset($atts['name']) && !isset($atts['email']) && !isset($atts['position']) && !isset($atts['location']) && !isset($atts['rating']) && !isset($atts['date']);
@@ -103,12 +106,14 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
             while ($testimonial->have_posts()) {
                 $testimonial->the_post();
                 $post_id = $testimonial->post->ID;
+                $img_url = wp_get_attachment_url(get_post_thumbnail_id($post_id));
+
                 $testim['name'] = get_post_meta($post_id, 'rs_dr_testimonial_client_name', true);
                 $testim['email'] = get_post_meta($post_id, 'rs_dr_testimonial_email', true);
                 $testim['position'] = get_post_meta($post_id, 'rs_dr_testimonial_position', true);
                 $testim['location'] = get_post_meta($post_id, 'rs_dr_testimonial_location', true);
                 $testim['rating'] = get_post_meta($post_id, 'rs_dr_testimonial_rating', true);
-                $testim['img'] = wp_get_attachment_url(get_post_thumbnail_id($post_id));
+                $testim['img'] = $this->get_image_url($img_url, $testim['email']);
                 $testim['title'] = get_the_title();
                 //Extract date format from database
                 $dt_format = get_option('rs_dr_date_options');
@@ -128,7 +133,7 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
 
                 //Stores posts in string
                 if (isset($atts['type']) && ($atts['type'] === 'cycle' || $atts['type'] === 'rand' || $atts['type'] === 'single')) {
-                    $output .= $this->common_features($atts, $testim);
+                    $output .= $this->common_features($atts, $testim, $output_review);
                 }//end if
 
             }// End while
@@ -208,7 +213,7 @@ EOL;
      * @param array $atts
      * @return string
      */
-    private function common_features(array $atts, array $testim): string
+    private function common_features(array $atts, array $testim, $output_review): string
     {
         //The testimonial div begins
         $output = "<div class='rs-dr-container'>";
@@ -239,6 +244,32 @@ EOL;
         if (isset($atts['rating'])) {
             $output .= "<span class=\"rs-dr-ci\">Rating: {$testim['rating']}</span>";
         }
+        {
+
+            if (isset($output_review)) { // JSON-LD option is on
+                $output .= <<<JSON
+            <!--JSON-LD for search engine readability-->
+<script type='application/ld+json'>
+    {
+        "@context":"http://schema.org",
+        "@type":"Review",
+        "itemReviewed":{"name": "{$testim['location']}"},
+        "reviewRating":{
+            "@type":"Rating",
+            "ratingValue":"{$testim['rating']}"
+        },
+        "name":"{$testim['title']}",
+        "author":{
+        "@type":"person",
+        "name":"{$testim['name']}"
+        },
+        "reviewBody":"{$testim['excerpt']}"
+    }
+</script>
+JSON;
+            }
+        }
+
         $output .= "</div>"; // The testimonial div ends
 
         return $output;
@@ -272,6 +303,50 @@ EOL;
             ];
         }
         return $args;
+    }
+
+    /**
+     * Retrieves image URL based upon different settings
+     *
+     * @param string $wpblog_fetrdimg If exists, featured image url
+     * @param string $client_email Client's Email for getting gravater
+     * @return string   Appropriate image URL
+     */
+    private function get_image_url(string $wpblog_fetrdimg, string $client_email): string
+    {
+        {//Begin Display Testimonial image section
+            //Fetch the value of image indicator from database
+            $img_ind = get_option('rs_dr_image_options');
+            if (($gravatar = get_avatar_url($client_email)) && isset($img_ind['use_gravaters']) && empty($wpblog_fetrdimg)) { //If email address has a gravatar, and no image uploaded
+                $image_testimonial = $gravatar;
+            } else { //No gravater found block
+                if (isset($img_ind['show_testimonial_image'])) {
+                    //No image uploaded
+                    if (empty($wpblog_fetrdimg) || !isset($wpblog_fetrdimg)) {
+                        // Get the value of the fallback image from the database
+                        $fallback_img = $img_ind['fallback_image'];
+                        //Switch for fallback image
+                        switch ($fallback_img) {
+                            case 1:
+                                {
+                                    $mystery_image_path = PLUGIN_URL . '/public/asset/mystery-person-clipart-1.jpg';
+                                    $image_testimonial = $mystery_image_path;
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    $image_testimonial = '';
+                                }
+                        }
+                    } else {
+                        $image_testimonial = $wpblog_fetrdimg;
+                    }
+                } else {
+                    $image_testimonial = '';
+                }
+            }
+        }//End Display Testimonial image section
+        return $image_testimonial;
     }
 
 
