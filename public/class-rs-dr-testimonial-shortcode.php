@@ -108,6 +108,10 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
             $link_text = !empty($link_option['link_text']) ? $link_option['link_text'] : 'View More Testimonials';
             $link_address = !empty($link_option['link_address']) ? $link_option['link_address'] : '#';
 
+            $excerpt_options = get_option('rs_dr_excerpt_options');
+            $show_excerpt_text = !empty($excerpt_options['display_excerpt_text']) ? $excerpt_options['display_excerpt_text'] : ' Details...';
+            $link_detail = isset($excerpt_options['link_to_detail']) ? $excerpt_options['link_to_detail'] : null;
+
             $output = '';
             while ($testimonial->have_posts()) {
                 $testimonial->the_post();
@@ -144,7 +148,7 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
 
                 //Stores posts in string
                 if (isset($atts['type']) && ($atts['type'] === 'cycle' || $atts['type'] === 'rand' || $atts['type'] === 'single')) {
-                    $output .= $this->common_features($atts, $testim, $output_review, $link_check, $link_text, $link_address);
+                    $output .= $this->common_features($atts, $testim, $output_review, $link_check, $link_text, $link_address, $show_excerpt_text, $link_detail);
                 }//end if
 
             }// End while
@@ -220,11 +224,17 @@ EOL;
      * This method handles displaying the following common features
      * Image, Title, Excerpt, Name, Email, Position, Location, Rating, Date
      *
-     * @param   array $testim Values of different testimonial parameters
      * @param array $atts
+     * @param array $testim
+     * @param $output_review
+     * @param $link_check
+     * @param $link_text
+     * @param $link_address
+     * @param $show_excerpt_text
+     * @param $link_detail
      * @return string
      */
-    private function common_features(array $atts, array $testim, $output_review, $link_check, $link_text, $link_address): string
+    private function common_features(array $atts, array $testim, $output_review, $link_check, $link_text, $link_address, $show_excerpt_text, $link_detail): string
     {
         //The testimonial div begins
         $output = "<div class='rs-dr-container'>";
@@ -235,8 +245,21 @@ EOL;
             $output .= "<p id=\"rs-dr-title\">{$testim['title']}</p>";
         }
         if (isset($atts['excerpt'])) {
-            $output .= "<p id=\"rs-dr-content\" class=\"custom-css-excerpt\">{$testim['excerpt']}<span><a href=\"{$testim['permalink']}\"> &nbsp;Read More...</a></span></p>";
-        }
+
+            $output .= "<p id=\"rs-dr-content\" class=\"custom-css-excerpt\">{$testim['excerpt']}";
+            //If excerpt details is set, show excerpt details
+            if ($link_detail) {
+                $output .= <<<EOL
+<span>
+    <a href="{$testim['permalink']}">{$show_excerpt_text}</a>
+</span>
+EOL;
+
+            }//End Excerpt detail if
+
+
+            $output .= "</p>";
+        }// End excerpt if
         if (isset($atts['name'])) {
             $output .= "<span class=\"rs-dr-ci\">Client's Name: {$testim['name']}</span>";
         }

@@ -44,7 +44,8 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
      * @var array $default_excerpt_settings Default values of the display settings
      */
     public static $default_excerpt_settings = [
-        'display_excerpt_char' => 20
+        'display_excerpt_char' => 20,
+        'display_excerpt_text' => 'Details'
     ];
     /**
      * @since   1.0.0
@@ -279,6 +280,24 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             'rs_dr_t_excerpt_section_id',
             array('id' => 'display_excerpt_char', 'name' => 'rs_dr_excerpt_options', 'type' => 'number')
         );
+        //The excerpt text field
+        add_settings_field(
+            'display_excerpt_text',
+            __('Excerpt Text', 'rs-dr-testimonial'),
+            array(&$this, 'display_text_field'),
+            'rs-dr-t-excerpt-section-page',
+            'rs_dr_t_excerpt_section_id',
+            array('id' => 'display_excerpt_text', 'name' => 'rs_dr_excerpt_options', 'type' => 'text')
+        );
+        // Link to Details
+        add_settings_field(
+            'link_to_detail',
+            __('Excerpt Text', 'rs-dr-testimonial'),
+            array(&$this, 'display_checkbox_field'),
+            'rs-dr-t-excerpt-section-page',
+            'rs_dr_t_excerpt_section_id',
+            array('id' => 'link_to_detail', 'name' => 'rs_dr_excerpt_options', 'type' => 'checkbox')
+        );
     }
 
     /**
@@ -295,7 +314,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             array(&$this, 'display_text_field'),
             'rs-dr-t-date-section-page',
             'rs_dr_t_date_section_id',
-            array('id' => 'display_date_format', 'name' => 'rs_dr_date_options', 'type' => 'text')
+            array('id' => 'display_date_format', 'name' => 'rs_dr_date_options', 'type' => 'checkbox')
         );
     }
 
