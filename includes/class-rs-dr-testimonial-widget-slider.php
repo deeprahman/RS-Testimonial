@@ -264,6 +264,13 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
 
     } // widget()
 
+    /**
+     * @param $taxonomy_name
+     * @param $selected
+     * @param $name
+     * @param $id
+     * @return string
+     */
     private function create_terms_dropdown($taxonomy_name, $selected, $name, $id): string
     {
         //Arguments for dropdown categories function

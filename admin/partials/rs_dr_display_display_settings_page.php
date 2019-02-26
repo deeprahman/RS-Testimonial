@@ -16,6 +16,10 @@ $width_tab = add_query_arg(
     array('page' => 'rs-dr-testimonial-display-settings-page', 'tab' => 'width-tab'),
     admin_url('admin.php')
 );
+$link_tab = add_query_arg(
+    array('page' => 'rs-dr-testimonial-display-settings-page', 'tab' => 'link-tab'),
+    admin_url('admin.php')
+);
 //Get the active tab, default is excerpt-tab
 $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'excerpt-tab';
 ?>
@@ -36,6 +40,8 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'excerpt-tab';
            class="nav-tab <?= $active_tab === 'image-tab' ? 'nav-tab-active' : '' ?>"><?= esc_html__('Image Options') ?></a>
         <a href="<?= $width_tab ?>"
            class="nav-tab <?= $active_tab === 'width-tab' ? 'nav-tab-active' : '' ?>"><?= esc_html__('Width Options') ?></a>
+        <a href="<?= $link_tab ?>"
+           class="nav-tab <?= $active_tab === 'link-tab' ? 'nav-tab-active' : '' ?>"><?= esc_html__('Link Options') ?></a>
     </h2>
     <!--HTML Form-->
     <div class="form">
@@ -56,11 +62,19 @@ $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'excerpt-tab';
                     {
                         settings_fields('rs_dr_t_image_group');
                         do_settings_sections('rs-dr-t-image-section-page');
+                        break;
                     }
                 case 'width-tab':
                     {
                         settings_fields('rs_dr_t_width_group');
                         do_settings_sections('rs-dr-t-width-section-page');
+                        break;
+                    }
+                case 'link-tab':
+                    {
+                        settings_fields('rs_dr_t_link_group');
+                        do_settings_sections('rs-dr-t-link-section-page');
+                        break;
                     }
             }
             submit_button();

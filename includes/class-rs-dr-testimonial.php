@@ -262,6 +262,7 @@ class Rs_Dr_Testimonial
         $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_date_fields');
         $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_image_fields');
         $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_width_fields');
+        $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_link_fields');
 //        Plugin's Advanced Settings
         $this->loader->add_action('admin_init', $plugin_advanced_settings, 'register_advanced_settings');
         $this->loader->add_action('admin_menu', $plugin_advanced_settings, 'create_shortcode_section');

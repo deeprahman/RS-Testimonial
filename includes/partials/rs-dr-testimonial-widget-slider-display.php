@@ -3,6 +3,12 @@
 //        Initiate WP_Query
 $testimonial = new WP_Query($query_args);
 if ($testimonial->have_posts()) {
+    //fetch the settings of Show More Testimonial Link form database
+    $link_option = get_option('rs_dr_link_options');
+    $link_check = isset($link_option['show_the_link']) ? $link_option['show_the_link'] : null;
+    $link_text = !empty($link_option['link_text']) ? $link_option['link_text'] : 'View More Testimonials';
+    $link_address = !empty($link_option['link_address']) ? $link_option['link_address'] : '#';
+
     $output = '';
     echo $before_widget;
     echo $before_title;
@@ -122,6 +128,11 @@ EOL;
             <?php if ($show_date): ?>
                 <span class="rs-dr-ci">Date: <?= $date ?></span>
             <?php endif; ?>
+
+            <?php if ($link_check && $show_more_link): ?>
+                <span class="rs-dr-ci">Click <a href="<?= $link_address ?>"><?= $link_text ?></a></span>
+            <?php endif; ?>
+
         </div>
 
         <?php

@@ -102,6 +102,12 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
         $testimonial = new WP_Query($args);
 
         if ($testimonial->have_posts()) {
+            //fetch the settings of Show More Testimonial Link form database
+            $link_option = get_option('rs_dr_link_options');
+            $link_check = isset($link_option['show_the_link']) ? $link_option['show_the_link'] : null;
+            $link_text = !empty($link_option['link_text']) ? $link_option['link_text'] : 'View More Testimonials';
+            $link_address = !empty($link_option['link_address']) ? $link_option['link_address'] : '#';
+
             $output = '';
             while ($testimonial->have_posts()) {
                 $testimonial->the_post();
@@ -138,7 +144,7 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
 
                 //Stores posts in string
                 if (isset($atts['type']) && ($atts['type'] === 'cycle' || $atts['type'] === 'rand' || $atts['type'] === 'single')) {
-                    $output .= $this->common_features($atts, $testim, $output_review);
+                    $output .= $this->common_features($atts, $testim, $output_review, $link_check, $link_text, $link_address);
                 }//end if
 
             }// End while
@@ -218,7 +224,7 @@ EOL;
      * @param array $atts
      * @return string
      */
-    private function common_features(array $atts, array $testim, $output_review): string
+    private function common_features(array $atts, array $testim, $output_review, $link_check, $link_text, $link_address): string
     {
         //The testimonial div begins
         $output = "<div class='rs-dr-container'>";
@@ -249,6 +255,10 @@ EOL;
         if (isset($atts['rating'])) {
             $output .= "<span class=\"rs-dr-ci\">Rating: {$testim['rating']}</span>";
         }
+        if ($link_check) {
+            $output .= "<span class=\"rs-dr-ci\">Click <a href=\"$link_address\">$link_text</a></span>";
+        }
+
         {
 
             if (isset($output_review)) { // JSON-LD option is on

@@ -73,6 +73,16 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
     public static $default_width_settings = [
         'testimonial_width' => ''
     ];
+    /**
+     * @since   1.0.0
+     * @access  Public Static
+     * @var array $default_link_settings Default values for the link settings
+     */
+    public static $default_link_settings = [
+        'link_address' => '',
+        'link_text' => 'View More Testimonial',
+        'show_the_link' => 'on'
+    ];
 
     /**
      * Registers all display settings
@@ -102,6 +112,12 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             'rs_dr_width_options',
             array(&$this, 'width_validator')
         );
+        register_setting(
+            'rs_dr_t_link_group',
+            'rs_dr_link_options',
+            array(&$this, 'link_validator')
+        );
+
     }
     /**
      * Validator Callback Function for excerpt
@@ -144,6 +160,16 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
     }
 
     /**
+     * Validator callback function for a link for viewing more testimonials
+     *
+     * @since   1.0.0
+     */
+    public function link_validator($input)
+    {
+        return $input;
+    }
+
+    /**
      * Create sections for display
      *
      * @since   1.0.0
@@ -177,6 +203,13 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             __('Width Section', 'rs-dr-testimonial'),
             array(&$this, 'width_section_description_callback'),
             'rs-dr-t-width-section-page'
+        );
+        //Link Section
+        add_settings_section(
+            'rs_dr_t_link_section_id',
+            __('View More Link Section', 'rs-dr-testimonial'),
+            array(&$this, 'link_section_description_callback'),
+            'rs-dr-t-link-section-page'
         );
     }
 
@@ -218,6 +251,16 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
     public function width_section_description_callback()
     {
         _e('Default Testimonial Width', 'rs-dr-testimonial');
+    }
+
+    /**
+     * Link section callback
+     *
+     * @since   1.0.0
+     */
+    public function link_section_description_callback()
+    {
+        _e('Link to a page for viewing more testimonials', 'rs-dr-testimonial');
     }
 
     /**
@@ -302,13 +345,13 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
     }
 
     /**
-     * Create fields for displaying date
+     * Create fields for displaying width
      *
      * @since 1.0.0
      */
     public function create_width_fields()
     {
-        //The width format
+        //The width settings
         add_settings_field(
             'testimonial_width',
             __('Default Testimonial Width', 'rs-dr-testimonial'),
@@ -317,6 +360,44 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             'rs_dr_t_width_section_id',
             array('id' => 'testimonial_width', 'name' => 'rs_dr_width_options', 'type' => 'text')
         );
+    }
+
+    /**
+     * Create fields for displaying link
+     *
+     * @since 1.0.0
+     */
+    public function create_link_fields()
+    {
+        //The link address
+        add_settings_field(
+            'link_address',
+            __('Link Address', 'rs-dr-testimonial'),
+            array(&$this, 'display_text_field'),
+            'rs-dr-t-link-section-page',
+            'rs_dr_t_link_section_id',
+            array('id' => 'link_address', 'name' => 'rs_dr_link_options', 'type' => 'text')
+        );
+        // The link text
+        add_settings_field(
+            'link_text',
+            __('Link Text', 'rs-dr-testimonial'),
+            array(&$this, 'display_text_field'),
+            'rs-dr-t-link-section-page',
+            'rs_dr_t_link_section_id',
+            array('id' => 'link_text', 'name' => 'rs_dr_link_options', 'type' => 'text')
+        );
+
+        //View more testimonial link checkbox
+        add_settings_field(
+            'show_the_link',
+            __('Show View More Testimonial Link', 'rs-dr-testimonial'),
+            array(&$this, 'display_checkbox_field'),
+            'rs-dr-t-link-section-page',
+            'rs_dr_t_link_section_id',
+            array('id' => 'show_the_link', 'name' => 'rs_dr_link_options', 'type' => 'checkbox')
+        );
+
     }
 
     /**
