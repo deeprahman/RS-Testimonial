@@ -31,6 +31,7 @@
 use admin\mics\Rs_Dr_Testimonial_Post_Management_Columns;
 use admin\Rs_Dr_Testimonial_Import_Export_Settings;
 
+
 class Rs_Dr_Testimonial
 {
 
@@ -125,6 +126,7 @@ class Rs_Dr_Testimonial
          * The class responsible for defining all actions that occur in the admin area.
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-meta-box.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-show-shrtcode-metabox.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-settings.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-basic-settings.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-rs-dr-testimonial-display-settings.php';
@@ -143,6 +145,8 @@ class Rs_Dr_Testimonial
          * side of the site for slider widget.
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-rs-dr-testimonial-widget-slider.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-rs-dr-testimonial-widget-random.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-rs-dr-testimonial-widget-single.php';
 
         /**
          * The class responsible caching the widget content.
@@ -206,6 +210,8 @@ class Rs_Dr_Testimonial
     {
 
         $plugin_admin = new Rs_Dr_Testimonial_Meta_Box($this->get_plugin_name(), $this->get_version());
+        // Instance of the shortcode metabox class
+        $plugin_metabox_shortcode = new Rs_Dr_Testimonial_Show_Sortcode_metabox($this->get_plugin_name(), $this->get_version());
 //		Instance of the settings class
         $plugin_settings = new Rs_Dr_Testimonial_Settings($this->get_plugin_name(), $this->get_version());
 //        Instance of the basic Settings Class
@@ -236,6 +242,7 @@ class Rs_Dr_Testimonial
 
 //		Fires after all built-in meta boxes have been added.
         $this->loader->add_action('add_meta_boxes_rs_dr_testimonial', $plugin_admin, 'rs_dr_admin_init');
+        $this->loader->add_action('add_meta_boxes_rs_dr_testimonial', $plugin_metabox_shortcode, 'rs_dr_admin_init');
 //		Save the meta box data
         $this->loader->add_action('save_post', $plugin_admin, 'rs_dr_save_client_info');
 
@@ -254,6 +261,7 @@ class Rs_Dr_Testimonial
         $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_excerpt_fields');
         $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_date_fields');
         $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_image_fields');
+        $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_width_fields');
 //        Plugin's Advanced Settings
         $this->loader->add_action('admin_init', $plugin_advanced_settings, 'register_advanced_settings');
         $this->loader->add_action('admin_menu', $plugin_advanced_settings, 'create_shortcode_section');
@@ -375,6 +383,9 @@ class Rs_Dr_Testimonial
     {
 
         register_widget('Rs_Dr_Testimonial_Widget_Slider');
+        register_widget('includes\Rs_Dr_Testimonial_Widget_Random');// Namespaced
+        register_widget('includes\Rs_Dr_Testimonial_Widget_Single');// Namespaced
+
 
     } // widgets_init()
 

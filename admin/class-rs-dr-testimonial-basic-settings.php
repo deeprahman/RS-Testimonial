@@ -46,6 +46,8 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
         'show_in_search' => '1',
         'allow_html_tags' => '1',
         'css_all_screens' => '',
+        'css_768_screens' => '',
+        'css_320_screens' => ''
     ];
 
     public static $default_review_settings = [
@@ -149,6 +151,24 @@ class Rs_Dr_Testimonial_Basic_Settings extends Rs_Dr_Testimonial_Settings
             'rs-dr-testimonial-basic-option-page',
             'rs_dr_testimonial_basic_options_section',
             array('id' => 'css_all_screens', 'name' => 'rs_dr_basic_settings_options', 'type' => 'textarea')
+        );
+
+        add_settings_field(
+            'css_768_screens',
+            __('Custom CSS (768px and Low)', 'rs-dr-testimonial'),
+            array($this, 'display_textarea_field'),
+            'rs-dr-testimonial-basic-option-page',
+            'rs_dr_testimonial_basic_options_section',
+            array('id' => 'css_768_screens', 'name' => 'rs_dr_basic_settings_options', 'type' => 'textarea')
+        );
+
+        add_settings_field(
+            'css_320_screens',
+            __('Custom CSS (320px and Low)', 'rs-dr-testimonial'),
+            array($this, 'display_textarea_field'),
+            'rs-dr-testimonial-basic-option-page',
+            'rs_dr_testimonial_basic_options_section',
+            array('id' => 'css_320_screens', 'name' => 'rs_dr_basic_settings_options', 'type' => 'textarea')
         );
     }
 

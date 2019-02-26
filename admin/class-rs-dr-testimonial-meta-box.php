@@ -210,7 +210,6 @@ class Rs_Dr_Testimonial_Meta_Box
      */
     public function rs_dr_admin_init()
     {
-
         //Add Client Information Meta Box
         add_meta_box(
             'rs_dr_client_information_meta_box',

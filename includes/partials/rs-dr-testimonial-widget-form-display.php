@@ -5,7 +5,6 @@
     </label>
 </p>
 
-
 <p>
     <label for="<?= $id_count ?>">
         <?= $label_count ?> <input type="number" id="<?= $id_count ?>" name="<?= $name_count ?>"
@@ -32,7 +31,6 @@
         </select>
     </label>
 </p>
-
 
 <p>
     <label for="<?= $id_order ?>"><?= esc_html__('Sort By', 'rs-dr-testimonial') ?>
@@ -85,6 +83,14 @@
         <?= $label_show_location ?>
         <input type="checkbox" id="<?= $id_show_location ?>"
                name="<?= $name_show_location ?>" <?= checked($value_show_location, 'on', false) ?>>
+    </label>
+</p>
+<p>
+    <!--    Label for Location Review-->
+    <label for="<?= $id_show_position ?>">
+        <?= $label_show_position ?>
+        <input type="checkbox" id="<?= $id_show_position ?>"
+               name="<?= $name_show_position ?>" <?= checked($value_show_position, 'on', false) ?>>
     </label>
 </p>
 

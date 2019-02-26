@@ -8,7 +8,7 @@ if ($testimonial->have_posts()) {
     echo $before_title;
     echo apply_filters('widget_title', $title);
     echo $after_title;
-    echo "<div class=\"slider_one_big_picture\">";
+
     while ($testimonial->have_posts()) {
         $testimonial->the_post();
         $post_id = $testimonial->post->ID;
@@ -103,7 +103,7 @@ EOL;
             <?php if ($show_title): ?>
                 <p id="rs-dr-title"><?= $title ?></p>
             <?php endif; ?>
-            <?php if (isset($show_excerpt)): ?>
+            <?php if ($show_excerpt): ?>
                 <p id="rs-dr-content" class="custom-css-excerpt"><?= $excerpt ?><span><a href="<?= $permalink ?>"> &nbsp;Read More...</a>
                 </p>
             <?php endif; ?>
@@ -153,11 +153,8 @@ JSON;
         }
         $output .= "</div>";
     }
-    $output .= <<<EOL
-        <div class="next_button" style="display: inline-block;"></div>
-        <div class="prev_button"></div>     
-EOL;
-    echo $output . "</div>" . $after_widget;
+
+    echo $output . $after_widget;
     // Get the buffered output and clean the buffer
 } else {
     echo "No Testimonial Has been published";

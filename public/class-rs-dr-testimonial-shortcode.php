@@ -124,10 +124,15 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
                 if (has_excerpt()) {
                     $testim['excerpt'] = wp_trim_excerpt();
                 } else { //Make an excerpt from the content
-                    $length = get_option('rs_dr_testimonial_options');
-                    $length = $length['length_excerpt'];
+                    $length = get_option('rs_dr_excerpt_options');
+                    $length = $length['display_excerpt_char'];
                     $testim['excerpt'] = wp_trim_words(get_the_content(), $length);
                 }// End if/else
+                //Strip HTML tags from the excerpt
+                if ($strip_tags = get_option('rs_dr_basic_settings_options') && !isset($strip_tags['allow_html_tags'])) {
+                    $testim['excerpt'] = strip_tags($testim['excerpt']);
+                }
+
                 $testim['permalink'] = get_the_permalink();
 
 

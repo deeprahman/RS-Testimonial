@@ -52,7 +52,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
      * @var array $default_date_settings Default values for the date settings
      */
     public static $default_date_settings = [
-        'display_date_format' => 'F J, y'
+        'display_date_format' => 'F j, y'
     ];
     /**
      * @since   1.0.0
@@ -65,6 +65,15 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
         'fallback_image' => 1, //There are three types of fallback images, 1:Mystery Person; 2:Smart Text Avatar, 3:No Fallback Image
         'use_gravaters' => 1 //Use Gravatar if one is found with a matching email address
     ];
+    /**
+     * @since   1.0.0
+     * @access  Public Static
+     * @var array $default_width_settings Default values for the width settings
+     */
+    public static $default_width_settings = [
+        'testimonial_width' => ''
+    ];
+
     /**
      * Registers all display settings
      *
@@ -87,6 +96,11 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             'rs_dr_t_image_group',
             'rs_dr_image_options',
             array(&$this, 'image_validator')
+        );
+        register_setting(
+            'rs_dr_t_width_group',
+            'rs_dr_width_options',
+            array(&$this, 'width_validator')
         );
     }
     /**
@@ -120,6 +134,16 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
     }
 
     /**
+     * Validator callback function for width
+     *
+     * @since   1.0.0
+     */
+    public function width_validator($input)
+    {
+        return $input;
+    }
+
+    /**
      * Create sections for display
      *
      * @since   1.0.0
@@ -146,6 +170,13 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             __('Image Section', 'rs-dr-testimonial'),
             array(&$this, 'image_section_description_callback'),
             'rs-dr-t-image-section-page'
+        );
+        //Width Section
+        add_settings_section(
+            'rs_dr_t_width_section_id',
+            __('Width Section', 'rs-dr-testimonial'),
+            array(&$this, 'width_section_description_callback'),
+            'rs-dr-t-width-section-page'
         );
     }
 
@@ -177,6 +208,16 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
     public function image_section_description_callback()
     {
         _e('Activate or deactivate different options for testimonial image', 'rs-dr-testimonial');
+    }
+
+    /**
+     * Width section callback
+     *
+     * @since   1.0.0
+     */
+    public function width_section_description_callback()
+    {
+        _e('Default Testimonial Width', 'rs-dr-testimonial');
     }
 
     /**
@@ -257,6 +298,24 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             'rs-dr-t-image-section-page',
             'rs_dr_t_image_section_id',
             array('id' => 'use_gravaters', 'name' => 'rs_dr_image_options', 'type' => 'checkbox')
+        );
+    }
+
+    /**
+     * Create fields for displaying date
+     *
+     * @since 1.0.0
+     */
+    public function create_width_fields()
+    {
+        //The width format
+        add_settings_field(
+            'testimonial_width',
+            __('Default Testimonial Width', 'rs-dr-testimonial'),
+            array(&$this, 'display_text_field'),
+            'rs-dr-t-width-section-page',
+            'rs_dr_t_width_section_id',
+            array('id' => 'testimonial_width', 'name' => 'rs_dr_width_options', 'type' => 'text')
         );
     }
 

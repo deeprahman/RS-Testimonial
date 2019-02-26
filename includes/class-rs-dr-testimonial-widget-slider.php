@@ -73,12 +73,13 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
         $defaults['count'] = '1';
         $defaults['orderby'] = 'date';
         $defaults['order'] = 'ASC';
-        $defaults['category'] = 0;
+        $defaults['category'] = null;
         $defaults['taxonomy'] = 'rs_dr_testimonial_type';
         $defaults['show_title'] = '1';
         $defaults['show_excerpt'] = '1';
         $defaults['show_image'] = '1';
         $defaults['show_location'] = '1';
+
         $defaults['show_date'] = '1';
         $defaults['show_more_link'] = '1';
         $defaults['show_rating'] = '2';
@@ -158,6 +159,7 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
         $name_show_location = $this->get_field_name($field_show_location);
         $value_show_location = esc_attr($instance['show_location']);
 
+
         //Show testimonial More Links
         $field_show_more_link = 'show_more_link';
         $label_show_more_link = esc_html__(ucwords($field_show_more_link));
@@ -201,6 +203,7 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
         $instance['show_image'] = sanitize_text_field($new_instance['show_image']);
         $instance['show_date'] = sanitize_text_field($new_instance['show_date']);
         $instance['show_location'] = sanitize_text_field($new_instance['show_location']);
+
         $instance['show_more_link'] = sanitize_text_field($new_instance['show_more_link']);
         $instance['show_rating'] = sanitize_text_field($new_instance['show_rating']);
 
@@ -230,7 +233,7 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
         $count = (!empty($instance['count']) ? $instance['count'] : '1');
         $order_by = (!empty($instance['date']) ? $instance['date'] : 'date');
         $order = (!empty($instance['ASC']) ? $instance['ASC'] : 'DESC');
-        $category = intval(!empty($instance['category']) ? $instance['category'] : 2);
+        $category = intval(!empty($instance['category']) ? $instance['category'] : 1);
 
         $show_title = isset($instance['show_title']) ? $instance['show_title'] : 'null';
         $show_excerpt = isset($instance['show_excerpt']) ? $instance['show_excerpt'] : 'null';

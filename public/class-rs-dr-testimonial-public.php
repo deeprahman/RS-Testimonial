@@ -100,8 +100,25 @@ class Rs_Dr_Testimonial_Public
      */
     public function printCustomCss()
     {
-        $options = get_option('rs_dr_basic_settings_options');
+        $width_option = get_option('rs_dr_width_options');
+        //Default width
+        if (isset($width_option) && !empty($width_option['testimonial_width'])) {
+            $custom_css = <<<EOL
+<style type="text/css">
+    .rs-dr-container{
+        width: {$width_option['testimonial_width']};
+    }
+    .slider_one_big_picture{
+        width: {$width_option['testimonial_width']};
+    }
+</style>
+EOL;
+            echo $custom_css;
 
+        }
+
+        $options = get_option('rs_dr_basic_settings_options');
+        // For all Screen
         if (isset($options) && !empty($options['css_all_screens'])) {
             $custom_css = <<<EOL
 <style type="text/css">
@@ -109,6 +126,30 @@ class Rs_Dr_Testimonial_Public
 </style>
 EOL;
             echo $custom_css;
+
+        }
+        // For all Screen lass than or equal to 768px
+        if (isset($options) && !empty($options['css_768_screens'])) {
+            $custom_css_768 = <<<EOL
+<style type="text/css">
+    @media only screen and (max-width: 768px) {
+        {$options['css_768_screens']}
+    }
+</style>
+EOL;
+            echo $custom_css_768;
+
+        }
+        // For all Screen lass than or equal to 320px
+        if (isset($options) && !empty($options['css_320_screens'])) {
+            $custom_css_320 = <<<EOL
+<style type="text/css">
+    @media only screen and (max-width: 320px) {
+        {$options['css_320_screens']}
+    }
+</style>
+EOL;
+            echo $custom_css_320;
 
         }
     }
@@ -160,7 +201,6 @@ EOL;
      */
     public function theme_change_css()
     {
-
         // Get the theme options form the database
         $options = get_option('rs_dr_theme_options');
         $value = intval(isset($options['theme_value']) ? $options['theme_value'] : 1);
