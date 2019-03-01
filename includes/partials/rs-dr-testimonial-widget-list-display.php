@@ -1,9 +1,9 @@
 <?php
 
+$present = 'present';
 //        Initiate WP_Query
 $testimonial = new WP_Query($query_args);
 if ($testimonial->have_posts()) {
-
     //fetch the settings of Show More Testimonial Link form database
     $link_option = get_option('rs_dr_link_options');
     $link_check = isset($link_option['show_the_link']) ? $link_option['show_the_link'] : null;
@@ -15,7 +15,7 @@ if ($testimonial->have_posts()) {
     echo $before_title;
     echo apply_filters('widget_title', $title);
     echo $after_title;
-    echo "<div class=\"slider_one_big_picture\">";
+
     while ($testimonial->have_posts()) {
         $testimonial->the_post();
         $post_id = $testimonial->post->ID;
@@ -110,7 +110,7 @@ EOL;
             <?php if ($show_title): ?>
                 <p id="rs-dr-title"><?= $title ?></p>
             <?php endif; ?>
-            <?php if (isset($show_excerpt)): ?>
+            <?php if ($show_excerpt): ?>
                 <p id="rs-dr-content" class="custom-css-excerpt"><?= $excerpt ?><span><a href="<?= $permalink ?>"> &nbsp;Read More...</a>
                 </p>
             <?php endif; ?>
@@ -164,12 +164,24 @@ EOL;
 JSON;
         }
         $output .= "</div>";
+        $out_array[] = $output;
+        unset($output);
     }
-    $output .= <<<EOL
-        <div class="next_button" style="display: inline-block;"></div>
-        <div class="prev_button"></div>     
-EOL;
-    echo $output . "</div>" . $after_widget;
+    $html = '';
+    foreach ($out_array as $output) {
+        $html .= $output;
+    }
+    $pagin_args = [
+        'type' => '',
+        'base' => $pagination_base,
+        'format' => '?' . 'w_page_no' . '%#%',
+        'current' => max(1, $testimonial->get('paged')),
+        'total' => $testimonial->max_num_pages
+    ];
+
+    echo $html . paginate_links($pagin_args) . $after_widget;
+
+
     // Get the buffered output and clean the buffer
 } else {
     echo "No Testimonial Has been published";

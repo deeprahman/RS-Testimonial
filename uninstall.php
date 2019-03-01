@@ -29,3 +29,13 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+$allposts = get_posts(
+    ['post_type' => 'rs_dr_testimonial',
+        'numberposts' => -1
+    ]
+);
+
+foreach ($allposts as $eachpost) {
+    wp_delete_post($eachpost->ID, true);
+}
+unregister_post_type('rs_dr_testimonial');

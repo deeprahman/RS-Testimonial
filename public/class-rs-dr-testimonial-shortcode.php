@@ -88,9 +88,10 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
             $atts['date'] = '1';
 
         }
+        //The base url
+        $pagination_base = add_query_arg('page_no', '%#%');
 
-        // Get the arguments for WP_Query
-        $args = $this->arguments($atts);
+        $paged = intval(isset($_GET['page_no']) ? $_GET['page_no'] : 1);
 
 
         if (isset($atts['type']) && $atts['type'] == "cycle") {
@@ -98,6 +99,21 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
 
         }
 
+        if (isset($atts['type']) && $atts['type'] == "grid") {
+            $grid = 1;
+            $atts['paged'] = $paged;
+        }
+        if (isset($atts['type']) && $atts['type'] == "list") {
+            $list = 1;
+            $atts['paged'] = $paged;
+        }
+
+        // Get the arguments for WP_Query
+        $args = $this->arguments($atts);
+        //Global Item Reviewed
+        $global_item_opt = get_option('rs_dr_review_settings_options');
+        $global_item_txt = isset($global_item_opt['global_item_reviewed']) ? $global_item_opt['global_item_reviewed'] : null;
+        $global_item_checked = isset($global_item_opt['use_global_item_reviewed']) ? $global_item_opt['use_global_item_reviewed'] : null;
 
         $testimonial = new WP_Query($args);
 
@@ -125,6 +141,11 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
                 $testim['rating'] = get_post_meta($post_id, 'rs_dr_testimonial_rating', true);
                 $testim['img'] = $this->get_image_url($img_url, $testim['email']);
                 $testim['title'] = get_the_title();
+
+                //when global item reviewed is checked, use it
+                if ($global_item_checked) {
+                    $testim['location'] = isset($global_item_txt) ? $global_item_txt : $testim['location'];
+                }
                 //Extract date format from database
                 $dt_format = get_option('rs_dr_date_options');
                 $dt_format = isset($dt_format) ? $dt_format['display_date_format'] : "F j, Y";
@@ -145,15 +166,27 @@ class Rs_Dr_Testimonial_Shortcode extends Rs_Dr_Testimonial_Public
 
                 $testim['permalink'] = get_the_permalink();
 
+                //Stores posts in string
+                if (isset($atts['type']) && ($atts['type'] === 'single')) {
+                    $output .= $this->common_features_single($atts, $testim, $output_review, $link_check, $link_text, $link_address, $show_excerpt_text, $link_detail);
+                }//end if
 
                 //Stores posts in string
-                if (isset($atts['type']) && ($atts['type'] === 'cycle' || $atts['type'] === 'rand' || $atts['type'] === 'single')) {
+                if (isset($atts['type']) && ($atts['type'] === 'cycle' || $atts['type'] === 'rand')) {
                     $output .= $this->common_features($atts, $testim, $output_review, $link_check, $link_text, $link_address, $show_excerpt_text, $link_detail);
                 }//end if
+                //Store testimonials in array
+                if (isset($atts['type']) && ($atts['type'] === 'grid' || $atts['type'] === 'list')) {
+                    $output_array[] = $this->common_features($atts, $testim, $output_review, $link_check, $link_text, $link_address, $show_excerpt_text, $link_detail);
+
+                }//end if
+
 
             }// End while
             //When pagination, function returns here
             wp_reset_postdata();
+
+
             if (isset($cycle)) {
                 $head = '<div class="slider_one_big_picture">';
                 $button = <<<EOL
@@ -164,6 +197,19 @@ EOL;
                 $output = $head . $output . $button;
             }
 
+            if (isset($list)) {
+                foreach ($output_array as $single_testimonial) {
+                    $output .= $single_testimonial;
+                }
+                $pagin_args = [
+                    'type' => '',
+                    'base' => $pagination_base,
+                    'format' => '?' . 'page_no' . '%#%',
+                    'current' => max(1, $testimonial->get('paged')),
+                    'total' => $testimonial->max_num_pages
+                ];
+                $output .= paginate_links($pagin_args);
+            }
 
             // Check if cache option is set
             $option = get_option('rs_dr_cache_options');
@@ -213,7 +259,12 @@ EOL;
                         $args['posts_per_page'] = 1;
                         break;
                     }
-
+                case 'list':
+                    {
+                        $extracted_args = $this->common_args($atts);
+                        $args = wp_parse_args($extracted_args, $args);
+                        break;
+                    }
             }
         }
 
@@ -322,6 +373,9 @@ JSON;
     private function common_args(array &$atts): array
     {
         $args = [];
+        if (isset($atts['paged'])) {
+            $args['paged'] = intval($atts['paged']);
+        }
         if (isset($atts['count'])) {
             $args['posts_per_page'] = intval($atts['count']);
         }
@@ -387,5 +441,122 @@ JSON;
         return $image_testimonial;
     }
 
+    /**
+     * This method handles displaying the following common features
+     * Image, Title, Excerpt, Name, Email, Position, Location, Rating, Date
+     *
+     * @param array $atts
+     * @param array $testim
+     * @param $output_review
+     * @param $link_check
+     * @param $link_text
+     * @param $link_address
+     * @param $show_excerpt_text
+     * @param $link_detail
+     * @return string
+     */
+    private function common_features_single(array $atts, array $testim, $output_review, $link_check, $link_text, $link_address, $show_excerpt_text, $link_detail): string
+    {
+        $single_settings = get_option('rs_dr_single_options');
+
+        //The testimonial div begins
+        $output = "<div class='rs-dr-container rs-dr-t-single-test'>";
+
+        if (isset($single_settings['single_show_rating']) && $single_settings['single_show_rating'] == 1) {
+
+            if (isset($atts['rating'])) {
+                $output .= "<span class=\"rs-dr-ci\">Rating: {$testim['rating']}</span>";
+            }
+        }
+        if (isset($single_settings['single_show_image'])) {
+            if (isset($atts['image'])) {
+                $output .= "<img id=\"image\" src=\"{$testim['img']}\" alt=\"image\">";
+            }
+        }
+        if (isset($single_settings['single_show_title'])) {
+
+            if (isset($atts['title'])) {
+                $output .= "<p id=\"rs-dr-title\">{$testim['title']}</p>";
+            }
+        }
+        if (isset($atts['excerpt'])) {
+
+            $output .= "<p id=\"rs-dr-content\" class=\"custom-css-excerpt\">{$testim['excerpt']}";
+            //If excerpt details is set, show excerpt details
+            if ($link_detail) {
+                $output .= <<<EOL
+<span>
+    <a href="{$testim['permalink']}">{$show_excerpt_text}</a>
+</span>
+EOL;
+
+            }//End Excerpt detail if
+
+
+            $output .= "</p>";
+        }// End excerpt if
+
+        if (isset($atts['name'])) {
+            $output .= "<span class=\"rs-dr-ci\">Client's Name: {$testim['name']}</span>";
+        }
+        if (isset($atts['email'])) {
+            $output .= "<span class=\"rs-dr-ci\">Client's Email: {$testim['email']}</span>";
+        }
+        if (isset($atts['position'])) {
+            $output .= "<span class=\"rs-dr-ci\">Client's Position: {$testim['position']}</span>";
+        }
+        if (isset($single_settings['single_show_location'])) {
+
+            if (isset($atts['location'])) {
+                $output .= "<span class=\"rs-dr-ci\">Client's Location: {$testim['location']}</span>";
+            }
+        }
+        if (isset($single_settings['single_show_date'])) {
+
+            if (isset($atts['date'])) {
+                $output .= "<span class=\"rs-dr-ci\">Date: {$testim['date']}</span>";
+            }
+        }
+        if (isset($single_settings['single_show_rating']) && $single_settings['single_show_rating'] == 2) {
+
+            if (isset($atts['rating'])) {
+                $output .= "<span class=\"rs-dr-ci\">Rating: {$testim['rating']}</span>";
+            }
+        }
+        if (isset($single_settings['single_show_link'])) {
+            if ($link_check) {
+                $output .= "<span class=\"rs-dr-ci\">Click <a href=\"$link_address\">$link_text</a></span>";
+            }
+        }
+        if (isset($single_settings['single_printing_json_ld'])) {
+
+            if (isset($output_review)) { // JSON-LD option is on
+                $output .= <<<JSON
+            <!--JSON-LD for search engine readability-->
+<script type='application/ld+json'>
+    {
+        "@context":"http://schema.org",
+        "@type":"Review",
+        "itemReviewed":{"name": "{$testim['location']}"},
+        "reviewRating":{
+            "@type":"Rating",
+            "ratingValue":"{$testim['rating']}"
+        },
+        "name":"{$testim['title']}",
+        "author":{
+        "@type":"person",
+        "name":"{$testim['name']}"
+        },
+        "reviewBody":"{$testim['excerpt']}"
+    }
+</script>
+JSON;
+            }
+        }
+
+        $output .= "</div>"; // The testimonial div ends
+
+        return $output;
+    }
 
 }

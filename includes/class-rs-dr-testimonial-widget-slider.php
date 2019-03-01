@@ -275,6 +275,7 @@ class Rs_Dr_Testimonial_Widget_Slider extends WP_Widget
     {
         //Arguments for dropdown categories function
         $args = [
+
             'taxonomy' => $taxonomy_name,
             'name' => $name,
             'selected' => $selected,

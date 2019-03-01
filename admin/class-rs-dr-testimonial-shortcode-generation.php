@@ -118,8 +118,11 @@ class Rs_Dr_Testimonial_Shortcode_Generation extends Rs_Dr_Testimonial_Settings
                 {
 
                     $count = intval(isset($_POST['count']) ? $_POST['count'] : -1);
-                    $category = intval(isset($_POST['cat']) ? $_POST['cat'] : '2');
-                    $output = "[$shortcode odrby='rand' type='$type' count='$count' category='$category'" . ' ';
+                    $cat = intval(isset($_POST['cat']) ? $_POST['cat'] : null);
+                    $output = "[$shortcode odrby='rand' type='$type' count='$count'" . ' ';
+                    if ($cat) {
+                        $output .= "category='$cat' ";
+                    }
                     if ($image) {
                         $output .= "image='$image' ";
                     }
@@ -156,7 +159,7 @@ class Rs_Dr_Testimonial_Shortcode_Generation extends Rs_Dr_Testimonial_Settings
             case 'cycle':
                 {
                     $count = intval(isset($_POST['count']) ? $_POST['count'] : -1);
-                    $cat = intval(isset($_POST['cat']) ? $_POST['cat'] : null);
+                    $cat = (isset($_POST['cat']) ? $_POST['cat'] : null);
                     $ordby = sanitize_text_field($_POST['ordby'] ? $_POST['ordby'] : 'ID');
                     $ord = sanitize_text_field($_POST['ord'] ? $_POST['ord'] : 'ASC');
                     $output = "[$shortcode type='$type' count='$count' odr='$ord' odrby='$ordby'" . ' ';

@@ -252,6 +252,69 @@ EOL;
         print($style);
     }
 
+    /**
+     * Theme change for single testimonial
+     *
+     * @since   1.0.0
+     */
+    public function theme_change_single_css()
+    {
+        // Get the theme options form the database
+        $options = get_option('rs_dr_single_options');
+        $value = intval(isset($options['single_theme']) ? $options['single_theme'] : 1);
+        switch ($value) {
+            case 1:
+                {
+                    $style = <<<EOL
+
+EOL;
+                    break;
+                }
+            case 2:
+                {
+                    $style = <<<EOL
+<style>
+    div.rs-dr-t-single-test{
+                background:#555653;
+                color:silver;
+            }
+</style>
+EOL;
+                    break;
+                }
+            case 3:
+                {
+                    $style = <<<EOL
+<style>
+    div.rs-dr-t-single-test{
+                background:#ebede6;
+                color: #161616
+            }
+            
+</style>
+EOL;
+                    break;
+                }
+            default:
+                {
+                    $style = <<<EOL
+<style>
+    div.rs-dr-t-single-test{
+                border: none;
+            }
+</style>
+EOL;
+                    break;
+                }
+        }
+        print($style);
+    }
+
+
+
+
+
+
     public function rs_session_start()
     {
         session_start();

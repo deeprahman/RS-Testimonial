@@ -147,6 +147,7 @@ class Rs_Dr_Testimonial
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-rs-dr-testimonial-widget-slider.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-rs-dr-testimonial-widget-random.php';
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-rs-dr-testimonial-widget-single.php';
+        require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-rs-dr-testimonial-widget-list.php';
 
         /**
          * The class responsible caching the widget content.
@@ -263,6 +264,7 @@ class Rs_Dr_Testimonial
         $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_image_fields');
         $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_width_fields');
         $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_link_fields');
+        $this->loader->add_action('admin_menu', $plugin_display_settings, 'create_single_fields');
 //        Plugin's Advanced Settings
         $this->loader->add_action('admin_init', $plugin_advanced_settings, 'register_advanced_settings');
         $this->loader->add_action('admin_menu', $plugin_advanced_settings, 'create_shortcode_section');
@@ -311,6 +313,7 @@ class Rs_Dr_Testimonial
         $this->loader->add_action('wp_head', $plugin_public, 'image_display_css');
 //        Print Theme css in the head element of the public facing face
         $this->loader->add_action('wp_head', $plugin_public, 'theme_change_css');
+        $this->loader->add_action('wp_head', $plugin_public, 'theme_change_single_css');
     }
 
     /**
@@ -386,6 +389,7 @@ class Rs_Dr_Testimonial
         register_widget('Rs_Dr_Testimonial_Widget_Slider');
         register_widget('includes\Rs_Dr_Testimonial_Widget_Random');// Namespaced
         register_widget('includes\Rs_Dr_Testimonial_Widget_Single');// Namespaced
+        register_widget('includes\Rs_Dr_Testimonial_Widget_List');// Namespaced
 
 
     } // widgets_init()

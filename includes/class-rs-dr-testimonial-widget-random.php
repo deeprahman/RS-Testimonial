@@ -237,6 +237,7 @@ class Rs_Dr_Testimonial_Widget_Random extends \WP_Widget
     {
         //Arguments for dropdown categories function
         $args = [
+
             'taxonomy' => $taxonomy_name,
             'name' => $name,
             'selected' => $selected,
@@ -246,4 +247,5 @@ class Rs_Dr_Testimonial_Widget_Random extends \WP_Widget
         ];
         return wp_dropdown_categories($args);
     }
+
 }

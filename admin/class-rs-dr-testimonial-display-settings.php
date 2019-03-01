@@ -118,8 +118,14 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             'rs_dr_link_options',
             array(&$this, 'link_validator')
         );
+        register_setting(
+            'rs_dr_t_single_group',
+            'rs_dr_single_options',
+            array(&$this, 'single_validator')
+        );
 
     }
+
     /**
      * Validator Callback Function for excerpt
      *
@@ -171,6 +177,16 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
     }
 
     /**
+     * Validator callback function for a link for viewing more testimonials
+     *
+     * @since   1.0.0
+     */
+    public function single_validator($input)
+    {
+        return $input;
+    }
+
+    /**
      * Create sections for display
      *
      * @since   1.0.0
@@ -211,6 +227,13 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             __('View More Link Section', 'rs-dr-testimonial'),
             array(&$this, 'link_section_description_callback'),
             'rs-dr-t-link-section-page'
+        );
+        //single Section
+        add_settings_section(
+            'rs_dr_t_single_section_id',
+            __('Single Testimonial View Options', 'rs-dr-testimonial'),
+            array(&$this, 'single_section_description_callback'),
+            'rs-dr-t-single-section-page'
         );
     }
 
@@ -265,6 +288,16 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
     }
 
     /**
+     * Single section callback
+     *
+     * @since   1.0.0
+     */
+    public function single_section_description_callback()
+    {
+        _e('Options for viewing single testimonial', 'rs-dr-testimonial');
+    }
+
+    /**
      * Create fields for displaying excerpt
      *
      * @since   1.0.0
@@ -314,7 +347,7 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
             array(&$this, 'display_text_field'),
             'rs-dr-t-date-section-page',
             'rs_dr_t_date_section_id',
-            array('id' => 'display_date_format', 'name' => 'rs_dr_date_options', 'type' => 'checkbox')
+            array('id' => 'display_date_format', 'name' => 'rs_dr_date_options', 'type' => 'text')
         );
     }
 
@@ -420,6 +453,88 @@ class Rs_Dr_Testimonial_Display_Settings extends Rs_Dr_Testimonial_Settings
     }
 
     /**
+     * Create fields for controlling the single testimonial view
+     *
+     * @since 1.0.0
+     */
+    public function create_single_fields()
+    {
+        //The Theme field
+        add_settings_field(
+            'single_theme',
+            __('Theme', 'rs-dr-testimonial'),
+            array(&$this, 'display_select_field'),
+            'rs-dr-t-single-section-page',
+            'rs_dr_t_single_section_id',
+            array('id' => 'single_theme', 'name' => 'rs_dr_single_options', 'values' => ['1' => 'Default', '2' => 'Dark', '3' => 'Light', '4' => 'None'])
+        );
+
+        //Show testimonial title
+        add_settings_field(
+            'single_show_title',
+            __('Show Testimonial Title', 'rs-dr-testimonial'),
+            array(&$this, 'display_checkbox_field'),
+            'rs-dr-t-single-section-page',
+            'rs_dr_t_single_section_id',
+            array('id' => 'single_show_title', 'name' => 'rs_dr_single_options', 'type' => 'checkbox')
+        );
+        //Show testimonial Image
+        add_settings_field(
+            'single_show_image',
+            __('Show Testimonial Image', 'rs-dr-testimonial'),
+            array(&$this, 'display_checkbox_field'),
+            'rs-dr-t-single-section-page',
+            'rs_dr_t_single_section_id',
+            array('id' => 'single_show_image', 'name' => 'rs_dr_single_options', 'type' => 'checkbox')
+        );
+        //Show testimonial date
+        add_settings_field(
+            'single_show_date',
+            __('Show Testimonial Date', 'rs-dr-testimonial'),
+            array(&$this, 'display_checkbox_field'),
+            'rs-dr-t-single-section-page',
+            'rs_dr_t_single_section_id',
+            array('id' => 'single_show_date', 'name' => 'rs_dr_single_options', 'type' => 'checkbox')
+        );
+        //Show testimonial Location
+        add_settings_field(
+            'single_show_location',
+            __('Show Testimonial Location', 'rs-dr-testimonial'),
+            array(&$this, 'display_checkbox_field'),
+            'rs-dr-t-single-section-page',
+            'rs_dr_t_single_section_id',
+            array('id' => 'single_show_location', 'name' => 'rs_dr_single_options', 'type' => 'checkbox')
+        );
+        //Show more testimonial link
+        add_settings_field(
+            'single_show_link',
+            __('Show More Testimonial Link', 'rs-dr-testimonial'),
+            array(&$this, 'display_checkbox_field'),
+            'rs-dr-t-single-section-page',
+            'rs_dr_t_single_section_id',
+            array('id' => 'single_show_link', 'name' => 'rs_dr_single_options', 'type' => 'checkbox')
+        );
+        //Use Schema.org compliant markup
+        add_settings_field(
+            'single_printing_json_ld',
+            __('Use Schema.org compliant markup', 'rs-dr-testimonial'),
+            array(&$this, 'display_checkbox_field'),
+            'rs-dr-t-single-section-page',
+            'rs_dr_t_single_section_id',
+            array('id' => 'single_printing_json_ld', 'name' => 'rs_dr_single_options', 'type' => 'checkbox')
+        );
+
+        add_settings_field(
+            'single_show_rating',
+            __('Show Rating', 'rs-dr-testimonial'),
+            array(&$this, 'display_select_field'),
+            'rs-dr-t-single-section-page',
+            'rs_dr_t_single_section_id',
+            array('id' => 'single_show_rating', 'name' => 'rs_dr_single_options', 'values' => ['1' => 'Before Testimonial', '2' => 'After Testimonial', '3' => 'Don\'t show Rating'])
+        );
+    }
+
+    /**
      * Text-box display callback function
      *
      * @since 1.0.0
@@ -485,7 +600,7 @@ INPUT;
             // Fetch the option from the database
             $options = get_option($name);
             //Value of the selected field
-            $opt_value = $options[$id];
+            $opt_value = isset($options[$id]) ? $options[$id] : null;
             // Loop through the values array, and generate option html element
             $html_opt = '';
             foreach ($values as $value => $label) {
